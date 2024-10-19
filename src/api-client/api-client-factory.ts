@@ -5,8 +5,8 @@ import { Configuration } from "./configuration";
 const getApiUrl = () => {
     if (window.location.hostname.startsWith('localhost')) 
         return 'http://localhost:5000'
-    else if (window.location.hostname.startsWith('groover')) 
-        return 'TBD Azure URL for API'
+    else if (window.location.hostname.includes('azurewebsites')) 
+        return 'https://movie-svc-daebbagqbbfchmg6.eastus2-01.azurewebsites.net'
     else return '';
 }
 
