@@ -1,0 +1,1 @@
+export const defaultImagePrefix = 'https://image.tmdb.org/t/p/w500'
