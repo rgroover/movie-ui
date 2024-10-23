@@ -280,6 +280,98 @@ export interface ActorDetails {
 /**
  * 
  * @export
+ * @interface ActorSearchResultRecord
+ */
+export interface ActorSearchResultRecord {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ActorSearchResultRecord
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActorSearchResultRecord
+     */
+    'gender'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActorSearchResultRecord
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ActorSearchResultRecord
+     */
+    'knownForDepartment'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ActorSearchResultRecord
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ActorSearchResultRecord
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActorSearchResultRecord
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ActorSearchResultRecord
+     */
+    'profilePath'?: string | null;
+    /**
+     * 
+     * @type {Array<KnownFor>}
+     * @memberof ActorSearchResultRecord
+     */
+    'knownFor'?: Array<KnownFor> | null;
+}
+/**
+ * 
+ * @export
+ * @interface ActorSearchResults
+ */
+export interface ActorSearchResults {
+    /**
+     * 
+     * @type {number}
+     * @memberof ActorSearchResults
+     */
+    'page'?: number;
+    /**
+     * 
+     * @type {Array<ActorSearchResultRecord>}
+     * @memberof ActorSearchResults
+     */
+    'results'?: Array<ActorSearchResultRecord> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActorSearchResults
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActorSearchResults
+     */
+    'totalResults'?: number;
+}
+/**
+ * 
+ * @export
  * @interface Cast
  */
 export interface Cast {
@@ -489,6 +581,127 @@ export interface Genre {
 /**
  * 
  * @export
+ * @interface KnownFor
+ */
+export interface KnownFor {
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'backdropPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnownFor
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'originalTitle'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'mediaType'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KnownFor
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'originalLanguage'?: string | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof KnownFor
+     */
+    'genreIds'?: Array<number> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnownFor
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'releaseDate'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KnownFor
+     */
+    'video'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnownFor
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnownFor
+     */
+    'voteCount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnownFor
+     */
+    'firstAirDate'?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof KnownFor
+     */
+    'originCountry'?: Array<string> | null;
+}
+/**
+ * 
+ * @export
  * @interface MovieDetails
  */
 export interface MovieDetails {
@@ -660,25 +873,7 @@ export interface MovieModel {
      * @type {number}
      * @memberof MovieModel
      */
-    'movieId'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof MovieModel
-     */
     'externalId'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof MovieModel
-     */
-    'movieName'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof MovieModel
-     */
-    'favoriteQuote'?: string | null;
     /**
      * 
      * @type {MovieDetails}
@@ -929,6 +1124,39 @@ export const ActorApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSearchActorSearchTextGet: async (searchText: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'searchText' is not null or undefined
+            assertParamExists('apiSearchActorSearchTextGet', 'searchText', searchText)
+            const localVarPath = `/api/search/actor/{searchText}`
+                .replace(`{${"searchText"}}`, encodeURIComponent(String(searchText)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -951,6 +1179,18 @@ export const ActorApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['ActorApi.apiActorActorIdGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSearchActorSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ActorSearchResults>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchActorSearchTextGet(searchText, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ActorApi.apiSearchActorSearchTextGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -969,6 +1209,15 @@ export const ActorApiFactory = function (configuration?: Configuration, basePath
          */
         apiActorActorIdGet(actorId: number, options?: RawAxiosRequestConfig): AxiosPromise<ActorDetails> {
             return localVarFp.apiActorActorIdGet(actorId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSearchActorSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): AxiosPromise<ActorSearchResults> {
+            return localVarFp.apiSearchActorSearchTextGet(searchText, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -989,6 +1238,17 @@ export class ActorApi extends BaseAPI {
      */
     public apiActorActorIdGet(actorId: number, options?: RawAxiosRequestConfig) {
         return ActorApiFp(this.configuration).apiActorActorIdGet(actorId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} searchText 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ActorApi
+     */
+    public apiSearchActorSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
+        return ActorApiFp(this.configuration).apiSearchActorSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1035,43 +1295,14 @@ export const MovieApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiMoviesGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/movies`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {string} searchText 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSearchSearchTextGet: async (searchText: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSearchMovieSearchTextGet: async (searchText: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'searchText' is not null or undefined
-            assertParamExists('apiSearchSearchTextGet', 'searchText', searchText)
-            const localVarPath = `/api/search/{searchText}`
+            assertParamExists('apiSearchMovieSearchTextGet', 'searchText', searchText)
+            const localVarPath = `/api/search/movie/{searchText}`
                 .replace(`{${"searchText"}}`, encodeURIComponent(String(searchText)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1119,25 +1350,14 @@ export const MovieApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiMoviesGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MovieModel>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiMoviesGet(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MovieApi.apiMoviesGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
          * @param {string} searchText 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultsPagedModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchSearchTextGet(searchText, options);
+        async apiSearchMovieSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultsPagedModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchMovieSearchTextGet(searchText, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MovieApi.apiSearchSearchTextGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MovieApi.apiSearchMovieSearchTextGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -1161,20 +1381,12 @@ export const MovieApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiMoviesGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<MovieModel>> {
-            return localVarFp.apiMoviesGet(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {string} searchText 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): AxiosPromise<SearchResultsPagedModel> {
-            return localVarFp.apiSearchSearchTextGet(searchText, options).then((request) => request(axios, basePath));
+        apiSearchMovieSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): AxiosPromise<SearchResultsPagedModel> {
+            return localVarFp.apiSearchMovieSearchTextGet(searchText, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1199,23 +1411,13 @@ export class MovieApi extends BaseAPI {
 
     /**
      * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MovieApi
-     */
-    public apiMoviesGet(options?: RawAxiosRequestConfig) {
-        return MovieApiFp(this.configuration).apiMoviesGet(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {string} searchText 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MovieApi
      */
-    public apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
-        return MovieApiFp(this.configuration).apiSearchSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
+    public apiSearchMovieSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
+        return MovieApiFp(this.configuration).apiSearchMovieSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

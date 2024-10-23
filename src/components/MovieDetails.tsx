@@ -100,7 +100,7 @@ const MovieDetails = () => {
       <Box sx={{ flexGrow: 1 }} paddingTop={4}>
         <Stack direction='row' spacing={2}>
           <Grid2 container spacing={2}>
-                  {data?.castAndCrew?.cast?.slice(0,20).map((cast) => (
+                  {data?.castAndCrew?.cast?.map((cast) => (
                     <Chip id={`${cast.id}`}
                       sx={{color: 'white', height: 60, '& .MuiChip-avatar': {
                           height: 50,

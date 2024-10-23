@@ -1,36 +1,122 @@
-import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
-import { ChangeEvent } from "react";
+import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { ChangeEvent, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useQuery } from "@tanstack/react-query";
-import { movieApi } from "../api-client/api-client-factory";
+import { actorApi, movieApi } from "../api-client/api-client-factory";
 import MovieCard from "./MovieCard";
 import { useSearch } from "../providers/SearchProvider";
+import ScrollToTopFab from "./ScrollToTopFab";
+import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import ActorCard from "./ActorCard";
 
 const Search = () => {
 
-    const { searchQuery, setSearchQuery } = useSearch();
-    //const [movieData, setMovieData] = useState<SearchResultsPagedModel>();
+    const { 
+        searchQuery, setSearchQuery, 
+        searchType, setSearchType, 
+        movieData, setMovieData,
+        actorData, setActorData
+     } = useSearch();
+    const queryClient = useQueryClient();
+    //const [movieData, setMovieData] = useState<SearchResultsPagedModel | null>(); // Store fetched data
+    //const [actorData, setActorData] = useState<ActorSearchResults | null>(); // Store fetched data
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
 
-    const { isLoading, error, data, refetch } = useQuery({
-        queryKey: ['movie-search'], // The query key should be in the options object
-        queryFn: async () => {
-          if (!searchQuery) return null;
-          const response = await movieApi.apiSearchSearchTextGet(searchQuery);
-          return response.data; // Access the data from AxiosResponse
+    const handleCategoryChange = (_: unknown, newType: string) => {
+      if (newType !== null) {
+        setSearchType(newType);
+      }
+    };
+
+    const searchMovies = async () => {
+        setIsLoading(true);   // Set loading to true when fetch starts
+        setIsError(false);    // Reset error state
+        setError(null);       // Clear previous errors
+        setMovieData(null);
+        setActorData(null);
+        
+        try {
+            const data = await queryClient.fetchQuery({
+                queryKey: ['movie-search'],  // Use searchQuery in the query key
+                queryFn: async () => {
+                    if (!searchQuery) return null;
+                    const response = await movieApi.apiSearchMovieSearchTextGet(searchQuery);
+                    return response.data;  // Return the data from the API response
+                }
+            });
+            setMovieData(data);  // Set the movie data
+        } catch (err) {
+            setIsError(true);
+            if (err instanceof AxiosError) {
+                // Axios-specific error handling
+                console.error('Axios error response:', err.response);
+                setError(new Error(`API Error: ${err.message}`));
+            } else if (err instanceof Error) {
+                // Generic error
+                setError(err);
+            } else {
+                setError(new Error('An unknown error occurred'));
+            }
+        } finally {
+            setIsLoading(false); // Set loading to false when fetch is done (whether success or error)
         }
-      });
+    };
+
+    const searchActors = async () => {
+        setIsLoading(true);   // Set loading to true when fetch starts
+        setIsError(false);    // Reset error state
+        setError(null);       // Clear previous errors
+        setMovieData(null);
+        setActorData(null);
+
+        try {
+            var data = await queryClient.fetchQuery({
+                queryKey: ['actor-search'],
+                queryFn: async () => {
+                    if (!searchQuery) return null;
+                    const response = await actorApi.apiSearchActorSearchTextGet(searchQuery);
+                    return response.data; // Access the data from AxiosResponse
+                }
+            })
+            setActorData(data);       
+        } catch (err) {
+            setIsError(true);
+            if (err instanceof AxiosError) {
+                // Axios-specific error handling
+                console.error('Axios error response:', err.response);
+                setError(new Error(`API Error: ${err.message}`));
+            } else if (err instanceof Error) {
+                // Generic error
+                setError(err);
+            } else {
+                setError(new Error('An unknown error occurred'));
+            }
+        } finally {
+            setIsLoading(false); // Set loading to false when fetch is done (whether success or error)
+        }
+    }
+
+    const performSearch = () => {
+        if(searchType === 'movies') {
+            searchMovies();
+        } else {
+            searchActors();
+        }
+    }
 
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
         setSearchQuery(event.target.value);
       };
 
     const handleSearchClick = () => {
-        refetch();
+        performSearch();
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-          refetch();
+          performSearch();
         }
       };
 
@@ -42,30 +128,64 @@ const Search = () => {
         );
       }
     
-      if (error) {
-        return <Typography>Error: {error.message}</Typography>;
+      if (isError) {
+        return <Typography>Error: {error?.message}</Typography>;
       }
   
     return (
         <>
         <Box
             sx={{
-            display: 'flex',
-            justifyContent: 'center', // Centers horizontally
-            alignItems: 'center',     // Centers vertically
-            p: 2
+                display: 'flex',
+                justifyContent: 'center', // Centers horizontally
+                alignItems: 'center',     // Centers vertically
+                p: 2
             }}
         >
-            <Stack direction='column' sx={{ width: '90%'}}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center', // Centers horizontally
-                        alignItems: 'center', // Centers vertically
-                        paddingBottom: 2
-                    }}>
-                    <Typography variant="h5">Search For A Movie</Typography>
-                </Box>
+        <Stack direction='column' sx={{ width: '90%'}}>
+            <Box display="flex" justifyContent="center" paddingBlock={2}>
+                <ToggleButtonGroup
+                        value={searchType}
+                        exclusive
+                        onChange={handleCategoryChange}
+                        aria-label="Search category toggle">
+                    <ToggleButton
+                        value="movies"
+                        aria-label="search movies"
+                        sx={{
+                            backgroundColor: searchType === 'movies' ? 'goldenrod' : 'dark gray', // background color
+                            color: searchType === 'movies' ? 'black' : 'gray', // text color
+                            border: '2px solid', // outline
+                            borderColor: 'white', // outline color
+                            '&.Mui-selected': {
+                                backgroundColor: 'goldenrod', // custom background when selected
+                                color: 'black', // custom text color when selected
+                            },
+                            '&.Mui-selected:hover': {
+                                backgroundColor: 'goldenrod', // custom background when selected and hovered
+                            },
+                        }}>Movies
+                    </ToggleButton>
+
+                    <ToggleButton
+                        value="actors"
+                        aria-label="search actors"
+                        sx={{
+                            backgroundColor: searchType === 'actors' ? 'goldenrod' : 'dark gray', // background color
+                            color: searchType === 'actors' ? 'black' : 'gray', // text color
+                            border: '2px solid', // outline
+                            borderColor: 'white', // outline color
+                            '&.Mui-selected': {
+                                backgroundColor: 'goldenrod', // custom background when selected
+                                color: 'black', // custom text color when selected
+                            },
+                            '&.Mui-selected:hover': {
+                                backgroundColor: 'goldenrod', // custom background when selected and hovered
+                            },
+                        }}>Actors
+                    </ToggleButton>
+                </ToggleButtonGroup>
+            </Box>
                 <OutlinedInput
                     onChange={handleSearchChange}
                     onKeyDown={handleKeyDown}
@@ -73,15 +193,15 @@ const Search = () => {
                         width: '100%',
                         color: 'white',
                         '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white', // Sets the outline color to white
+                            borderColor: 'white', // Sets the outline color to white
                         },
                         '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white', // Keeps it white on hover
+                            borderColor: 'white', // Keeps it white on hover
                         },
                         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white', // Keeps it white when focused
+                            borderColor: 'white', // Keeps it white when focused
                         }
-                        }}
+                    }}
                     id="searchinput"
                     type='text'
                     endAdornment={
@@ -93,7 +213,7 @@ const Search = () => {
                 />  
             </Stack>
         </Box>
-        {data?.searchResults?.length == 0 && 
+        { ((!movieData || movieData?.searchResults?.length == 0)  && (!actorData || actorData?.results?.length == 0)) && 
             <Box
                 sx={{
                     display: 'flex',
@@ -101,13 +221,23 @@ const Search = () => {
                     alignItems: 'center' // Centers vertically
                 }}>
                 <Typography paddingTop={10} variant="h3">No Results</Typography>
-            </Box>}
-    
-        <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
-            {data?.searchResults?.map ((movie) => (
-                <MovieCard movie={movie} />
-            ))}
-        </Grid2>
+            </Box>
+        }    
+        { movieData?.searchResults &&
+            <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
+                {movieData?.searchResults?.map ((movie) => (
+                    <MovieCard movie={movie} key={movie.id} />
+                ))}
+            </Grid2>
+        }
+        { actorData?.results && 
+            <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
+                {actorData?.results?.map ((actor) => (
+                    <ActorCard actor={actor} key={actor.id} />
+                ))}
+            </Grid2>
+        }
+        <ScrollToTopFab />
     </>
     );
 }

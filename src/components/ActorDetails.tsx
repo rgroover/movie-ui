@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MovieCard from './MovieCard';
 import { actorApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
+import ScrollToTopFab from './ScrollToTopFab';
 
 
 const ActorDetails = () => {
@@ -75,9 +76,10 @@ const ActorDetails = () => {
                 return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
               })
               .map ((movie) => (
-                <MovieCard movie={movie} />
+                <MovieCard movie={movie} key={movie.id} />
               ))}
       </Grid2>
+      <ScrollToTopFab />
     </Box>
   );
 };

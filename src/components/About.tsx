@@ -12,32 +12,47 @@ function About() {
         >
             <Grid2 container>
                 <Grid2 size={{ xs: 12, md: 4 }}>
-                    <Stack direction='column' spacing={2}>
+                    <Stack direction='column' spacing={0}>
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'center', // Centers horizontally
                             alignItems: 'center',     // Centers vertically
+                            pb:2
                             }}>
-                            <img src="react-logo.webp" alt="react logo" width={200} />
+                            <img src="react-logo.webp" alt="react logo" width={150} />
                         </Box>
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'center', // Centers horizontally
-                            alignItems: 'center',     // Centers vertically
+                            alignItems: 'center'     // Centers vertically
                             }}>
-                            <Typography variant="h1">+</Typography>
+                            <img src="plus-symbol.png" alt="plus" width={35} height={35} />
                         </Box>
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'center', // Centers horizontally
-                            alignItems: 'center',     // Centers vertically
-                            p: 2
+                            alignItems: 'center'     // Centers vertically
                             }}>
-                            <img src="tmdb-logo.svg" alt="TMDB logo" width={200} />
+                            <img src="csharp-logo.png" alt="TMDB logo" width={150} />
+                        </Box>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center', // Centers horizontally
+                            alignItems: 'center'     // Centers vertically
+                            }}>
+                            <img src="plus-symbol.png" alt="plus" width={35} height={35} />
+                        </Box>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center', // Centers horizontally
+                            alignItems: 'center',    // Centers vertically
+                            pt: 4
+                            }}>
+                            <img src="tmdb-logo.svg" alt="TMDB logo" width={150} />
                         </Box>
                     </Stack>
                 </Grid2>
-                <Grid2 size={{ xs: 12, md: 8}}>
+                <Grid2 size={{ xs: 12, md: 8}} paddingTop={2}>
                     <Stack direction='column'>
                         <List sx={{ listStyleType: 'disc', pl: 4 }}>
                             <ListItem sx={{ display: 'list-item' }}>
@@ -91,6 +106,9 @@ function About() {
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>Searching by actor would be nice enhancement that I may implement in the future</Typography>
+                            </ListItem>
+                            <ListItem sx={{ display: 'list-item' }}>
+                                <Typography>The TMDB API supports paging but I just return the first page in most cases, paging might be implemented in the future</Typography>
                             </ListItem>
                         </List>
                     </Stack> 
