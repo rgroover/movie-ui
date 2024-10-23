@@ -38,7 +38,7 @@ const ActorDetails = () => {
       <Box
         component="img"
         sx={{
-          height: 300,
+          height: 400,
           display: 'block',          // Ensures the image behaves as a block element
           margin: '0 auto',          // Centers it horizontally
           textAlign: 'center',       // Not necessary for images but useful if there's text or child elements     
