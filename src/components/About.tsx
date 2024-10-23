@@ -105,9 +105,6 @@ function About() {
                                     The results model returned for TV shows was different from movies and it didn't seem like a worthwhile expenditure of time to get that working</Typography>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
-                                <Typography>Searching by actor would be nice enhancement that I may implement in the future</Typography>
-                            </ListItem>
-                            <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>The TMDB API supports paging but I just return the first page in most cases, paging might be implemented in the future</Typography>
                             </ListItem>
                         </List>
