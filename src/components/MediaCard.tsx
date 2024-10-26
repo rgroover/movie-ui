@@ -4,26 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { defaultImagePrefix } from "../util/constants";
 
 interface ActorCastProps {
-    movie: ActorCast
+    mediaInfo: ActorCast
 }
 
-const MovieCard: React.FC<ActorCastProps> = ({movie})  => {
+const MediaCard: React.FC<ActorCastProps> = ({mediaInfo})  => {
 
     const navigate = useNavigate();
   
     const handleNavigation = (id: number | undefined | null) => {
-      navigate(`/details/${id}`);
+      navigate(`/movie/${id}`);
     };
     
     return (
-        <Card sx={{width: 350, height: movie.character == null ? 290 : 320}} key={movie.id} >
-            <CardActionArea onClick={() => handleNavigation(movie.id)}>
+        <Card sx={{width: 350, height: mediaInfo.character == null ? 290 : 320}}  >
+            <CardActionArea onClick={() => handleNavigation(mediaInfo.id)}>
             <CardMedia
                 component="img"
                 height="210"
                 image={
-                    (movie.backdropPath ?? movie.posterPath) == null ? '/no-image.jpg' :
-                    defaultImagePrefix + (movie.backdropPath ?? movie.posterPath)
+                    (mediaInfo.backdropPath ?? mediaInfo.posterPath) == null ? '/no-image.jpg' :
+                    defaultImagePrefix + (mediaInfo.backdropPath ?? mediaInfo.posterPath)
                 }
             />
             <CardContent style={{ textAlign: 'center' }}>
@@ -34,8 +34,8 @@ const MovieCard: React.FC<ActorCastProps> = ({movie})  => {
                             whiteSpace: 'nowrap',       // Prevents text from wrapping to the next line
                             overflow: 'hidden',         // Hides the overflowed text
                             textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
-                            }}>
-                        {movie.title}
+                        }}>
+                        {mediaInfo.title ?? mediaInfo.name}
                         </Typography>
                         <Typography gutterBottom  
                             sx={{
@@ -43,15 +43,15 @@ const MovieCard: React.FC<ActorCastProps> = ({movie})  => {
                             overflow: 'hidden',         // Hides the overflowed text
                             textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
                         }}>
-                        {movie.releaseDate?.substring(0,4)}
+                        {mediaInfo.releaseDate?.substring(0,4) ?? mediaInfo.firstAirDate?.substring(0,4)}
                         </Typography>
-                        <Typography gutterBottom 
-                            sx={{
-                            whiteSpace: 'nowrap',       // Prevents text from wrapping to the next line
-                            overflow: 'hidden',         // Hides the overflowed text
-                            textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
-                        }}>
-                        {movie.character}
+                        <Typography gutterBottom
+                                    sx={{
+                                        whiteSpace: 'nowrap',       // Prevents text from wrapping to the next line
+                                        overflow: 'hidden',         // Hides the overflowed text
+                                        textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
+                                    }}>
+                            {mediaInfo.character}
                         </Typography>
                     </Box>
                 </Stack>
@@ -61,4 +61,4 @@ const MovieCard: React.FC<ActorCastProps> = ({movie})  => {
     )
 };
 
-export default MovieCard;
+export default MediaCard;

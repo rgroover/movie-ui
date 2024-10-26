@@ -2,7 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, CircularProgress, D
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MovieCard from './MovieCard';
+import MediaCard from './MediaCard.tsx';
 import { actorApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import ScrollToTopFab from './ScrollToTopFab';
@@ -68,15 +68,17 @@ const ActorDetails = () => {
           </AccordionDetails>
         </Accordion>
       <Grid2 container spacing={2} paddingTop={2} >
-          {data?.combinedCredits?.cast?.filter(movie =>   
-               movie.mediaType === 'movie')
+          {data?.combinedCredits?.cast?.filter(
+              (item, index, self) =>
+                  index === self.findIndex((t) => t.id === item.id)
+              )
               .sort((a, b) => {
-                const aOrder = a.releaseDate ?? ''; // Fallback to empty string
-                const bOrder = b.releaseDate ?? ''; // Fallback to empty string
+                const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
+                const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
                 return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
               })
               .map ((movie) => (
-                <MovieCard movie={movie} key={movie.id} />
+                <MediaCard mediaInfo={movie} key={`${movie.mediaType}-${movie.name}`} />
               ))}
       </Grid2>
       <ScrollToTopFab />

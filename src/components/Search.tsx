@@ -2,7 +2,7 @@ import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, Tog
 import { ChangeEvent, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { actorApi, movieApi } from "../api-client/api-client-factory";
-import MovieCard from "./MovieCard";
+import MediaCard from "./MediaCard.tsx";
 import { useSearch } from "../providers/SearchProvider";
 import ScrollToTopFab from "./ScrollToTopFab";
 import { useQueryClient } from "@tanstack/react-query";
@@ -16,10 +16,8 @@ const Search = () => {
         searchType, setSearchType, 
         movieData, setMovieData,
         actorData, setActorData
-     } = useSearch();
+    } = useSearch();
     const queryClient = useQueryClient();
-    //const [movieData, setMovieData] = useState<SearchResultsPagedModel | null>(); // Store fetched data
-    //const [actorData, setActorData] = useState<ActorSearchResults | null>(); // Store fetched data
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [error, setError] = useState<Error | null>(null);
@@ -72,7 +70,7 @@ const Search = () => {
         setActorData(null);
 
         try {
-            var data = await queryClient.fetchQuery({
+            const data = await queryClient.fetchQuery({
                 queryKey: ['actor-search'],
                 queryFn: async () => {
                     if (!searchQuery) return null;
@@ -127,7 +125,7 @@ const Search = () => {
           </Box>
         );
       }
-    
+
       if (isError) {
         return <Typography>Error: {error?.message}</Typography>;
       }
@@ -153,34 +151,52 @@ const Search = () => {
                         value="movies"
                         aria-label="search movies"
                         sx={{
-                            backgroundColor: searchType === 'movies' ? 'goldenrod' : 'dark gray', // background color
-                            color: searchType === 'movies' ? 'black' : 'gray', // text color
+                            backgroundColor: searchType === 'movies' ? '#F7DC6F ' : 'lightgray', // background color
+                            color: searchType === 'movies' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: 'goldenrod', // custom background when selected
-                                color: 'black', // custom text color when selected
+                                backgroundColor: '#AED6F1', // custom background when selected
+                                color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: 'goldenrod', // custom background when selected and hovered
+                                backgroundColor: '#AED6F1', // custom background when selected and hovered
                             },
                         }}>Movies
+                    </ToggleButton>
+
+                    <ToggleButton
+                        value="tv"
+                        aria-label="search tv shows"
+                        sx={{
+                            backgroundColor: searchType === 'tv' ? '#F7DC6F ' : 'lightgray', // background color
+                            color: searchType === 'tv' ? 'white' : 'gray', // text color
+                            border: '2px solid', // outline
+                            borderColor: 'white', // outline color
+                            '&.Mui-selected': {
+                                backgroundColor: '#AED6F1', // custom background when selected
+                                color: 'white', // custom text color when selected
+                            },
+                            '&.Mui-selected:hover': {
+                                backgroundColor: '#AED6F1', // custom background when selected and hovered
+                            },
+                        }}>TV Shows
                     </ToggleButton>
 
                     <ToggleButton
                         value="actors"
                         aria-label="search actors"
                         sx={{
-                            backgroundColor: searchType === 'actors' ? 'goldenrod' : 'dark gray', // background color
-                            color: searchType === 'actors' ? 'black' : 'gray', // text color
+                            backgroundColor: searchType === 'actors' ? '#AED6F1' : 'lightgray', // background color
+                            color: searchType === 'actors' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: 'goldenrod', // custom background when selected
-                                color: 'black', // custom text color when selected
+                                backgroundColor: '#AED6F1', // custom background when selected
+                                color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: 'goldenrod', // custom background when selected and hovered
+                                backgroundColor: '#AED6F1', // custom background when selected and hovered
                             },
                         }}>Actors
                     </ToggleButton>
@@ -213,7 +229,7 @@ const Search = () => {
                 />  
             </Stack>
         </Box>
-        { ((!movieData || movieData?.searchResults?.length == 0)  && (!actorData || actorData?.results?.length == 0)) && 
+        { (movieData?.searchResults?.length === 0  && actorData?.results?.length === 0) &&
             <Box
                 sx={{
                     display: 'flex',
@@ -226,7 +242,7 @@ const Search = () => {
         { movieData?.searchResults &&
             <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
                 {movieData?.searchResults?.map ((movie) => (
-                    <MovieCard movie={movie} key={movie.id} />
+                    <MediaCard mediaInfo={movie} key={movie.id}/>
                 ))}
             </Grid2>
         }

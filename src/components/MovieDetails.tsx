@@ -21,7 +21,7 @@ const MovieDetails = () => {
   });
 
   const handleClick = (id: number | undefined) => {
-    navigate(`/actors/${id}`);
+    navigate(`/actor/${id}`);
   };
 
   if (isLoading) {
