@@ -2,18 +2,17 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, CircularProgress, D
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MovieCard from './MovieCard';
+import MediaCard from './MediaCard.tsx';
 import { actorApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import ScrollToTopFab from './ScrollToTopFab';
-
 
 const ActorDetails = () => {
 
   const { id } = useParams();
   const actorId = id ? parseInt(id, 10) : 0;
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data: actorDetails } = useQuery({
     queryKey: ['actor-detail-data', id], // The query key should be in the options object
     queryFn: async () => {
       const response = await actorApi.apiActorActorIdGet(actorId);
@@ -43,15 +42,15 @@ const ActorDetails = () => {
           margin: '0 auto',          // Centers it horizontally
           textAlign: 'center',       // Not necessary for images but useful if there's text or child elements     
         }}
-        alt={data?.name ?? ''}
-        src={ data?.profilePath ? defaultImagePrefix + data?.profilePath : '/no-image.jpg'}
+        alt={actorDetails?.name ?? ''}
+        src={ actorDetails?.profilePath ? defaultImagePrefix + actorDetails?.profilePath : '/no-image.jpg'}
       />
       <Typography variant="h6"
               sx={{
                 display: 'block',          // Ensures the image behaves as a block element
                 margin: '0 auto',          // Centers it horizontally
                 textAlign: 'center',       // Not necessary for images but useful if there's text or child elements     
-              }}>{data?.name}</Typography>
+              }}>{actorDetails?.name}</Typography>
         <Accordion   sx={{
             backgroundColor: '#242424',  // Gray background from MUI's palette
             border: '1px solid white',  // Gray border color (or customize with any color)
@@ -64,19 +63,28 @@ const ActorDetails = () => {
           </AccordionSummary>
           <Divider sx={{ borderColor: 'white', width: '100%' }}  />
           <AccordionDetails>
-            <Typography>{data?.biography}</Typography>
+            <Typography>{actorDetails?.biography}</Typography>
           </AccordionDetails>
         </Accordion>
       <Grid2 container spacing={2} paddingTop={2} >
-          {data?.combinedCredits?.cast?.filter(movie =>   
-               movie.mediaType === 'movie')
+          {actorDetails?.combinedCredits?.cast?.filter(
+              (item, index, self) =>
+                  index === self.findIndex((t) => t.id === item.id)
+              )
               .sort((a, b) => {
-                const aOrder = a.releaseDate ?? ''; // Fallback to empty string
-                const bOrder = b.releaseDate ?? ''; // Fallback to empty string
+                const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
+                const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
                 return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
               })
-              .map ((movie) => (
-                <MovieCard movie={movie} key={movie.id} />
+              .map ((media) => (
+                <MediaCard id={media.id}
+                           title={media.title ?? media.name}
+                           type={media.mediaType}
+                           imagePath={media.backdropPath ?? media.posterPath}
+                           mediaDate={media.releaseDate ?? media.firstAirDate}
+                           character={media.character?.length === 0 ? "(unknown)" : media.character}
+                           key={media.id}
+                />
               ))}
       </Grid2>
       <ScrollToTopFab />
