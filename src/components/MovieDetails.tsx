@@ -15,7 +15,7 @@ const MovieDetails = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['movie-detail-data', id], // The query key should be in the options object
     queryFn: async () => {
-      const response = await movieApi.apiMoviesExternalIdGet(itemId);
+      const response = await movieApi.apiMovieExternalIdGet(itemId);
       return response.data; // Access the data from AxiosResponse
     }
   });
@@ -106,7 +106,7 @@ const MovieDetails = () => {
                           height: 50,
                           width: 50,
                         }}} variant="outlined" 
-                      label={`${cast.character} - ${cast.name}`}
+                      label={`${cast.character?.length === 0 ? "(unknown)" : cast.character} - ${cast.name}`}
                       avatar={<Avatar alt={`${cast.name}`} src={`${defaultImagePrefix}${cast.profilePath}`}/>}
                       onClick={() => handleClick(cast.id)}
                       key={cast.id}

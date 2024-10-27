@@ -489,6 +489,49 @@ export interface CombinedCredits {
 /**
  * 
  * @export
+ * @interface CreatedBy
+ */
+export interface CreatedBy {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreatedBy
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatedBy
+     */
+    'creditId'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatedBy
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatedBy
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreatedBy
+     */
+    'gender'?: number;
+    /**
+     * 
+     * @type {any}
+     * @memberof CreatedBy
+     */
+    'profilePath'?: any | null;
+}
+/**
+ * 
+ * @export
  * @interface Crew
  */
 export interface Crew {
@@ -702,6 +745,91 @@ export interface KnownFor {
 /**
  * 
  * @export
+ * @interface LastEpisodeToAir
+ */
+export interface LastEpisodeToAir {
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LastEpisodeToAir
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LastEpisodeToAir
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'voteCount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LastEpisodeToAir
+     */
+    'airDate'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'episodeNumber'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LastEpisodeToAir
+     */
+    'episodeType'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LastEpisodeToAir
+     */
+    'productionCode'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'runtime'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'seasonNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LastEpisodeToAir
+     */
+    'showId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LastEpisodeToAir
+     */
+    'stillPath'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface MovieDetails
  */
 export interface MovieDetails {
@@ -890,6 +1018,128 @@ export interface MovieModel {
 /**
  * 
  * @export
+ * @interface MovieSearchResult
+ */
+export interface MovieSearchResult {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MovieSearchResult
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'backdropPath'?: string | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof MovieSearchResult
+     */
+    'genreIds'?: Array<number> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MovieSearchResult
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'originalLanguage'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'originalTitle'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MovieSearchResult
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'releaseDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MovieSearchResult
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MovieSearchResult
+     */
+    'video'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof MovieSearchResult
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof MovieSearchResult
+     */
+    'voteCount'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface Network
+ */
+export interface Network {
+    /**
+     * 
+     * @type {number}
+     * @memberof Network
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Network
+     */
+    'logoPath'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Network
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Network
+     */
+    'originCountry'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface ProductionCompany
  */
 export interface ProductionCompany {
@@ -940,97 +1190,6 @@ export interface ProductionCountry {
 /**
  * 
  * @export
- * @interface SearchResult
- */
-export interface SearchResult {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SearchResult
-     */
-    'adult'?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'backdropPath'?: string | null;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof SearchResult
-     */
-    'genreIds'?: Array<number> | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchResult
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'originalLanguage'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'originalTitle'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'overview'?: string | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchResult
-     */
-    'popularity'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'posterPath'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'releaseDate'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchResult
-     */
-    'title'?: string | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SearchResult
-     */
-    'video'?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchResult
-     */
-    'voteAverage'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchResult
-     */
-    'voteCount'?: number;
-}
-/**
- * 
- * @export
  * @interface SearchResultsPagedModel
  */
 export interface SearchResultsPagedModel {
@@ -1042,10 +1201,10 @@ export interface SearchResultsPagedModel {
     'page'?: number;
     /**
      * 
-     * @type {Array<SearchResult>}
+     * @type {Array<MovieSearchResult>}
      * @memberof SearchResultsPagedModel
      */
-    'searchResults'?: Array<SearchResult> | null;
+    'searchResults'?: Array<MovieSearchResult> | null;
     /**
      * 
      * @type {number}
@@ -1058,6 +1217,61 @@ export interface SearchResultsPagedModel {
      * @memberof SearchResultsPagedModel
      */
     'totalResults'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface Season
+ */
+export interface Season {
+    /**
+     * 
+     * @type {string}
+     * @memberof Season
+     */
+    'airDate'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Season
+     */
+    'episodeCount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Season
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Season
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Season
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Season
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Season
+     */
+    'seasonNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Season
+     */
+    'voteAverage'?: number;
 }
 /**
  * 
@@ -1083,6 +1297,333 @@ export interface SpokenLanguage {
      * @memberof SpokenLanguage
      */
     'name'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface TVShowSearchResultRecord
+ */
+export interface TVShowSearchResultRecord {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TVShowSearchResultRecord
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'backdropPath'?: string | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof TVShowSearchResultRecord
+     */
+    'genreIds'?: Array<number> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResultRecord
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TVShowSearchResultRecord
+     */
+    'originCountry'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'originalLanguage'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResultRecord
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'firstAirDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TVShowSearchResultRecord
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResultRecord
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResultRecord
+     */
+    'voteCount'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface TVShowSearchResults
+ */
+export interface TVShowSearchResults {
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResults
+     */
+    'page'?: number;
+    /**
+     * 
+     * @type {Array<TVShowSearchResultRecord>}
+     * @memberof TVShowSearchResults
+     */
+    'results'?: Array<TVShowSearchResultRecord> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResults
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TVShowSearchResults
+     */
+    'totalResults'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface TvShowModel
+ */
+export interface TvShowModel {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TvShowModel
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'backdropPath'?: string | null;
+    /**
+     * 
+     * @type {Array<CreatedBy>}
+     * @memberof TvShowModel
+     */
+    'createdBy'?: Array<CreatedBy> | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof TvShowModel
+     */
+    'episodeRunTime'?: Array<number> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'firstAirDate'?: string | null;
+    /**
+     * 
+     * @type {Array<Genre>}
+     * @memberof TvShowModel
+     */
+    'genres'?: Array<Genre> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'homepage'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvShowModel
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TvShowModel
+     */
+    'inProduction'?: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TvShowModel
+     */
+    'languages'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'lastAirDate'?: string | null;
+    /**
+     * 
+     * @type {LastEpisodeToAir}
+     * @memberof TvShowModel
+     */
+    'lastEpisodeToAir'?: LastEpisodeToAir;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {any}
+     * @memberof TvShowModel
+     */
+    'nextEpisodeToAir'?: any | null;
+    /**
+     * 
+     * @type {Array<Network>}
+     * @memberof TvShowModel
+     */
+    'networks'?: Array<Network> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvShowModel
+     */
+    'numberOfEpisodes'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvShowModel
+     */
+    'numberOfSeasons'?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TvShowModel
+     */
+    'originCountry'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'originalLanguage'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvShowModel
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {Array<ProductionCompany>}
+     * @memberof TvShowModel
+     */
+    'productionCompanies'?: Array<ProductionCompany> | null;
+    /**
+     * 
+     * @type {Array<ProductionCountry>}
+     * @memberof TvShowModel
+     */
+    'productionCountries'?: Array<ProductionCountry> | null;
+    /**
+     * 
+     * @type {Array<Season>}
+     * @memberof TvShowModel
+     */
+    'seasons'?: Array<Season> | null;
+    /**
+     * 
+     * @type {Array<SpokenLanguage>}
+     * @memberof TvShowModel
+     */
+    'spokenLanguages'?: Array<SpokenLanguage> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'status'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'tagline'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvShowModel
+     */
+    'type'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvShowModel
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvShowModel
+     */
+    'voteCount'?: number;
+    /**
+     * 
+     * @type {CastAndCrewModel}
+     * @memberof TvShowModel
+     */
+    'castAndCrew'?: CastAndCrewModel;
 }
 
 /**
@@ -1266,10 +1807,10 @@ export const MovieApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiMoviesExternalIdGet: async (externalId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiMovieExternalIdGet: async (externalId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'externalId' is not null or undefined
-            assertParamExists('apiMoviesExternalIdGet', 'externalId', externalId)
-            const localVarPath = `/api/movies/{externalId}`
+            assertParamExists('apiMovieExternalIdGet', 'externalId', externalId)
+            const localVarPath = `/api/movie/{externalId}`
                 .replace(`{${"externalId"}}`, encodeURIComponent(String(externalId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1342,10 +1883,10 @@ export const MovieApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiMoviesExternalIdGet(externalId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MovieModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiMoviesExternalIdGet(externalId, options);
+        async apiMovieExternalIdGet(externalId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MovieModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiMovieExternalIdGet(externalId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MovieApi.apiMoviesExternalIdGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MovieApi.apiMovieExternalIdGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1376,8 +1917,8 @@ export const MovieApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiMoviesExternalIdGet(externalId: number, options?: RawAxiosRequestConfig): AxiosPromise<MovieModel> {
-            return localVarFp.apiMoviesExternalIdGet(externalId, options).then((request) => request(axios, basePath));
+        apiMovieExternalIdGet(externalId: number, options?: RawAxiosRequestConfig): AxiosPromise<MovieModel> {
+            return localVarFp.apiMovieExternalIdGet(externalId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1405,8 +1946,8 @@ export class MovieApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MovieApi
      */
-    public apiMoviesExternalIdGet(externalId: number, options?: RawAxiosRequestConfig) {
-        return MovieApiFp(this.configuration).apiMoviesExternalIdGet(externalId, options).then((request) => request(this.axios, this.basePath));
+    public apiMovieExternalIdGet(externalId: number, options?: RawAxiosRequestConfig) {
+        return MovieApiFp(this.configuration).apiMovieExternalIdGet(externalId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1418,6 +1959,175 @@ export class MovieApi extends BaseAPI {
      */
     public apiSearchMovieSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
         return MovieApiFp(this.configuration).apiSearchMovieSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TvShowApi - axios parameter creator
+ * @export
+ */
+export const TvShowApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSearchTvshowSearchTextGet: async (searchText: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'searchText' is not null or undefined
+            assertParamExists('apiSearchTvshowSearchTextGet', 'searchText', searchText)
+            const localVarPath = `/api/search/tvshow/{searchText}`
+                .replace(`{${"searchText"}}`, encodeURIComponent(String(searchText)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} externalId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTvshowExternalIdGet: async (externalId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'externalId' is not null or undefined
+            assertParamExists('apiTvshowExternalIdGet', 'externalId', externalId)
+            const localVarPath = `/api/tvshow/{externalId}`
+                .replace(`{${"externalId"}}`, encodeURIComponent(String(externalId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TvShowApi - functional programming interface
+ * @export
+ */
+export const TvShowApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TvShowApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSearchTvshowSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TVShowSearchResults>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchTvshowSearchTextGet(searchText, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TvShowApi.apiSearchTvshowSearchTextGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} externalId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTvshowExternalIdGet(externalId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TvShowModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTvshowExternalIdGet(externalId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TvShowApi.apiTvshowExternalIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TvShowApi - factory interface
+ * @export
+ */
+export const TvShowApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TvShowApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSearchTvshowSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): AxiosPromise<TVShowSearchResults> {
+            return localVarFp.apiSearchTvshowSearchTextGet(searchText, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} externalId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTvshowExternalIdGet(externalId: number, options?: RawAxiosRequestConfig): AxiosPromise<TvShowModel> {
+            return localVarFp.apiTvshowExternalIdGet(externalId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TvShowApi - object-oriented interface
+ * @export
+ * @class TvShowApi
+ * @extends {BaseAPI}
+ */
+export class TvShowApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} searchText 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TvShowApi
+     */
+    public apiSearchTvshowSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
+        return TvShowApiFp(this.configuration).apiSearchTvshowSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} externalId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TvShowApi
+     */
+    public apiTvshowExternalIdGet(externalId: number, options?: RawAxiosRequestConfig) {
+        return TvShowApiFp(this.configuration).apiTvshowExternalIdGet(externalId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

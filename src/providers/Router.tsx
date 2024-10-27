@@ -4,6 +4,7 @@ import MovieDetails from "../components/MovieDetails";
 import ActorDetails from "../components/ActorDetails";
 import Search from "../components/Search";
 import Layout from "../components/Layout";
+import TvShowDetails from "../components/TvShowDetails.tsx";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         {
           path: '/actor/:id',
           element: <ActorDetails />,
+        },
+        {
+          path: '/tv/:id',
+          element: <TvShowDetails />,
         },
       ],
     },

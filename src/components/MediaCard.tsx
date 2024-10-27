@@ -1,29 +1,30 @@
 import { Card, CardActionArea, CardMedia, CardContent, Stack, Box, Typography } from "@mui/material";
-import { ActorCast } from "../api-client";
 import { useNavigate } from "react-router-dom";
 import { defaultImagePrefix } from "../util/constants";
 
-interface ActorCastProps {
-    mediaInfo: ActorCast
+interface MediaProps {
+    id: number | null | undefined;
+    imagePath: string | null | undefined;
+    title: string | null | undefined;
+    type: string | null | undefined;
+    mediaDate: string | null | undefined;
+    character?: string | null | undefined;
 }
 
-const MediaCard: React.FC<ActorCastProps> = ({mediaInfo})  => {
+const MediaCard: React.FC<MediaProps> =
+    ({id, imagePath, title, type, mediaDate, character})  => {
 
     const navigate = useNavigate();
-  
-    const handleNavigation = (id: number | undefined | null) => {
-      navigate(`/movie/${id}`);
-    };
     
     return (
-        <Card sx={{width: 350, height: mediaInfo.character == null ? 290 : 320}}  >
-            <CardActionArea onClick={() => handleNavigation(mediaInfo.id)}>
+        <Card sx={{width: 350, height: character ? 320 : 290}}  >
+            <CardActionArea onClick={() =>  navigate(`/${type}/${id}`)}>
             <CardMedia
                 component="img"
                 height="210"
                 image={
-                    (mediaInfo.backdropPath ?? mediaInfo.posterPath) == null ? '/no-image.jpg' :
-                    defaultImagePrefix + (mediaInfo.backdropPath ?? mediaInfo.posterPath)
+                    imagePath == null ? '/no-image.jpg' :
+                    defaultImagePrefix + imagePath
                 }
             />
             <CardContent style={{ textAlign: 'center' }}>
@@ -35,7 +36,7 @@ const MediaCard: React.FC<ActorCastProps> = ({mediaInfo})  => {
                             overflow: 'hidden',         // Hides the overflowed text
                             textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
                         }}>
-                        {mediaInfo.title ?? mediaInfo.name}
+                        {title}
                         </Typography>
                         <Typography gutterBottom  
                             sx={{
@@ -43,7 +44,7 @@ const MediaCard: React.FC<ActorCastProps> = ({mediaInfo})  => {
                             overflow: 'hidden',         // Hides the overflowed text
                             textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
                         }}>
-                        {mediaInfo.releaseDate?.substring(0,4) ?? mediaInfo.firstAirDate?.substring(0,4)}
+                        {mediaDate?.substring(0,4)}
                         </Typography>
                         <Typography gutterBottom
                                     sx={{
@@ -51,7 +52,7 @@ const MediaCard: React.FC<ActorCastProps> = ({mediaInfo})  => {
                                         overflow: 'hidden',         // Hides the overflowed text
                                         textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
                                     }}>
-                            {mediaInfo.character}
+                            {character}
                         </Typography>
                     </Box>
                 </Stack>

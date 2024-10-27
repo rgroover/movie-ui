@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 export const NavBar = () => {
 
     const navigate = useNavigate(); 
-    const { setSearchQuery, setSearchType, setActorData, setMovieData } = useSearch();
+    const { setSearchQuery, setSearchType, setActorData, setMovieData, setTvData } = useSearch();
     const queryClient = useQueryClient();
 
     const handleClick = async (path: string) => {
@@ -15,6 +15,7 @@ export const NavBar = () => {
         setSearchType('movies');
         setActorData(null);
         setMovieData(null);
+        setTvData(null);
         await queryClient.invalidateQueries();
         navigate(path, {replace: true});
     };
