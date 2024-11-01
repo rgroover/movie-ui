@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { ActorSearchResults, SearchResultsPagedModel } from "../api-client";
+import {ActorSearchResults, SearchResultsPagedModel, TVShowSearchResults} from "../api-client";
 
 // Define the shape of the context
 interface SearchContextType {
@@ -11,6 +11,8 @@ interface SearchContextType {
   setMovieData:  React.Dispatch<React.SetStateAction<SearchResultsPagedModel | null | undefined>>;
   actorData: ActorSearchResults | null | undefined;
   setActorData: React.Dispatch<React.SetStateAction<ActorSearchResults | null | undefined>>;
+  tvData: TVShowSearchResults | null | undefined;
+  setTvData: React.Dispatch<React.SetStateAction<TVShowSearchResults | null | undefined>>;
 }
 
 // Create the SearchContext with an undefined default value
@@ -23,13 +25,15 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [searchType, setSearchType] = useState<string>("movies");
   const [movieData, setMovieData] = useState<SearchResultsPagedModel | null | undefined>(); // Store fetched data
   const [actorData, setActorData] = useState<ActorSearchResults | null | undefined>(); // Store fetched data
+  const [tvData, setTvData] = useState<TVShowSearchResults | null | undefined>(); // Store fetched data
 
   return (
     <SearchContext.Provider value={{ 
         searchQuery, setSearchQuery, 
         searchType, setSearchType,
         movieData, setMovieData,
-        actorData, setActorData
+        actorData, setActorData,
+        tvData, setTvData
         }}>
       {children}
     </SearchContext.Provider>

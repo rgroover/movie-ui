@@ -1,4 +1,4 @@
-import { ActorApi, MovieApi } from "./api";
+import {ActorApi, MovieApi, TvShowApi} from "./api";
 import { Configuration } from "./configuration";
 
 // need to dynamically compute this based on if we're running local or hosted somewhere
@@ -15,3 +15,4 @@ const apiConfig = new Configuration({ basePath: URL });
 
 export const actorApi = new ActorApi(apiConfig);
 export const movieApi = new MovieApi(apiConfig);
+export const tvShowApi = new TvShowApi(apiConfig);

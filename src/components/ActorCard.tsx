@@ -12,7 +12,7 @@ const MovieCard: React.FC<ActorProps> = ({actor})  => {
     const navigate = useNavigate();
   
     const handleNavigation = (id: number | undefined | null) => {
-      navigate(`/actors/${id}`);
+      navigate(`/actor/${id}`);
     };
     
     return (
