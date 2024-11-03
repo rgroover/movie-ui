@@ -6,7 +6,7 @@ const getApiUrl = () => {
     if (window.location.hostname.startsWith('localhost')) 
         return 'http://localhost:5002'
     else if (window.location.hostname.includes('groover.tech'))
-        return 'https://api.groover.tech'
+        return 'https://movie-svc-daebbagqbbfchmg6.eastus2-01.azurewebsites.net'
     else return '';
 }
 
