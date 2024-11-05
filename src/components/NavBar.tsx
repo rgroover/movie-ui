@@ -50,12 +50,12 @@ export const NavBar = () => {
                 </Typography>
                 <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
                         PaperProps={{
-                            sx: { backgroundColor: 'black', color: 'white' } // Set drawer background and text color
+                            sx: { backgroundColor: 'darkgray', color: 'white' } // Set drawer background and text color
                         }}>
-                    <List>
+                    <List sx={{ minWidth: 150 }}>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => handleClick('/')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 40  }}>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 50  }}>
                                     <HomeIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Home" />
@@ -63,7 +63,7 @@ export const NavBar = () => {
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => handleClick('/about')}>
-                                <ListItemIcon sx={{ color: 'white' , minWidth: 40}}>
+                                <ListItemIcon sx={{ color: 'white' , minWidth: 50}}>
                                     <InfoIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="About" />

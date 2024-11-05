@@ -1,4 +1,5 @@
-import { Box, Grid2, Link, List, ListItem, Stack, Typography } from "@mui/material";
+import {Box, Button, Grid2, List, ListItem, Stack, Typography} from "@mui/material";
+import {OpenInNew} from "@mui/icons-material";
 
 function About() {
     return (
@@ -38,7 +39,7 @@ function About() {
                         <Box sx={{
                             display: 'flex',
                             justifyContent: 'center', // Centers horizontally
-                            alignItems: 'center'     // Centers vertically
+                            alignItems: 'center', // Centers vertically
                             }}>
                             <img src="plus-symbol.png" alt="plus" width={35} height={35} />
                         </Box>
@@ -61,9 +62,31 @@ function About() {
                                 </Typography>
                             </ListItem>
                             <ListItem >
-                                <Link target='_blank' href="https://www.linkedin.com/in/russell-groover-1312817/" underline="hover">
-                                    <Typography variant="body1" color="primary">My LinkedIn</Typography>
-                                </Link>
+                                <Button
+                                    href="https://www.linkedin.com/in/russell-groover-1312817/"
+                                    target="_blank"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between', // Ensures text and image are at opposite ends
+                                        alignItems: 'center',
+                                        textTransform: 'none', // Keeps text casing as-is
+                                        width: 'auto',         // Adjust width to fit the content, or set a specific width
+                                        padding: '4px 16px',   // Adds padding around text and image
+                                    }}
+                                >
+                                    <Box component="span" fontWeight={"bold"} sx={{ mr: 1, pt: 0.5 }}>
+                                        My LinkedIn
+                                    </Box>
+                                    <Box
+                                        component="img"
+                                        src="/linkedin.png"
+                                        alt="icon"
+                                        sx={{ width: 24, height: 24 }}
+                                    />
+                                    <OpenInNew sx={{ height: '24', pl: 1 }} />
+                                </Button>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>The IMDB website has become bloated and hard to navigate so I thought it would be
@@ -83,9 +106,25 @@ function About() {
                                     by signing up here:</Typography>
                             </ListItem>
                             <ListItem >
-                                <Link target='_blank' href="https://developer.themoviedb.org/docs/faq" underline="hover">
-                                    <Typography variant="body1" color="primary">TMDB -The Movie DB</Typography>
-                                </Link>
+                                <Button
+                                    href="https://developer.themoviedb.org/docs/faq"
+                                    target="_blank"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between', // Ensures text and image are at opposite ends
+                                        alignItems: 'center',
+                                        textTransform: 'none', // Keeps text casing as-is
+                                        width: 'auto',         // Adjust width to fit the content, or set a specific width
+                                        padding: '4px 16px',   // Adds padding around text and image
+                                    }}
+                                >
+                                    <Box component="span" fontWeight={"bold"} sx={{ mr: 1 }}>
+                                        TMDB -The Movie DB
+                                    </Box>
+                                    <OpenInNew sx={{ height: '24', pl: 0.5 }} />
+                                </Button>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>I made a point of making the UI responsive so renders well on both desktop and mobile browsers</Typography>
@@ -97,14 +136,46 @@ function About() {
                                     The site "Json to C#" is used to generate C# view models based on what the TMDB API returns</Typography>
                             </ListItem>
                             <ListItem >
-                                <Link target='_blank' href="https://openapi-generator.tech/docs/generators/typescript-axios" underline="hover">
-                                    <Typography variant="body1" color="primary">OpenAPI Axios Generator</Typography>
-                                </Link>
+                                <Button
+                                    href="https://openapi-generator.tech/docs/generators/typescript-axios"
+                                    target="_blank"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between', // Ensures text and image are at opposite ends
+                                        alignItems: 'center',
+                                        textTransform: 'none', // Keeps text casing as-is
+                                        width: 'auto',         // Adjust width to fit the content, or set a specific width
+                                        padding: '4px 16px',   // Adds padding around text and image
+                                    }}
+                                >
+                                    <Box component="span" fontWeight={"bold"} sx={{ mr: 1 }}>
+                                        OpenAPI Axios Generator
+                                    </Box>
+                                    <OpenInNew sx={{ height: '24', pl: 0.5 }} />
+                                </Button>
                             </ListItem>
                             <ListItem >
-                                <Link target='_blank' href="https://json2csharp.com/" underline="hover">
-                                    <Typography variant="body1" color="primary">Json to C#</Typography>
-                                </Link>
+                                <Button
+                                    href="https://json2csharp.com/"
+                                    target="_blank"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between', // Ensures text and image are at opposite ends
+                                        alignItems: 'center',
+                                        textTransform: 'none', // Keeps text casing as-is
+                                        width: 'auto',         // Adjust width to fit the content, or set a specific width
+                                        padding: '4px 16px',   // Adds padding around text and image
+                                    }}
+                                >
+                                    <Box component="span" fontWeight={"bold"} sx={{ mr: 1 }}>
+                                        Json to C#
+                                    </Box>
+                                    <OpenInNew sx={{ height: '24', pl: 0.5 }} />
+                                </Button>
                             </ListItem>
                             <ListItem >
                                 <Typography variant='h5'>Limitations / Future State</Typography>

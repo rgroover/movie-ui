@@ -191,16 +191,16 @@ const Search = () => {
                         value="movies"
                         aria-label="search movies"
                         sx={{
-                            backgroundColor: searchType === 'movies' ? '#FF5F1F' : 'lightgray', // background color
+                            backgroundColor: searchType === 'movies' ? '#ffd800' : 'lightgray', // background color
                             color: searchType === 'movies' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: '#FF5F1F', // custom background when selected
+                                backgroundColor: '#ffd800', // custom background when selected
                                 color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: '#FF5F1F', // custom background when selected and hovered
+                                backgroundColor: '#ffd800', // custom background when selected and hovered
                             },
                         }}>Movies
                     </ToggleButton>
@@ -209,16 +209,16 @@ const Search = () => {
                         value="tv"
                         aria-label="search tv shows"
                         sx={{
-                            backgroundColor: searchType === 'tv' ? '#FF5F1F' : 'lightgray', // background color
+                            backgroundColor: searchType === 'tv' ? '#ffd800' : 'lightgray', // background color
                             color: searchType === 'tv' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: '#FF5F1F', // custom background when selected
+                                backgroundColor: '#ffd800', // custom background when selected
                                 color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: '#FF5F1F', // custom background when selected and hovered
+                                backgroundColor: '#ffd800', // custom background when selected and hovered
                             },
                         }}>TV Shows
                     </ToggleButton>
@@ -227,16 +227,16 @@ const Search = () => {
                         value="actors"
                         aria-label="search actors"
                         sx={{
-                            backgroundColor: searchType === 'actors' ? '#FF5F1F' : 'lightgray', // background color
+                            backgroundColor: searchType === 'actors' ? '#ffd800' : 'lightgray', // background color
                             color: searchType === 'actors' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: '#FF5F1F', // custom background when selected
+                                backgroundColor: '#ffd800', // custom background when selected
                                 color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: '#FF5F1F', // custom background when selected and hovered
+                                backgroundColor: '#ffd800', // custom background when selected and hovered
                             },
                         }}>Actors
                     </ToggleButton>
