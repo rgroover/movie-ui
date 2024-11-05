@@ -5,6 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { movieApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import { OpenInNew } from '@mui/icons-material';
+import {useEffect} from "react";
 
 const MovieDetails = () => {
 
@@ -19,6 +20,10 @@ const MovieDetails = () => {
       return response.data; // Access the data from AxiosResponse
     }
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleClick = (id: number | undefined) => {
     navigate(`/actor/${id}`);

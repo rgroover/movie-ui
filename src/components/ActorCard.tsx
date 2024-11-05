@@ -2,6 +2,7 @@ import { Card, CardActionArea, CardMedia, CardContent, Stack, Box, Typography } 
 import { ActorSearchResultRecord } from "../api-client";
 import { useNavigate } from "react-router-dom";
 import { defaultImagePrefix } from "../util/constants";
+import {useEffect} from "react";
 
 interface ActorProps {
     actor: ActorSearchResultRecord
@@ -14,6 +15,10 @@ const MovieCard: React.FC<ActorProps> = ({actor})  => {
     const handleNavigation = (id: number | undefined | null) => {
       navigate(`/actor/${id}`);
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     
     return (
         <Card sx={{width: 350, height: 350}} key={actor.id} >

@@ -1,14 +1,32 @@
-import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material"
-import TheatersIcon from '@mui/icons-material/Theaters'
+import {
+    AppBar,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton, ListItemIcon,
+    ListItemText,
+    Toolbar,
+    Typography
+} from "@mui/material"
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../providers/SearchProvider";
 import { useQueryClient } from "@tanstack/react-query";
+import {useState} from "react";
+import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
 
 export const NavBar = () => {
 
     const navigate = useNavigate(); 
     const { setSearchQuery, setSearchType, setActorData, setMovieData, setTvData } = useSearch();
     const queryClient = useQueryClient();
+    const [openDrawer, setOpenDrawer] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setOpenDrawer(!openDrawer);
+    };
 
     const handleClick = async (path: string) => {
         setSearchQuery("");
@@ -18,20 +36,41 @@ export const NavBar = () => {
         setTvData(null);
         await queryClient.invalidateQueries();
         navigate(path, {replace: true});
+        setOpenDrawer(false);
     };
 
     return (
-        <AppBar position="static" sx={{backgroundColor: 'black'}}>
+        <AppBar position="static" sx={{ backgroundColor: 'black' }}>
             <Toolbar>
-                <IconButton size='large' edge='start' color='inherit' aria-label="logo" onClick={() => handleClick('/')}>
-                    <TheatersIcon />
+                <IconButton color="inherit" onClick={handleDrawerToggle}>
+                    <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" component='div' sx={{ flexGrow: 1}}>
-                    Movie App</Typography>               
-                <Stack direction='row' spacing={2}>
-                    <Button sx={{color: 'white'}} onClick={() => handleClick('/')}>Home</Button>
-                    <Button sx={{color: 'white'}} onClick={() => handleClick('/about')}>About</Button>
-                </Stack>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    Media Search
+                </Typography>
+                <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
+                        PaperProps={{
+                            sx: { backgroundColor: 'black', color: 'white' } // Set drawer background and text color
+                        }}>
+                    <List>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => handleClick('/')}>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 40  }}>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Home" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => handleClick('/about')}>
+                                <ListItemIcon sx={{ color: 'white' , minWidth: 40}}>
+                                    <InfoIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="About" />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </Drawer>
             </Toolbar>
         </AppBar>
     )

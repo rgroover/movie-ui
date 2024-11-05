@@ -35,6 +35,7 @@ const Search = () => {
         setError(null);       // Clear previous errors
         setMovieData(null);
         setActorData(null);
+        setTvData(null);
         
         try {
             const data = await queryClient.fetchQuery({
@@ -69,6 +70,7 @@ const Search = () => {
         setError(null);       // Clear previous errors
         setMovieData(null);
         setActorData(null);
+        setTvData(null);
 
         try {
             const data = await queryClient.fetchQuery({
@@ -103,6 +105,7 @@ const Search = () => {
         setError(null);       // Clear previous errors
         setMovieData(null);
         setActorData(null);
+        setTvData(null);
 
         try {
             const data = await queryClient.fetchQuery({
@@ -188,16 +191,16 @@ const Search = () => {
                         value="movies"
                         aria-label="search movies"
                         sx={{
-                            backgroundColor: searchType === 'movies' ? '#0E3A58FF' : 'lightgray', // background color
+                            backgroundColor: searchType === 'movies' ? '#FF5F1F' : 'lightgray', // background color
                             color: searchType === 'movies' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: '#0E3A58FF', // custom background when selected
+                                backgroundColor: '#FF5F1F', // custom background when selected
                                 color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: '#0E3A58FF', // custom background when selected and hovered
+                                backgroundColor: '#FF5F1F', // custom background when selected and hovered
                             },
                         }}>Movies
                     </ToggleButton>
@@ -206,16 +209,16 @@ const Search = () => {
                         value="tv"
                         aria-label="search tv shows"
                         sx={{
-                            backgroundColor: searchType === 'tv' ? '#0E3A58FF' : 'lightgray', // background color
+                            backgroundColor: searchType === 'tv' ? '#FF5F1F' : 'lightgray', // background color
                             color: searchType === 'tv' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: '#0E3A58FF', // custom background when selected
+                                backgroundColor: '#FF5F1F', // custom background when selected
                                 color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: '#0E3A58FF', // custom background when selected and hovered
+                                backgroundColor: '#FF5F1F', // custom background when selected and hovered
                             },
                         }}>TV Shows
                     </ToggleButton>
@@ -224,16 +227,16 @@ const Search = () => {
                         value="actors"
                         aria-label="search actors"
                         sx={{
-                            backgroundColor: searchType === 'actors' ? '#0E3A58FF' : 'lightgray', // background color
+                            backgroundColor: searchType === 'actors' ? '#FF5F1F' : 'lightgray', // background color
                             color: searchType === 'actors' ? 'white' : 'gray', // text color
                             border: '2px solid', // outline
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
-                                backgroundColor: '#0E3A58FF', // custom background when selected
+                                backgroundColor: '#FF5F1F', // custom background when selected
                                 color: 'white', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
-                                backgroundColor: '#0E3A58FF', // custom background when selected and hovered
+                                backgroundColor: '#FF5F1F', // custom background when selected and hovered
                             },
                         }}>Actors
                     </ToggleButton>
@@ -266,7 +269,7 @@ const Search = () => {
                 />  
             </Stack>
         </Box>
-        { (movieData?.searchResults?.length === 0  && actorData?.results?.length === 0) &&
+        { (movieData?.searchResults?.length === 0 || actorData?.results?.length === 0 || tvData?.results?.length === 0)  &&
             <Box
                 sx={{
                     display: 'flex',
@@ -275,7 +278,7 @@ const Search = () => {
                 }}>
                 <Typography paddingTop={10} variant="h3">No Results</Typography>
             </Box>
-        }    
+        }
         { movieData?.searchResults &&
             <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
                 {movieData?.searchResults?.map ((movie) => (

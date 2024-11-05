@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
 import { tvShowApi} from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
+import {useEffect} from "react";
 
 const TvShowDetails = () => {
 
@@ -18,6 +19,10 @@ const TvShowDetails = () => {
             return response.data; // Access the data from AxiosResponse
         }
     });
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleClick = (id: number | undefined) => {
         navigate(`/actor/${id}`);

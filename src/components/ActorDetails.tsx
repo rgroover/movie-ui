@@ -6,6 +6,7 @@ import MediaCard from './MediaCard.tsx';
 import { actorApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import ScrollToTopFab from './ScrollToTopFab';
+import {useEffect} from "react";
 
 const ActorDetails = () => {
 
@@ -19,6 +20,10 @@ const ActorDetails = () => {
       return response.data; // Access the data from AxiosResponse
     }
   });
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
   if (isLoading) {
     return (
