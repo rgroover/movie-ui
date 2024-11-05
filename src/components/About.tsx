@@ -72,7 +72,7 @@ function About() {
                                 </Typography>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
-                                <Typography>The fronted React app is an Azure Static Website, the backend is a dotnet core Azure App Service.
+                                <Typography>The frontend React app is an Azure Static Website, the backend is a dotnet core Azure App Service.
                                     The source code is hosted on Github in two separate repos and both the frontend and backend are automatically built and deployed
                                     upon checkin / merge to the main branch by using Github actions
                                 </Typography>
