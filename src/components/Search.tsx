@@ -197,7 +197,7 @@ const Search = () => {
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
                                 backgroundColor: '#ffd800', // custom background when selected
-                                color: 'white', // custom text color when selected
+                                color: 'black', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
                                 backgroundColor: '#ffd800', // custom background when selected and hovered
@@ -215,7 +215,7 @@ const Search = () => {
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
                                 backgroundColor: '#ffd800', // custom background when selected
-                                color: 'white', // custom text color when selected
+                                color: 'black', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
                                 backgroundColor: '#ffd800', // custom background when selected and hovered
@@ -233,7 +233,7 @@ const Search = () => {
                             borderColor: 'white', // outline color
                             '&.Mui-selected': {
                                 backgroundColor: '#ffd800', // custom background when selected
-                                color: 'white', // custom text color when selected
+                                color: 'black', // custom text color when selected
                             },
                             '&.Mui-selected:hover': {
                                 backgroundColor: '#ffd800', // custom background when selected and hovered
