@@ -45,9 +45,12 @@ export const NavBar = () => {
                 <IconButton color="inherit" onClick={handleDrawerToggle}>
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => handleClick('/')}>
                     Media Search
                 </Typography>
+                <IconButton color="inherit" onClick={() => handleClick('/about')}>
+                    <InfoIcon />
+                </IconButton>
                 <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
                         PaperProps={{
                             sx: { backgroundColor: 'darkgray', color: 'white' } // Set drawer background and text color
