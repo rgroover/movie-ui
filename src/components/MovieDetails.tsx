@@ -94,10 +94,10 @@ const MovieDetails = () => {
                       }} 
                       target="_blank" 
                       href={'https://www.imdb.com/title/' + data?.movieDetails?.imdbId}
-                >
-                <Typography variant="body2" sx={{ marginRight: '8px' }}>IMDB</Typography>
-                  <OpenInNew />
-                </IconButton>
+                  >
+                  <Typography variant="body2" sx={{ marginRight: '8px' }}>IMDB</Typography>
+                    <OpenInNew />
+                  </IconButton>
                 }
               </Stack>
           </Grid2>

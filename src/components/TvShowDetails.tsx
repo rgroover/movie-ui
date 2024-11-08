@@ -5,6 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { tvShowApi} from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import {useEffect} from "react";
+import ScrollToTopFab from "./ScrollToTopFab.tsx";
 
 const TvShowDetails = () => {
 
@@ -51,7 +52,7 @@ const TvShowDetails = () => {
                         src={data?.posterPath ? defaultImagePrefix + data?.posterPath : '/no-image.jpg'}
                     />
                     <Box paddingTop={2}>
-                        <Typography variant='h5'>{data?.name} ({data?.firstAirDate?.substring(0,4)})</Typography>
+                        <Typography variant='h5'>{data?.name}</Typography>
                     </Box>
                     <Stack direction='row' spacing={2} paddingBottom={2}>
                         <Rating name="read-only" value={((data?.voteAverage ?? 0.0) / 2.0)} readOnly
@@ -72,6 +73,15 @@ const TvShowDetails = () => {
                             }
                             return `${item.name} - `;
                         })}
+                        </Typography>
+                        <Typography paddingTop={0.2}>
+                            First Air Date: {data?.firstAirDate}
+                        </Typography>
+                        <Typography paddingTop={0.2}>
+                            Last Air Date: {data?.lastAirDate}
+                        </Typography>
+                        <Typography paddingTop={0.2}>
+                            Status: {data?.status}
                         </Typography>
                         <Typography>Seasons: {data?.numberOfSeasons}</Typography>
                         <Typography>Episodes: {data?.numberOfEpisodes}</Typography>
@@ -101,7 +111,7 @@ const TvShowDetails = () => {
                                           height: 60,
                                           width: 60,
                                       }}} variant="outlined"
-                                  label={`${cast.character?.length === 0 ? "(unknown)" : cast.character} - ${cast.name}`}
+                                  label={`${cast.roles![0].character?.length === 0 ? "(unknown)" :cast.roles![0].character} - ${cast.name}`}
                                   avatar={<Avatar alt={`${cast.name}`} src={`${defaultImagePrefix}${cast.profilePath}`}/>}
                                   onClick={() => handleClick(cast.id)}
                                   key={cast.id}
@@ -110,6 +120,7 @@ const TvShowDetails = () => {
                     </Grid2>
                 </Stack>
             </Box>
+            <ScrollToTopFab />
         </Box>
     );
 };

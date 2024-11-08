@@ -447,6 +447,12 @@ export interface Cast {
      * @memberof Cast
      */
     'order'?: number;
+    /**
+     * 
+     * @type {Array<Role>}
+     * @memberof Cast
+     */
+    'roles'?: Array<Role> | null;
 }
 /**
  * 
@@ -807,7 +813,7 @@ export interface LastEpisodeToAir {
      * @type {number}
      * @memberof LastEpisodeToAir
      */
-    'runtime'?: number;
+    'runtime'?: number | null;
     /**
      * 
      * @type {number}
@@ -1186,6 +1192,31 @@ export interface ProductionCountry {
      * @memberof ProductionCountry
      */
     'name'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface Role
+ */
+export interface Role {
+    /**
+     * 
+     * @type {string}
+     * @memberof Role
+     */
+    'creditId'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Role
+     */
+    'character'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Role
+     */
+    'episodeCount'?: number;
 }
 /**
  * 

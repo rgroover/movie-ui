@@ -1,4 +1,14 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, CircularProgress, Divider, Grid2, Typography } from '@mui/material';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box,
+    CircularProgress,
+    Divider,
+    Grid2,
+    IconButton, Stack,
+    Typography
+} from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -7,6 +17,7 @@ import { actorApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import ScrollToTopFab from './ScrollToTopFab';
 import {useEffect} from "react";
+import {OpenInNew} from "@mui/icons-material";
 
 const ActorDetails = () => {
 
@@ -50,12 +61,44 @@ const ActorDetails = () => {
         alt={actorDetails?.name ?? ''}
         src={ actorDetails?.profilePath ? defaultImagePrefix + actorDetails?.profilePath : '/no-image.jpg'}
       />
-      <Typography variant="h6"
+      <Stack direction='column' spacing={0}>
+          <Typography variant="h6"
               sx={{
                 display: 'block',          // Ensures the image behaves as a block element
                 margin: '0 auto',          // Centers it horizontally
-                textAlign: 'center',       // Not necessary for images but useful if there's text or child elements     
-              }}>{actorDetails?.name}</Typography>
+                textAlign: 'center'       // Not necessary for images but useful if there's text or child elements
+                }}>{actorDetails?.name}
+          </Typography>
+          <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              height="60px"
+              mb={1}
+          >
+            <IconButton
+                sx={{
+                    width: 100,
+                    height: 30,
+                    backgroundColor: '#F1C40F',
+                    color: 'black',
+                    textTransform: 'none',
+                    justifyContent: 'space-between',
+                    padding: '8px',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    '&:hover': {
+                        backgroundColor: '#D4AC0D'  // Add a hover color for better UX
+                    }
+                }}
+                target="_blank"
+                href={'https://www.imdb.com/name/' + actorDetails?.imdbId}
+            >
+                <Typography variant="body2" sx={{ marginRight: '8px' }}>IMDB</Typography>
+                <OpenInNew />
+            </IconButton>
+          </Box>
+        </Stack>
         <Accordion   sx={{
             backgroundColor: '#242424',  // Gray background from MUI's palette
             border: '1px solid white',  // Gray border color (or customize with any color)
