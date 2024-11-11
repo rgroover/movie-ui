@@ -40,7 +40,7 @@ export const NavBar = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: 'black' }}>
+        <AppBar position="static" sx={{ backgroundColor: '#585858' }}>
             <Toolbar>
                 <IconButton color="inherit" onClick={handleDrawerToggle}>
                     <MenuIcon />

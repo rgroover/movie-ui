@@ -372,6 +372,68 @@ export interface ActorSearchResults {
 /**
  * 
  * @export
+ * @interface Ad
+ */
+export interface Ad {
+    /**
+     * 
+     * @type {string}
+     * @memberof Ad
+     */
+    'logoPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Ad
+     */
+    'providerId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Ad
+     */
+    'providerName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Ad
+     */
+    'displayPriority'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface Buy
+ */
+export interface Buy {
+    /**
+     * 
+     * @type {string}
+     * @memberof Buy
+     */
+    'logoPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Buy
+     */
+    'providerId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Buy
+     */
+    'providerName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Buy
+     */
+    'displayPriority'?: number;
+}
+/**
+ * 
+ * @export
  * @interface Cast
  */
 export interface Cast {
@@ -607,6 +669,37 @@ export interface Crew {
      * @memberof Crew
      */
     'job'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface Flatrate
+ */
+export interface Flatrate {
+    /**
+     * 
+     * @type {string}
+     * @memberof Flatrate
+     */
+    'logoPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Flatrate
+     */
+    'providerId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Flatrate
+     */
+    'providerName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Flatrate
+     */
+    'displayPriority'?: number;
 }
 /**
  * 
@@ -1020,6 +1113,12 @@ export interface MovieModel {
      * @memberof MovieModel
      */
     'castAndCrew'?: CastAndCrewModel;
+    /**
+     * 
+     * @type {WatchProviders}
+     * @memberof MovieModel
+     */
+    'watchProviders'?: WatchProviders;
 }
 /**
  * 
@@ -1192,6 +1291,50 @@ export interface ProductionCountry {
      * @memberof ProductionCountry
      */
     'name'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface Rent
+ */
+export interface Rent {
+    /**
+     * 
+     * @type {string}
+     * @memberof Rent
+     */
+    'logoPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Rent
+     */
+    'providerId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Rent
+     */
+    'providerName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Rent
+     */
+    'displayPriority'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface Results
+ */
+export interface Results {
+    /**
+     * 
+     * @type {US}
+     * @memberof Results
+     */
+    'us'?: US;
 }
 /**
  * 
@@ -1655,6 +1798,68 @@ export interface TvShowModel {
      * @memberof TvShowModel
      */
     'castAndCrew'?: CastAndCrewModel;
+    /**
+     * 
+     * @type {WatchProviders}
+     * @memberof TvShowModel
+     */
+    'watchProviders'?: WatchProviders;
+}
+/**
+ * 
+ * @export
+ * @interface US
+ */
+export interface US {
+    /**
+     * 
+     * @type {string}
+     * @memberof US
+     */
+    'link'?: string | null;
+    /**
+     * 
+     * @type {Array<Buy>}
+     * @memberof US
+     */
+    'buy'?: Array<Buy> | null;
+    /**
+     * 
+     * @type {Array<Rent>}
+     * @memberof US
+     */
+    'rent'?: Array<Rent> | null;
+    /**
+     * 
+     * @type {Array<Flatrate>}
+     * @memberof US
+     */
+    'flatrate'?: Array<Flatrate> | null;
+    /**
+     * 
+     * @type {Array<Ad>}
+     * @memberof US
+     */
+    'ads'?: Array<Ad> | null;
+}
+/**
+ * 
+ * @export
+ * @interface WatchProviders
+ */
+export interface WatchProviders {
+    /**
+     * 
+     * @type {number}
+     * @memberof WatchProviders
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {Results}
+     * @memberof WatchProviders
+     */
+    'results'?: Results;
 }
 
 /**

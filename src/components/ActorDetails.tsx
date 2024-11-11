@@ -61,7 +61,7 @@ const ActorDetails = () => {
         alt={actorDetails?.name ?? ''}
         src={ actorDetails?.profilePath ? defaultImagePrefix + actorDetails?.profilePath : '/no-image.jpg'}
       />
-      <Stack direction='column' spacing={0}>
+      <Stack direction='column' spacing={0} mt={2}>
           <Typography variant="h6"
               sx={{
                 display: 'block',          // Ensures the image behaves as a block element
@@ -100,14 +100,14 @@ const ActorDetails = () => {
           </Box>
         </Stack>
         <Accordion   sx={{
-            backgroundColor: '#242424',  // Gray background from MUI's palette
+            backgroundColor: '#585858',  // Gray background from MUI's palette
             border: '1px solid white',  // Gray border color (or customize with any color)
             borderRadius: 2,              // Optional: round the corners
             overflow: 'hidden',           // To ensure the border radius applies properly
             color: 'white'
           }} >
           <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
-            <Typography>Biography</Typography>
+            <Typography variant="h6">Biography</Typography>
           </AccordionSummary>
           <Divider sx={{ borderColor: 'white', width: '100%' }}  />
           <AccordionDetails>

@@ -1,4 +1,15 @@
-import { Avatar, Box, Chip, CircularProgress, Grid2, IconButton, Rating, Stack, Typography } from '@mui/material';
+import {
+  Accordion, AccordionDetails, AccordionSummary,
+  Avatar,
+  Box,
+  Chip,
+  CircularProgress, Divider,
+  Grid2,
+  IconButton,
+  Rating,
+  Stack,
+  Typography
+} from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
@@ -6,6 +17,7 @@ import { movieApi } from '../api-client/api-client-factory';
 import { defaultImagePrefix } from '../util/constants';
 import { OpenInNew } from '@mui/icons-material';
 import {useEffect} from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const MovieDetails = () => {
 
@@ -102,6 +114,76 @@ const MovieDetails = () => {
               </Stack>
           </Grid2>
         </Grid2>
+      <Box sx={{ flexGrow: 1 }} paddingTop={4}>
+        <Accordion   sx={{
+          backgroundColor: '#585858',  // Gray background from MUI's palette
+          border: '1px solid white',  // Gray border color (or customize with any color)
+          borderRadius: 2,              // Optional: round the corners
+          overflow: 'hidden',           // To ensure the border radius applies properly
+          color: 'white'
+        }} >
+          <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
+            <Typography variant="h6">Watch Guide</Typography>
+          </AccordionSummary>
+          <Divider sx={{ borderColor: 'white', width: '100%' }}  />
+          <AccordionDetails>
+              <Typography mb={1} variant="h6">Subscription</Typography>
+            {!data?.watchProviders?.results?.us?.flatrate && <Typography mb={1}>None</Typography>}
+            {data?.watchProviders?.results?.us?.flatrate?.map( (provider) => {
+                return (
+                    <Box
+                        component="img"
+                        sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
+                        m={1}
+                        alt="network image"
+                        src={provider?.logoPath ? defaultImagePrefix + provider?.logoPath : '/no-image.jpg'}
+                    />
+                )
+              })}
+              <Typography mb={1} variant="h6" mt={2}>Ad Supported</Typography>
+            {!data?.watchProviders?.results?.us?.ads && <Typography mb={1}>None</Typography>}
+            {data?.watchProviders?.results?.us?.ads?.map( (provider) => {
+              return (
+                  <Box
+                      component="img"
+                      sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
+                      m={1}
+                      alt="network image"
+                      src={provider?.logoPath ? defaultImagePrefix + provider?.logoPath : '/no-image.jpg'}
+                  />
+              )
+            })}
+            <Typography mb={1} variant="h6" mt={2}>Rent</Typography>
+            {!data?.watchProviders?.results?.us?.rent && <Typography mb={1}>None</Typography>}
+            {data?.watchProviders?.results?.us?.rent?.map( (provider) => {
+              return (
+                  <Box
+                      component="img"
+                      sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
+                      m={1}
+                      alt="network image"
+                      src={provider?.logoPath ? defaultImagePrefix + provider?.logoPath : '/no-image.jpg'}
+                  />
+              )
+            })}
+            <Typography  mb={1} variant="h6" mt={2}>Buy</Typography>
+            {!data?.watchProviders?.results?.us?.buy && <Typography mb={1}>None</Typography>}
+            {data?.watchProviders?.results?.us?.buy?.map( (provider) => {
+              return (
+                  <Box
+                      component="img"
+                      sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
+                      m={1}
+                      alt="network image"
+                      src={provider?.logoPath ? defaultImagePrefix + provider?.logoPath : '/no-image.jpg'}
+                  />
+              )
+            })}
+            <Divider sx={{ borderColor: 'white', width: '100%', marginTop: '20px' }}  />
+            <Typography fontSize={12} mt={2} >Streaming information courtesy of JustWatch</Typography>
+          </AccordionDetails>
+        </Accordion>
+      </Box>
       <Box sx={{ flexGrow: 1 }} paddingTop={4}>
         <Stack direction='row' spacing={2}>
           <Grid2 container spacing={2}>
