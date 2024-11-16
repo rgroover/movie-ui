@@ -16,6 +16,11 @@ import {useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TheatersIcon from '@mui/icons-material/Theaters';
+import TvIcon from '@mui/icons-material/Tv';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import PersonIcon from '@mui/icons-material/Person';
 
 export const NavBar = () => {
 
@@ -58,15 +63,79 @@ export const NavBar = () => {
                     <List sx={{ minWidth: 150 }}>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => handleClick('/')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 50  }}>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30  }}>
                                     <HomeIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Home" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30  }}>
+                                    <TrendingUpIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Trending" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
+                                    <TheatersIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Movies" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
+                                    <TvIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="TV Shows" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
+                                    <PersonIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="People" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30  }}>
+                                    <WhatshotIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Popular" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
+                                    <TheatersIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Movies" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
+                                    <TvIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="TV Shows" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
+                                    <PersonIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="People" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
                             <ListItemButton onClick={() => handleClick('/about')}>
-                                <ListItemIcon sx={{ color: 'white' , minWidth: 50}}>
+                                <ListItemIcon sx={{ color: 'white' , minWidth: 30}}>
                                     <InfoIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="About" />
