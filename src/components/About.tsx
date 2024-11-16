@@ -57,8 +57,9 @@ function About() {
                     <Stack direction='column'>
                         <List sx={{ listStyleType: 'disc', pl: 4 }}>
                             <ListItem sx={{ display: 'list-item' }}>
-                                <Typography>Hello, my name is Russell Groover and I wrote this app as a POC to show potential employers that I am competent with React and to
-                                    have an interesting conversation topic during interviews
+                                <Typography>Hello, my name is Russell Groover and I wrote this app as a POC
+                                    to show potential employers that I am competent with React, Dotnet, Azure, architecture, etc and to
+                                    also have an interesting conversation topic during interviews
                                 </Typography>
                             </ListItem>
                             <ListItem >
@@ -187,7 +188,11 @@ function About() {
                                 <Typography>Authentication and Authorization with JWT will be my next goal. I intend to allow the user to login and save movies, tv shows, and actors as "favorites"</Typography>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
-                                <Typography>Required Attribution: "This product uses the TMDB API but is not endorsed or certified by TMDB"</Typography>
+                                <Typography>Required Attribution: "This product uses the TMDB API but is not
+                                    endorsed or certified by TMDB"</Typography>
+                            </ListItem>
+                            <ListItem sx={{ display: 'list-item' }}>
+                                <Typography>Required Attribution: "Streaming information courtesy of JustWatch"</Typography>
                             </ListItem>
                         </List>
                     </Stack> 

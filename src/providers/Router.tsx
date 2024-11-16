@@ -5,6 +5,12 @@ import ActorDetails from "../components/ActorDetails";
 import Search from "../components/Search";
 import Layout from "../components/Layout";
 import TvShowDetails from "../components/TvShowDetails.tsx";
+import PopularActors from "../components/Popular/PopularActors.tsx";
+import PopularMovies from "../components/Popular/PopularMovies.tsx";
+import PopularTv from "../components/Popular/PopularTv.tsx";
+import TrendingActors from "../components/Trending/TrendingActors.tsx";
+import TrendingMovies from "../components/Trending/TrendingMovies.tsx";
+import TrendingTv from "../components/Trending/TrendingTv.tsx";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +36,30 @@ const router = createBrowserRouter([
         {
           path: '/tv/:id',
           element: <TvShowDetails />,
+        },
+        {
+          path: '/popular/actors',
+          element: <PopularActors />,
+        },
+        {
+          path: '/popular/movies',
+          element: <PopularMovies />,
+        },
+        {
+          path: '/popular/tv',
+          element: <PopularTv />,
+        },
+        {
+          path: '/trending/actors',
+          element: <TrendingActors />,
+        },
+        {
+          path: '/trending/movies',
+          element: <TrendingMovies />,
+        },
+        {
+          path: '/trending/tv',
+          element: <TrendingTv />,
         },
       ],
     },

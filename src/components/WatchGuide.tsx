@@ -39,7 +39,7 @@ const WatchGuide: React.FC<WatchGuideProps> =
                             />
                         )
                     })}
-                    <Typography mb={1} variant="h6" mt={2}>Ad Supported</Typography>
+                    <Typography mb={1} variant="h6" mt={2}>Free (Ad supported)</Typography>
                     {!ads && <Typography mb={1}>None</Typography>}
                     {ads?.map( (provider) => {
                         return (

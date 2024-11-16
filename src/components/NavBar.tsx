@@ -78,7 +78,7 @@ export const NavBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleClick('/trending/movies')}>
                                 <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
                                     <TheatersIcon />
                                 </ListItemIcon>
@@ -86,7 +86,7 @@ export const NavBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleClick('/trending/tv')}>
                                 <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
                                     <TvIcon />
                                 </ListItemIcon>
@@ -94,7 +94,7 @@ export const NavBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleClick('/trending/actors')}>
                                 <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
                                     <PersonIcon />
                                 </ListItemIcon>
@@ -110,7 +110,7 @@ export const NavBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleClick('/popular/movies')}>
                                 <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
                                     <TheatersIcon />
                                 </ListItemIcon>
@@ -118,7 +118,7 @@ export const NavBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleClick('/popular/tv')}>
                                 <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
                                     <TvIcon />
                                 </ListItemIcon>
@@ -126,7 +126,7 @@ export const NavBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleClick('/popular/actors')}>
                                 <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
                                     <PersonIcon />
                                 </ListItemIcon>
