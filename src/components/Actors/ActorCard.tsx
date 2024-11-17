@@ -1,7 +1,7 @@
 import { Card, CardActionArea, CardMedia, CardContent, Stack, Box, Typography } from "@mui/material";
-import { ActorSearchResultRecord } from "../api-client";
+import { ActorSearchResultRecord } from "../../api-client";
 import { useNavigate } from "react-router-dom";
-import { defaultImagePrefix } from "../util/constants";
+import { defaultImagePrefix } from "../../util/constants.ts";
 import {useEffect} from "react";
 
 interface ActorProps {

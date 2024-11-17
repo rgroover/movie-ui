@@ -2,12 +2,12 @@ import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, Tog
 import { ChangeEvent, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {actorApi, movieApi, tvShowApi} from "../api-client/api-client-factory";
-import MediaCard from "./MediaCard.tsx";
+import MediaCard from "./shared/MediaCard.tsx";
 import { useSearch } from "../providers/SearchProvider";
-import ScrollToTopFab from "./ScrollToTopFab";
+import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import ActorCard from "./ActorCard";
+import ActorCard from "./Actors/ActorCard.tsx";
 
 const Search = () => {
 

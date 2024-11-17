@@ -12,11 +12,11 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { movieApi } from '../api-client/api-client-factory';
-import { defaultImagePrefix } from '../util/constants';
+import { movieApi } from '../../api-client/api-client-factory.ts';
+import { defaultImagePrefix } from '../../util/constants.ts';
 import { OpenInNew } from '@mui/icons-material';
 import {useEffect} from "react";
-import WatchGuide from "./WatchGuide.tsx";
+import WatchGuide from "../shared/WatchGuide.tsx";
 
 const MovieDetails = () => {
 

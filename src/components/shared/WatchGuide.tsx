@@ -1,7 +1,7 @@
 import {Accordion, AccordionDetails, AccordionSummary, Box, Divider, Typography} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {defaultImagePrefix} from "../util/constants.ts";
-import {Ad, Buy, Flatrate, Rent} from "../api-client";
+import {defaultImagePrefix} from "../../util/constants.ts";
+import {Ad, Buy, Flatrate, Rent} from "../../api-client";
 
 interface WatchGuideProps {
     flatRate: Array<Flatrate> | null | undefined,

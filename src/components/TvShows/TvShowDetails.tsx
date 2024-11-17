@@ -11,11 +11,11 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { tvShowApi} from '../api-client/api-client-factory';
-import { defaultImagePrefix } from '../util/constants';
+import { tvShowApi} from '../../api-client/api-client-factory.ts';
+import { defaultImagePrefix } from '../../util/constants.ts';
 import {useEffect} from "react";
-import ScrollToTopFab from "./ScrollToTopFab.tsx";
-import WatchGuide from "./WatchGuide.tsx";
+import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
+import WatchGuide from "../shared/WatchGuide.tsx";
 
 const TvShowDetails = () => {
 

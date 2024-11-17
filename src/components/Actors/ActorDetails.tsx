@@ -12,10 +12,10 @@ import {
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MediaCard from './MediaCard.tsx';
-import { actorApi } from '../api-client/api-client-factory';
-import { defaultImagePrefix } from '../util/constants';
-import ScrollToTopFab from './ScrollToTopFab';
+import MediaCard from '../shared/MediaCard.tsx';
+import { actorApi } from '../../api-client/api-client-factory.ts';
+import { defaultImagePrefix } from '../../util/constants.ts';
+import ScrollToTopFab from '../shared/ScrollToTopFab.tsx';
 import {useEffect} from "react";
 import {OpenInNew} from "@mui/icons-material";
 

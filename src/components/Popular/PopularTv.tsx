@@ -2,7 +2,7 @@ import {useQuery} from "@tanstack/react-query";
 import {tvShowApi} from "../../api-client/api-client-factory.ts";
 import {Box, CircularProgress, Grid2, Typography} from "@mui/material";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import MediaCard from "../MediaCard.tsx";
+import MediaCard from "../shared/MediaCard.tsx";
 
 const PopularTv = () => {
 

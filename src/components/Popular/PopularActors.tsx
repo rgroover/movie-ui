@@ -1,7 +1,7 @@
 import {useQuery} from "@tanstack/react-query";
 import {actorApi} from "../../api-client/api-client-factory.ts";
 import {Box, CircularProgress, Grid2, Typography} from "@mui/material";
-import ActorCard from "../ActorCard.tsx";
+import ActorCard from "../Actors/ActorCard.tsx";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 
 const PopularActors = () => {

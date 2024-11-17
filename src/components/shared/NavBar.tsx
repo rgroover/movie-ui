@@ -10,7 +10,7 @@ import {
     Typography
 } from "@mui/material"
 import { useNavigate } from "react-router-dom";
-import { useSearch } from "../providers/SearchProvider";
+import { useSearch } from "../../providers/SearchProvider.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import {useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';

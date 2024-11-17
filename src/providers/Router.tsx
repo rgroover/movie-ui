@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import About from "../components/About";
-import MovieDetails from "../components/MovieDetails";
-import ActorDetails from "../components/ActorDetails";
+import MovieDetails from "../components/Movies/MovieDetails.tsx";
+import ActorDetails from "../components/Actors/ActorDetails.tsx";
 import Search from "../components/Search";
-import Layout from "../components/Layout";
-import TvShowDetails from "../components/TvShowDetails.tsx";
+import Layout from "../components/shared/Layout.tsx";
+import TvShowDetails from "../components/TvShows/TvShowDetails.tsx";
 import PopularActors from "../components/Popular/PopularActors.tsx";
 import PopularMovies from "../components/Popular/PopularMovies.tsx";
 import PopularTv from "../components/Popular/PopularTv.tsx";

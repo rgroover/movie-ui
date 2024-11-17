@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardMedia, CardContent, Stack, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { defaultImagePrefix } from "../util/constants";
+import { defaultImagePrefix } from "../../util/constants.ts";
 
 interface MediaProps {
     id: number | null | undefined;
