@@ -124,11 +124,15 @@ const MovieDetails = () => {
           <Grid2 container spacing={2}>
                   {data?.castAndCrew?.cast?.map((cast) => (
                       <Chip id={`${cast.id}`}
-                            sx={{color: 'white', height: 70, backgroundColor: '#585858', '& .MuiChip-avatar': {
-                                height: 60,
-                                width: 60,
+                            sx={{color: 'white', height: 80, backgroundColor: '#585858', '& .MuiChip-avatar': {
+                                height: 70,
+                                width: 70,
                               }}} variant="outlined"
-                      label={`${cast.character?.length === 0 ? "(unknown)" : cast.character} - ${cast.name}`}
+                      label={
+                        <Typography variant="body2" sx={{ whiteSpace: 'normal', lineHeight: 2.0, pl:2 }}>
+                          {cast.character?.length === 0 ? "(unknown)" : cast.character} <br/>
+                          {cast.name}
+                      </Typography>}
                       avatar={<Avatar alt={`${cast.name}`} src={`${defaultImagePrefix}${cast.profilePath}`}/>}
                       onClick={() => handleClick(cast.id)}
                       key={cast.id}

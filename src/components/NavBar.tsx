@@ -58,7 +58,7 @@ export const NavBar = () => {
                 </IconButton>
                 <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
                         PaperProps={{
-                            sx: { backgroundColor: 'darkgray', color: 'white' } // Set drawer background and text color
+                            sx: { backgroundColor: '#585858', color: 'white' } // Set drawer background and text color
                         }}>
                     <List sx={{ minWidth: 150 }}>
                         <ListItem disablePadding>
