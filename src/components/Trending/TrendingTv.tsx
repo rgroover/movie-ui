@@ -35,7 +35,7 @@ const TrendingTv = () => {
                 height="40px"
                 mt={2}
             >
-                <TrendingUpIcon /><Typography variant='h6' padding={2}>Popular TV Shows</Typography>
+                <TrendingUpIcon /><Typography variant='h6' padding={2}>Trending TV Shows</Typography>
             </Box>
             { data?.results &&
                 <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
