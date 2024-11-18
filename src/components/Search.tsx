@@ -260,6 +260,7 @@ const Search = () => {
                     }}
                     id="searchinput"
                     type='text'
+                    placeholder={searchType === 'movies' ? 'Search for Movies' : searchType === 'tv' ? 'Search for TV Shows' : 'Search for Actors'}
                     endAdornment={
                         <InputAdornment position="end" sx={{color: 'white', cursor: 'pointer'}}>
                             <SearchIcon onClick={handleSearchClick} />
