@@ -1,7 +1,5 @@
 import {
-  Avatar,
   Box,
-  Chip,
   CircularProgress,
   Grid2,
   IconButton,
@@ -9,7 +7,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
 import { movieApi } from '../../api-client/api-client-factory.ts';
@@ -17,11 +15,11 @@ import { defaultImagePrefix } from '../../util/constants.ts';
 import { OpenInNew } from '@mui/icons-material';
 import {useEffect} from "react";
 import WatchGuide from "../shared/WatchGuide.tsx";
+import { ActorChip } from '../shared/ActorChip.tsx';
 
 const MovieDetails = () => {
 
   const { id } = useParams();
-  const navigate = useNavigate();
   const itemId = id ? parseInt(id, 10) : 0;
 
   const { isLoading, error, data } = useQuery({
@@ -35,10 +33,6 @@ const MovieDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const handleClick = (id: number | undefined) => {
-    navigate(`/actor/${id}`);
-  };
 
   if (isLoading) {
     return (
@@ -123,20 +117,7 @@ const MovieDetails = () => {
         <Stack direction='row' spacing={2}>
           <Grid2 container spacing={2}>
                   {data?.castAndCrew?.cast?.map((cast) => (
-                      <Chip id={`${cast.id}`}
-                            sx={{color: 'white', height: 80, backgroundColor: '#585858', '& .MuiChip-avatar': {
-                                height: 70,
-                                width: 70,
-                              }}} variant="outlined"
-                      label={
-                        <Typography variant="body2" sx={{ whiteSpace: 'normal', lineHeight: 2.0, pl:2 }}>
-                          {cast.character?.length === 0 ? "(unknown)" : cast.character} <br/>
-                          {cast.name}
-                      </Typography>}
-                      avatar={<Avatar alt={`${cast.name}`} src={`${defaultImagePrefix}${cast.profilePath}`}/>}
-                      onClick={() => handleClick(cast.id)}
-                      key={cast.id}
-                    />
+                    <ActorChip actor={cast} />
                   ))}
           </Grid2>
         </Stack>
