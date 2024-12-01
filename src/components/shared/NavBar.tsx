@@ -1,11 +1,9 @@
 import {
-    AppBar,
+    Accordion, AccordionDetails, AccordionSummary,
+    AppBar, Button,
     Drawer,
     IconButton,
-    List,
-    ListItem,
-    ListItemButton, ListItemIcon,
-    ListItemText,
+    Stack,
     Toolbar,
     Typography
 } from "@mui/material"
@@ -58,90 +56,228 @@ export const NavBar = () => {
                 </IconButton>
                 <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
                         PaperProps={{
-                            sx: { backgroundColor: '#585858', color: 'white' } // Set drawer background and text color
+                            sx: { backgroundColor: '#585858', color: 'white' }
                         }}>
-                    <List sx={{ minWidth: 150 }}>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30  }}>
-                                    <HomeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Home" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30  }}>
-                                    <TrendingUpIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Trending" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/trending/movies')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
-                                    <TheatersIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Movies" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/trending/tv')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
-                                    <TvIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="TV Shows" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/trending/actors')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
-                                    <PersonIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="People" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30  }}>
-                                    <WhatshotIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Popular" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/popular/movies')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
-                                    <TheatersIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Movies" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/popular/tv')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
-                                    <TvIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="TV Shows" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/popular/actors')}>
-                                <ListItemIcon sx={{ color: 'white', minWidth: 30, pl: 4 }}>
-                                    <PersonIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="People" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleClick('/about')}>
-                                <ListItemIcon sx={{ color: 'white' , minWidth: 30}}>
-                                    <InfoIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="About" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
+                    <Stack direction="column" spacing={0}  sx={{ width: 200, pt: 2, alignItems: 'flex-start' }} >
+                        <Button onClick={() => handleClick('/')}
+                            sx={{
+                                pl: 2, // Padding on the left side of the button
+                                color: 'white',
+                                textTransform: 'none',
+                                width: 150,
+                                display: 'flex', // Make the button a flex container
+                                justifyContent: 'flex-start', // Align the content (icon + text) to the left
+                                textAlign: 'left', // Ensure text is aligned to the left
+                            }}
+                        >
+                            <HomeIcon sx={{ marginRight: '8px' }} /> {/* Icon with margin */}
+                            <Typography>Home</Typography>
+                        </Button>
+                        <Accordion
+                            sx={{
+                                backgroundColor: '#585858',
+                                color: 'white',
+                                boxShadow: 'none',
+                                '&:before': {
+                                    display: 'none', // Remove the default divider line above AccordionSummary
+                                },
+                            }}
+                        >
+                            <AccordionSummary
+                                sx={{
+                                    minHeight: 0, // Remove default height
+                                    padding: 0,   // Remove default padding
+                                    '&.Mui-expanded': {
+                                        minHeight: 0, // Remove height when expanded
+                                    },
+                                    '& .MuiAccordionSummary-content': {
+                                        margin: 0, // Remove spacing between summary content and details
+                                    },
+                                    height: '40px',
+                                    pl: 2
+                                }}
+                            >
+                                <Button
+                                    sx={{
+                                        pl: 0,
+                                        color: 'white',
+                                        textTransform: 'none',
+                                        width: 150,
+                                        display: 'flex',
+                                        justifyContent: 'flex-start',
+                                        textAlign: 'left',
+                                        margin: 0,
+                                    }}
+                                >
+                                    <TrendingUpIcon sx={{ marginRight: '8px' }} />
+                                    <Typography>Trending</Typography>
+                                </Button>
+                            </AccordionSummary>
+                            <AccordionDetails
+                                sx={{
+                                    padding: 0, // Remove padding inside the details
+                                    pl: 4
+                                }}
+                            >
+                                <Stack direction="column">
+                                    <Button
+                                        onClick={() => handleClick('/trending/movies')}
+                                        sx={{
+                                            pl: 2,
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: 150,
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <TheatersIcon sx={{ marginRight: '8px' }} />
+                                        <Typography>Movies</Typography>
+                                    </Button>
+                                    <Button
+                                        onClick={() => handleClick('/trending/tv')}
+                                        sx={{
+                                            pl: 2,
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: 150,
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <TvIcon sx={{ marginRight: '8px' }} />
+                                        <Typography>TV Shows</Typography>
+                                    </Button>
+                                    <Button
+                                        onClick={() => handleClick('/trending/actors')}
+                                        sx={{
+                                            pl: 2,
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: 150,
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <PersonIcon sx={{ marginRight: '8px' }} />
+                                        <Typography>People</Typography>
+                                    </Button>
+                                </Stack>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion
+                            sx={{
+                                backgroundColor: '#585858',
+                                color: 'white',
+                                boxShadow: 'none',
+                                '&:before': {
+                                    display: 'none', // Remove the default divider line above AccordionSummary
+                                },
+                            }}
+                        >
+                            <AccordionSummary
+                                sx={{
+                                    minHeight: 0, // Remove default height
+                                    padding: 0,   // Remove default padding
+                                    '&.Mui-expanded': {
+                                        minHeight: 0, // Remove height when expanded
+                                    },
+                                    '& .MuiAccordionSummary-content': {
+                                        margin: 0, // Remove spacing between summary content and details
+                                    },
+                                    height: '40px',
+                                    pl: 2
+                                }}
+                            >
+                                <Button
+                                    sx={{
+                                        pl: 0,
+                                        color: 'white',
+                                        textTransform: 'none',
+                                        width: 150,
+                                        display: 'flex',
+                                        justifyContent: 'flex-start',
+                                        textAlign: 'left',
+                                        margin: 0,
+                                    }}
+                                >
+                                    <WhatshotIcon sx={{ marginRight: '8px' }} />
+                                    <Typography>Popular</Typography>
+                                </Button>
+                            </AccordionSummary>
+                            <AccordionDetails
+                                sx={{
+                                    padding: 0, // Remove padding inside the details
+                                    pl: 4
+                                }}
+                            >
+                                <Stack direction="column">
+                                    <Button
+                                        onClick={() => handleClick('/popular/movies')}
+                                        sx={{
+                                            pl: 2,
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: 150,
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <TheatersIcon sx={{ marginRight: '8px' }} />
+                                        <Typography>Movies</Typography>
+                                    </Button>
+                                    <Button
+                                        onClick={() => handleClick('/popular/tv')}
+                                        sx={{
+                                            pl: 2,
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: 150,
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <TvIcon sx={{ marginRight: '8px' }} />
+                                        <Typography>TV Shows</Typography>
+                                    </Button>
+                                    <Button
+                                        onClick={() => handleClick('/popular/actors')}
+                                        sx={{
+                                            pl: 2,
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: 150,
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <PersonIcon sx={{ marginRight: '8px' }} />
+                                        <Typography>People</Typography>
+                                    </Button>
+                                </Stack>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Button onClick={() => handleClick('/about')}
+                                sx={{
+                                    pl: 2, // Padding on the left side of the button
+                                    color: 'white',
+                                    textTransform: 'none',
+                                    width: 150,
+                                    display: 'flex', // Make the button a flex container
+                                    justifyContent: 'flex-start', // Align the content (icon + text) to the left
+                                    textAlign: 'left', // Ensure text is aligned to the left
+                                }}
+                        >
+                            <InfoIcon sx={{ marginRight: '8px' }} /> {/* Icon with margin */}
+                            <Typography>About</Typography>
+                        </Button>
+                    </Stack>
                 </Drawer>
             </Toolbar>
         </AppBar>
