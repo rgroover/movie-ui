@@ -104,7 +104,7 @@ const TvShowDetails = () => {
                                 return (
                                     <Box
                                         component="img"
-                                        sx={{height: 20, backgroundColor: 'white', borderRadius: '5px'}}
+                                        sx={{height: 20, maxWidth: 100, backgroundColor: 'white', borderRadius: '5px'}}
                                         p={1}
                                         alt="network image"
                                         src={network?.logoPath ? defaultImagePrefix + network?.logoPath : '/no-image.jpg'}
@@ -116,7 +116,7 @@ const TvShowDetails = () => {
                             <>
                                 <IconButton
                                     sx={{
-                                        width: 100,
+                                        width: 140,
                                         height: 35,
                                         backgroundColor: '#D22B2B',
                                         color: 'whitesmoke',
@@ -130,7 +130,7 @@ const TvShowDetails = () => {
                                     }}
                                     onClick={handleVideoOpen}
                                 >
-                                    <Typography variant="body2" sx={{ marginRight: '8px' }}>Trailer</Typography>
+                                    <Typography variant="body2" sx={{ marginRight: '8px' }}>Watch Trailer</Typography>
                                     <YouTubeIcon />
                                 </IconButton>
                                 <FullscreenYouTubeModal

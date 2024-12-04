@@ -109,7 +109,7 @@ const MovieDetails = () => {
                   <>
                     <IconButton
                         sx={{
-                          width: 100,
+                          width: 140,
                           height: 35,
                           backgroundColor: '#D22B2B',
                           color: 'whitesmoke',
@@ -123,7 +123,7 @@ const MovieDetails = () => {
                         }}
                         onClick={handleVideoOpen}
                     >
-                      <Typography variant="body2" sx={{ marginRight: '8px' }}>Trailer</Typography>
+                      <Typography variant="body2" sx={{ marginRight: '8px' }}>Watch Trailer</Typography>
                       <YouTubeIcon />
                     </IconButton>
                     <FullscreenYouTubeModal
