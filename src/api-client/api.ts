@@ -1119,6 +1119,12 @@ export interface MovieModel {
      * @memberof MovieModel
      */
     'watchProviders'?: WatchProviders;
+    /**
+     * 
+     * @type {VideoResults}
+     * @memberof MovieModel
+     */
+    'videos'?: VideoResults;
 }
 /**
  * 
@@ -1804,6 +1810,12 @@ export interface TvShowModel {
      * @memberof TvShowModel
      */
     'watchProviders'?: WatchProviders;
+    /**
+     * 
+     * @type {VideoResults}
+     * @memberof TvShowModel
+     */
+    'videos'?: VideoResults;
 }
 /**
  * 
@@ -1841,6 +1853,92 @@ export interface US {
      * @memberof US
      */
     'ads'?: Array<Ad> | null;
+}
+/**
+ * 
+ * @export
+ * @interface Video
+ */
+export interface Video {
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'iso6391'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'iso31661'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'key'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'site'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Video
+     */
+    'size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'type'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Video
+     */
+    'official'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'publishedAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Video
+     */
+    'id'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface VideoResults
+ */
+export interface VideoResults {
+    /**
+     * 
+     * @type {number}
+     * @memberof VideoResults
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {Array<Video>}
+     * @memberof VideoResults
+     */
+    'videos'?: Array<Video> | null;
 }
 /**
  * 

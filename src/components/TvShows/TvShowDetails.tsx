@@ -1,7 +1,7 @@
 import {
     Box,
     CircularProgress,
-    Grid2,
+    Grid2, IconButton,
     Rating,
     Stack,
     Typography
@@ -11,16 +11,21 @@ import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
 import { tvShowApi} from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
 import WatchGuide from "../shared/WatchGuide.tsx";
 import {ActorChip} from "../shared/ActorChip.tsx";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 
 const TvShowDetails = () => {
 
     const { id } = useParams();
-
     const itemId = id ? parseInt(id, 10) : 0;
+
+    const [videoOpen, setVideoOpen] = useState(false);
+    const handleVideoOpen = () => setVideoOpen(true);
+    const handleVideoClose = () => setVideoOpen(false);
 
     const { isLoading, error, data } = useQuery({
         queryKey: ['tvshow-detail-data', id], // The query key should be in the options object
@@ -29,6 +34,9 @@ const TvShowDetails = () => {
             return response.data; // Access the data from AxiosResponse
         }
     });
+
+    const trailer = data?.videos?.videos?.find(
+        video => video.type === 'Trailer' && video.site === 'YouTube')
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -104,6 +112,34 @@ const TvShowDetails = () => {
                                 )
                             })}
                         </Stack>
+                        {trailer &&
+                            <>
+                                <IconButton
+                                    sx={{
+                                        width: 100,
+                                        height: 35,
+                                        backgroundColor: '#D22B2B',
+                                        color: 'whitesmoke',
+                                        textTransform: 'none',
+                                        justifyContent: 'space-between',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        '&:hover': {
+                                            backgroundColor: '#D22B2B'  // Add a hover color for better UX
+                                        }
+                                    }}
+                                    onClick={handleVideoOpen}
+                                >
+                                    <Typography variant="body2" sx={{ marginRight: '8px' }}>Trailer</Typography>
+                                    <YouTubeIcon />
+                                </IconButton>
+                                <FullscreenYouTubeModal
+                                    videoId={trailer?.key ?? ''}
+                                    open={videoOpen}
+                                    onClose={handleVideoClose}
+                                />
+                            </>
+                        }
                     </Stack>
                 </Grid2>
             </Grid2>

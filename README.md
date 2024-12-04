@@ -50,4 +50,4 @@ export default tseslint.config({
 ```
 
 To generate the strongly typed view models off of the swagger
-// openapi-generator-cli generate -i http://localhost:5002/swagger/v1/swagger.json -g typescript-axios -o ./api-client
+- openapi-generator-cli generate -i http://localhost:5002/swagger/v1/swagger.json -g typescript-axios -o ./api-client

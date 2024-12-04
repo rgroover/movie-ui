@@ -58,7 +58,8 @@ export const NavBar = () => {
                         PaperProps={{
                             sx: { backgroundColor: '#585858', color: 'white' }
                         }}>
-                    <Stack direction="column" spacing={0}  sx={{ width: 200, pt: 2, alignItems: 'flex-start' }} >
+                    <Stack direction="column" spacing={0}  sx={{ width: 200, pt: 2, alignItems: 'flex-start' }}
+                    >
                         <Button onClick={() => handleClick('/')}
                             sx={{
                                 pl: 2, // Padding on the left side of the button
