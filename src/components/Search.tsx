@@ -8,6 +8,7 @@ import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import ActorCard from "./Actors/ActorCard.tsx";
+import {searchButtonStyle} from "../styles/SharedStyles.ts";
 
 const Search = () => {
 
@@ -191,17 +192,9 @@ const Search = () => {
                         value="movies"
                         aria-label="search movies"
                         sx={{
+                            ...searchButtonStyle,
                             backgroundColor: searchType === 'movies' ? '#ffd800' : 'lightgray', // background color
-                            color: searchType === 'movies' ? 'white' : 'gray', // text color
-                            border: '2px solid', // outline
-                            borderColor: 'white', // outline color
-                            '&.Mui-selected': {
-                                backgroundColor: '#ffd800', // custom background when selected
-                                color: 'black', // custom text color when selected
-                            },
-                            '&.Mui-selected:hover': {
-                                backgroundColor: '#ffd800', // custom background when selected and hovered
-                            },
+                            color: searchType === 'movies' ? 'white' : 'gray' // text color
                         }}>Movies
                     </ToggleButton>
 
@@ -209,17 +202,9 @@ const Search = () => {
                         value="tv"
                         aria-label="search tv shows"
                         sx={{
+                            ...searchButtonStyle,
                             backgroundColor: searchType === 'tv' ? '#ffd800' : 'lightgray', // background color
-                            color: searchType === 'tv' ? 'white' : 'gray', // text color
-                            border: '2px solid', // outline
-                            borderColor: 'white', // outline color
-                            '&.Mui-selected': {
-                                backgroundColor: '#ffd800', // custom background when selected
-                                color: 'black', // custom text color when selected
-                            },
-                            '&.Mui-selected:hover': {
-                                backgroundColor: '#ffd800', // custom background when selected and hovered
-                            },
+                            color: searchType === 'tv' ? 'white' : 'gray' // text color
                         }}>TV Shows
                     </ToggleButton>
 
@@ -227,17 +212,9 @@ const Search = () => {
                         value="actors"
                         aria-label="search actors"
                         sx={{
+                            ...searchButtonStyle,
                             backgroundColor: searchType === 'actors' ? '#ffd800' : 'lightgray', // background color
-                            color: searchType === 'actors' ? 'white' : 'gray', // text color
-                            border: '2px solid', // outline
-                            borderColor: 'white', // outline color
-                            '&.Mui-selected': {
-                                backgroundColor: '#ffd800', // custom background when selected
-                                color: 'black', // custom text color when selected
-                            },
-                            '&.Mui-selected:hover': {
-                                backgroundColor: '#ffd800', // custom background when selected and hovered
-                            },
+                            color: searchType === 'actors' ? 'white' : 'gray' // text color
                         }}>Actors
                     </ToggleButton>
                 </ToggleButtonGroup>

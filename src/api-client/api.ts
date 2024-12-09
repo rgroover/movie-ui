@@ -673,6 +673,43 @@ export interface Crew {
 /**
  * 
  * @export
+ * @interface EpisodeSummary
+ */
+export interface EpisodeSummary {
+    /**
+     * 
+     * @type {string}
+     * @memberof EpisodeSummary
+     */
+    'airDate'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof EpisodeSummary
+     */
+    'episodeNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EpisodeSummary
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EpisodeSummary
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof EpisodeSummary
+     */
+    'stillPath'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface Flatrate
  */
 export interface Flatrate {
@@ -719,6 +756,79 @@ export interface Genre {
      * @memberof Genre
      */
     'name'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface GuestStar
+ */
+export interface GuestStar {
+    /**
+     * 
+     * @type {string}
+     * @memberof GuestStar
+     */
+    'character'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GuestStar
+     */
+    'creditId'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof GuestStar
+     */
+    'order'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GuestStar
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof GuestStar
+     */
+    'gender'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GuestStar
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GuestStar
+     */
+    'knownForDepartment'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GuestStar
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GuestStar
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof GuestStar
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GuestStar
+     */
+    'profilePath'?: string | null;
 }
 /**
  * 
@@ -1603,6 +1713,152 @@ export interface TVShowSearchResults {
 /**
  * 
  * @export
+ * @interface TvEpisode
+ */
+export interface TvEpisode {
+    /**
+     * 
+     * @type {string}
+     * @memberof TvEpisode
+     */
+    'tvShowTitle'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvEpisode
+     */
+    'airDate'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvEpisode
+     */
+    'episodeNumber'?: number;
+    /**
+     * 
+     * @type {Array<GuestStar>}
+     * @memberof TvEpisode
+     */
+    'guestStars'?: Array<GuestStar> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvEpisode
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvEpisode
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvEpisode
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvEpisode
+     */
+    'productionCode'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvEpisode
+     */
+    'runtime'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvEpisode
+     */
+    'seasonNumber'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvEpisode
+     */
+    'stillPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvEpisode
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvEpisode
+     */
+    'voteCount'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface TvSeason
+ */
+export interface TvSeason {
+    /**
+     * 
+     * @type {string}
+     * @memberof TvSeason
+     */
+    'tvShowTitle'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvSeason
+     */
+    'airDate'?: string | null;
+    /**
+     * 
+     * @type {Array<EpisodeSummary>}
+     * @memberof TvSeason
+     */
+    'episodes'?: Array<EpisodeSummary> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvSeason
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvSeason
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvSeason
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TvSeason
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvSeason
+     */
+    'seasonNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TvSeason
+     */
+    'voteAverage'?: number;
+}
+/**
+ * 
+ * @export
  * @interface TvShowModel
  */
 export interface TvShowModel {
@@ -1913,7 +2169,7 @@ export interface Video {
      * @type {string}
      * @memberof Video
      */
-    'publishedAt'?: string;
+    'publishedAt'?: string | null;
     /**
      * 
      * @type {string}
@@ -2633,6 +2889,84 @@ export const TvShowApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @param {number} seriesId 
+         * @param {number} seasonNumber 
+         * @param {number} episodeNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet: async (seriesId: number, seasonNumber: number, episodeNumber: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'seriesId' is not null or undefined
+            assertParamExists('apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet', 'seriesId', seriesId)
+            // verify required parameter 'seasonNumber' is not null or undefined
+            assertParamExists('apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet', 'seasonNumber', seasonNumber)
+            // verify required parameter 'episodeNumber' is not null or undefined
+            assertParamExists('apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet', 'episodeNumber', episodeNumber)
+            const localVarPath = `/api/tvshow/{seriesId}/seasons/{seasonNumber}/episode/{episodeNumber}`
+                .replace(`{${"seriesId"}}`, encodeURIComponent(String(seriesId)))
+                .replace(`{${"seasonNumber"}}`, encodeURIComponent(String(seasonNumber)))
+                .replace(`{${"episodeNumber"}}`, encodeURIComponent(String(episodeNumber)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} seriesId 
+         * @param {number} seasonNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTvshowSeriesIdSeasonsSeasonNumberGet: async (seriesId: number, seasonNumber: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'seriesId' is not null or undefined
+            assertParamExists('apiTvshowSeriesIdSeasonsSeasonNumberGet', 'seriesId', seriesId)
+            // verify required parameter 'seasonNumber' is not null or undefined
+            assertParamExists('apiTvshowSeriesIdSeasonsSeasonNumberGet', 'seasonNumber', seasonNumber)
+            const localVarPath = `/api/tvshow/{seriesId}/seasons/{seasonNumber}`
+                .replace(`{${"seriesId"}}`, encodeURIComponent(String(seriesId)))
+                .replace(`{${"seasonNumber"}}`, encodeURIComponent(String(seasonNumber)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2707,6 +3041,33 @@ export const TvShowApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} seriesId 
+         * @param {number} seasonNumber 
+         * @param {number} episodeNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId: number, seasonNumber: number, episodeNumber: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TvEpisode>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId, seasonNumber, episodeNumber, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TvShowApi.apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} seriesId 
+         * @param {number} seasonNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId: number, seasonNumber: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TvSeason>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId, seasonNumber, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TvShowApi.apiTvshowSeriesIdSeasonsSeasonNumberGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2751,6 +3112,27 @@ export const TvShowApiFactory = function (configuration?: Configuration, basePat
          */
         apiTvshowPopularGet(options?: RawAxiosRequestConfig): AxiosPromise<TVShowSearchResults> {
             return localVarFp.apiTvshowPopularGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} seriesId 
+         * @param {number} seasonNumber 
+         * @param {number} episodeNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId: number, seasonNumber: number, episodeNumber: number, options?: RawAxiosRequestConfig): AxiosPromise<TvEpisode> {
+            return localVarFp.apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId, seasonNumber, episodeNumber, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} seriesId 
+         * @param {number} seasonNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId: number, seasonNumber: number, options?: RawAxiosRequestConfig): AxiosPromise<TvSeason> {
+            return localVarFp.apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId, seasonNumber, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2800,6 +3182,31 @@ export class TvShowApi extends BaseAPI {
      */
     public apiTvshowPopularGet(options?: RawAxiosRequestConfig) {
         return TvShowApiFp(this.configuration).apiTvshowPopularGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} seriesId 
+     * @param {number} seasonNumber 
+     * @param {number} episodeNumber 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TvShowApi
+     */
+    public apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId: number, seasonNumber: number, episodeNumber: number, options?: RawAxiosRequestConfig) {
+        return TvShowApiFp(this.configuration).apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId, seasonNumber, episodeNumber, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} seriesId 
+     * @param {number} seasonNumber 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TvShowApi
+     */
+    public apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId: number, seasonNumber: number, options?: RawAxiosRequestConfig) {
+        return TvShowApiFp(this.configuration).apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId, seasonNumber, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

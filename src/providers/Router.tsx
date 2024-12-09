@@ -11,6 +11,8 @@ import PopularTv from "../components/Popular/PopularTv.tsx";
 import TrendingActors from "../components/Trending/TrendingActors.tsx";
 import TrendingMovies from "../components/Trending/TrendingMovies.tsx";
 import TrendingTv from "../components/Trending/TrendingTv.tsx";
+import TvShowSeasonDetails from "../components/TvShows/TvShowSeasonDetails.tsx";
+import TvShowEpisodeDetails from "../components/TvShows/TvShowEpisodeDetails.tsx";
 
 const router = createBrowserRouter([
     {
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
         {
           path: '/trending/tv',
           element: <TrendingTv />,
+        },
+        {
+          path: '/tvseason',
+          element: <TvShowSeasonDetails />,
+        },
+        {
+          path: '/tvepisode',
+          element: <TvShowEpisodeDetails />,
         },
       ],
     },

@@ -2,6 +2,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Box, Divider, Typography}
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {defaultImagePrefix} from "../../util/constants.ts";
 import {Ad, Buy, Flatrate, Rent} from "../../api-client";
+import {accordionStyle} from "../../styles/SharedStyles.ts";
 
 interface WatchGuideProps {
     flatRate: Array<Flatrate> | null | undefined,
@@ -14,13 +15,7 @@ const WatchGuide: React.FC<WatchGuideProps> =
 
     return (
         <Box sx={{ flexGrow: 1 }} paddingTop={4}>
-            <Accordion   sx={{
-                backgroundColor: '#585858',  // Gray background from MUI's palette
-                border: '1px solid white',  // Gray border color (or customize with any color)
-                borderRadius: 2,              // Optional: round the corners
-                overflow: 'hidden',           // To ensure the border radius applies properly
-                color: 'white'
-            }} >
+            <Accordion   sx={{...accordionStyle }} >
                 <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
                     <Typography variant="h6">Watch Guide</Typography>
                 </AccordionSummary>

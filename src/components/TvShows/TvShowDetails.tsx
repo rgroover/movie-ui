@@ -1,12 +1,14 @@
 import {
-    Box,
-    CircularProgress,
+    Accordion, AccordionDetails,
+    AccordionSummary,
+    Box, Button,
+    CircularProgress, Divider,
     Grid2, IconButton,
     Rating,
     Stack,
     Typography
 } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
 import { tvShowApi} from '../../api-client/api-client-factory.ts';
@@ -17,6 +19,8 @@ import WatchGuide from "../shared/WatchGuide.tsx";
 import {ActorChip} from "../shared/ActorChip.tsx";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
+import {accordionStyle} from "../../styles/SharedStyles.ts";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const TvShowDetails = () => {
 
@@ -26,6 +30,11 @@ const TvShowDetails = () => {
     const [videoOpen, setVideoOpen] = useState(false);
     const handleVideoOpen = () => setVideoOpen(true);
     const handleVideoClose = () => setVideoOpen(false);
+
+    const navigate = useNavigate();
+    const handleNavigation = (seasonNumber: number | undefined | null) => {
+        navigate(`/tvseason?series=${data?.id}&season=${seasonNumber}`);
+    };
 
     const { isLoading, error, data } = useQuery({
         queryKey: ['tvshow-detail-data', id], // The query key should be in the options object
@@ -143,6 +152,20 @@ const TvShowDetails = () => {
                     </Stack>
                 </Grid2>
             </Grid2>
+
+            <Accordion sx={{...accordionStyle, mt: 4 }} >
+                <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
+                    <Typography variant="h6">Seasons</Typography>
+                </AccordionSummary>
+                <Divider sx={{ borderColor: 'white', width: '100%' }}  />
+                <AccordionDetails>
+                    {data?.seasons && data?.seasons.map( s =>
+                       <Button sx={{margin: 1}} variant="contained"
+                               onClick={() => handleNavigation(s.seasonNumber)}>Season {s.seasonNumber}</Button>)
+                    }
+                </AccordionDetails>
+            </Accordion>
+
            <WatchGuide
                flatRate={data?.watchProviders?.results?.us?.flatrate}
                ads={data?.watchProviders?.results?.us?.ads}
