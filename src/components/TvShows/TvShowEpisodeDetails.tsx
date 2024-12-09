@@ -19,7 +19,7 @@ const TvShowEpisodeDetails = () => {
     const episodeId = episode ? parseInt(episode, 10) : 0;
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ['tv-episode'], // The query key should be in the options object
+        queryKey: ['tv-episode', seriesId, seasonId, episodeId], // The query key should be in the options object
         queryFn: async () => {
             const response = await
                 tvShowApi.apiTvshowSeriesIdSeasonsSeasonNumberEpisodeEpisodeNumberGet(seriesId, seasonId, episodeId)

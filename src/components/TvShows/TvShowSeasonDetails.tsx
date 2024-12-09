@@ -27,7 +27,7 @@ const TvShowSeasonDetails = () => {
     const navigate = useNavigate();
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ['tv-series'], // The query key should be in the options object
+        queryKey: ['tv-series', seriesId, seasonId], // The query key should be in the options object
         queryFn: async () => {
             const response = await tvShowApi.apiTvshowSeriesIdSeasonsSeasonNumberGet(seriesId, seasonId)
             return response.data; // Access the data from AxiosResponse
