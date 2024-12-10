@@ -78,7 +78,7 @@ const TvShowEpisodeDetails = () => {
             </Grid2>
             <Box sx={{ flexGrow: 1 }} paddingTop={2}>
                 <Typography variant="h6" paddingBottom={2}>Guest Stars</Typography>
-                {data?.guestStars?.length === 0 && <Typography variant="body" paddingBottom={2}>None</Typography>}
+                {data?.guestStars?.length === 0 && <Typography paddingTop={1}>None</Typography>}
                 <Stack direction='row' spacing={2}>
                     <Grid2 container spacing={2}>
                         {data?.guestStars?.map((guestStar) => (
