@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 function ScrollToTopFab() {
 
-    const trigger = useScrollTrigger({threshold: 50})
+    const trigger = useScrollTrigger({threshold: 200})
 
     const scrollToTop = useCallback(() => {
         window.scrollTo({top: 0, behavior: 'smooth'})

@@ -17,7 +17,7 @@ const MediaCard: React.FC<MediaProps> =
     const navigate = useNavigate();
     
     return (
-        <Card sx={{width: 350, height: character ? 320 : 290}}  >
+        <Card sx={{width: 350, height: character && mediaDate ? 320 : 295}}  >
             <CardActionArea onClick={() =>  navigate(`/${type}/${id}`)}>
             <CardMedia
                 component="img"

@@ -114,27 +114,84 @@ const ActorDetails = () => {
             <Typography>{actorDetails?.biography}</Typography>
           </AccordionDetails>
         </Accordion>
-      <Grid2 container spacing={2} paddingTop={2} >
-          {actorDetails?.combinedCredits?.cast?.filter(
-              (item, index, self) =>
-                  index === self.findIndex((t) => t.id === item.id)
-              )
-              .sort((a, b) => {
-                const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
-                const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
-                return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
-              })
-              .map ((media) => (
-                <MediaCard id={media.id}
-                           title={media.title ?? media.name}
-                           type={media.mediaType}
-                           imagePath={media.backdropPath ?? media.posterPath}
-                           mediaDate={media.releaseDate ?? media.firstAirDate}
-                           character={media.character?.length === 0 ? "(unknown)" : media.character}
-                           key={media.id}
-                />
-              ))}
-      </Grid2>
+        <Accordion slotProps={{ transition: { unmountOnExit: true } }}
+            sx={{
+            backgroundColor: '#585858',  // Gray background from MUI's palette
+            border: '1px solid white',  // Gray border color (or customize with any color)
+            borderRadius: 2,              // Optional: round the corners
+            overflow: 'hidden',           // To ensure the border radius applies properly
+            color: 'white',
+            transition: 'none',
+            mt: 2 }}
+        >
+            <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
+                <Typography variant="h6">Movies</Typography>
+            </AccordionSummary>
+            <Divider sx={{ borderColor: 'white', width: '100%' }}  />
+            <AccordionDetails>
+                <Grid2 container spacing={2} paddingTop={2} >
+                    {actorDetails?.combinedCredits?.cast?.filter(
+                        (item, index, self) =>
+                            index === self.findIndex((t) => t.id === item.id && item.mediaType === 'movie')
+                    )
+                        .sort((a, b) => {
+                            const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
+                            const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
+                            return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
+                        })
+                        .map ((media) => (
+                            <MediaCard id={media.id}
+                                       title={media.title ?? media.name}
+                                       type={media.mediaType}
+                                       imagePath={media.backdropPath ?? media.posterPath}
+                                       mediaDate={media.releaseDate ?? media.firstAirDate}
+                                       character={media.character?.length === 0 ? "(unknown)" : media.character}
+                                       key={media.id}
+                            />
+                        ))}
+                </Grid2>
+            </AccordionDetails>
+        </Accordion>
+
+        <Accordion slotProps={{ transition: { unmountOnExit: true } }}
+            sx={{
+            backgroundColor: '#585858',  // Gray background from MUI's palette
+            border: '1px solid white',  // Gray border color (or customize with any color)
+            borderRadius: 2,              // Optional: round the corners
+            overflow: 'hidden',           // To ensure the border radius applies properly
+            color: 'white',
+            transition: 'fade',
+            mt: 2 }}
+        >
+            <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
+                <Typography variant="h6">TV Shows</Typography>
+            </AccordionSummary>
+            <Divider sx={{ borderColor: 'white', width: '100%' }}  />
+            <AccordionDetails>
+                <Grid2 container spacing={2} paddingTop={2} >
+
+                    {actorDetails?.combinedCredits?.cast?.filter(
+                        (item, index, self) =>
+                            index === self.findIndex((t) => t.id === item.id && item.mediaType === 'tv')
+                    )
+                        .sort((a, b) => {
+                            const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
+                            const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
+                            return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
+                        })
+                        .map ((media) => (
+                            <MediaCard id={media.id}
+                                       title={media.title ?? media.name}
+                                       type={media.mediaType}
+                                       imagePath={media.backdropPath ?? media.posterPath}
+                                       mediaDate={undefined}
+                                       character={media.character?.length === 0 ? "(unknown)" : media.character}
+                                       key={media.id}
+                            />
+                        ))}
+                </Grid2>
+            </AccordionDetails>
+        </Accordion>
       <ScrollToTopFab />
     </Box>
   );
