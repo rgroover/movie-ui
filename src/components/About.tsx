@@ -58,8 +58,8 @@ function About() {
                         <List sx={{ listStyleType: 'disc', pl: 4 }}>
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>Hello, my name is Russell Groover and I wrote this app as a POC
-                                    to show potential employers that I am competent with React, Dotnet, Azure, architecture, etc and to
-                                    also have an interesting conversation topic during interviews
+                                    to show potential employers my proficiencies with React, Dotnet, Azure, architecture,
+                                    DevOps, etc.
                                 </Typography>
                             </ListItem>
                             <ListItem >
@@ -183,9 +183,6 @@ function About() {
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>The TMDB API supports paging but I just return the first page in most cases, paging might be implemented in the future</Typography>
-                            </ListItem>
-                            <ListItem sx={{ display: 'list-item' }}>
-                                <Typography>Authentication and Authorization with JWT will be my next goal. I intend to allow the user to login and save movies, tv shows, and actors as "favorites"</Typography>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>Required Attribution: "This product uses the TMDB API but is not

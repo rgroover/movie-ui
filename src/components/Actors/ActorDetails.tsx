@@ -16,17 +16,16 @@ import MediaCard from '../shared/MediaCard.tsx';
 import { actorApi } from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
 import ScrollToTopFab from '../shared/ScrollToTopFab.tsx';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {OpenInNew} from "@mui/icons-material";
 import {searchButtonStyle} from "../../styles/SharedStyles.ts";
-import {useSearch} from "../../providers/SearchProvider.tsx";
 
 const ActorDetails = () => {
 
   const { id } = useParams();
   const actorId = id ? parseInt(id, 10) : 0;
 
-  const { actorResultsMediaType, setActorResultsMediaType } = useSearch();
+  const [ actorResultsMediaType, setActorResultsMediaType ] = useState("movie")
 
   const handleCategoryChange = (_: unknown, newType: string) => {
         if (newType !== null) {

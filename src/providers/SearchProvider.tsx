@@ -13,8 +13,6 @@ interface SearchContextType {
   setActorData: React.Dispatch<React.SetStateAction<ActorSearchResults | null | undefined>>;
   tvData: TVShowSearchResults | null | undefined;
   setTvData: React.Dispatch<React.SetStateAction<TVShowSearchResults | null | undefined>>;
-  actorResultsMediaType: string;
-  setActorResultsMediaType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // Create the SearchContext with an undefined default value
@@ -28,7 +26,6 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [movieData, setMovieData] = useState<SearchResultsPagedModel | null | undefined>(); // Store fetched data
   const [actorData, setActorData] = useState<ActorSearchResults | null | undefined>(); // Store fetched data
   const [tvData, setTvData] = useState<TVShowSearchResults | null | undefined>(); // Store fetched data
-  const [actorResultsMediaType, setActorResultsMediaType] = useState<string>("movie");
 
   return (
     <SearchContext.Provider value={{ 
@@ -36,8 +33,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         searchType, setSearchType,
         movieData, setMovieData,
         actorData, setActorData,
-        tvData, setTvData,
-        actorResultsMediaType, setActorResultsMediaType
+        tvData, setTvData
         }}>
       {children}
     </SearchContext.Provider>
