@@ -247,7 +247,7 @@ const Search = () => {
                 />  
             </Stack>
         </Box>
-        { (movieData?.searchResults?.length === 0 || actorData?.results?.length === 0 || tvData?.results?.length === 0)  &&
+        {(movieData?.searchResults?.length === 0 || actorData?.results?.length === 0 || tvData?.results?.length === 0)  &&
             <Box
                 sx={{
                     display: 'flex',
@@ -274,7 +274,7 @@ const Search = () => {
             <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
                 {tvData?.results.map ((tvShow) => (
                     <MediaCard id={tvShow.id}
-                               title={tvShow.name ?? tvShow.name}
+                               title={tvShow.name}
                                type={'tv'}
                                imagePath={tvShow.backdropPath ?? tvShow.posterPath}
                                mediaDate={tvShow.firstAirDate}
