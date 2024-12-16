@@ -15,7 +15,7 @@ const WatchGuide: React.FC<WatchGuideProps> =
 
     return (
         <Box sx={{ flexGrow: 1 }} paddingTop={4}>
-            <Accordion   sx={{...accordionStyle }} >
+            <Accordion sx={{...accordionStyle }} >
                 <AccordionSummary expandIcon={<ExpandMoreIcon  sx={{ color: 'white'}} />} id='panel1-header' aria-controls='panel1-content' >
                     <Typography variant="h6">Watch Guide</Typography>
                 </AccordionSummary>

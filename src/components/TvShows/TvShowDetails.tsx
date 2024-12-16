@@ -160,7 +160,7 @@ const TvShowDetails = () => {
                 <Divider sx={{ borderColor: 'white', width: '100%' }}  />
                 <AccordionDetails>
                     {data?.seasons && data?.seasons.map( s =>
-                       <Button sx={{margin: 1}} variant="contained"
+                       <Button sx={{margin: 1, backgroundColor: '#808080'}} variant="contained"
                                onClick={() => handleNavigation(s.seasonNumber)}>Season {s.seasonNumber}</Button>)
                     }
                 </AccordionDetails>
