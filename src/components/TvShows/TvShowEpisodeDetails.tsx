@@ -72,7 +72,7 @@ const TvShowEpisodeDetails = () => {
                 <Stack direction='column' spacing={2}>
                     <Typography variant='h6'>{data?.name}</Typography>
                     <Typography>{data?.overview}</Typography>
-                    <Typography>Runtime: {data?.runtime} mins</Typography>
+                    <Typography>Runtime: {data?.runtime ?? 0} mins</Typography>
                     <Typography>Air Date: {data?.airDate}</Typography>
                 </Stack>
             </Grid2>
