@@ -1,5 +1,6 @@
 import {Box, Button, Grid2, List, ListItem, Stack, Typography} from "@mui/material";
 import {OpenInNew} from "@mui/icons-material";
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 function About() {
     return (
@@ -59,7 +60,8 @@ function About() {
                             <ListItem sx={{ display: 'list-item' }}>
                                 <Typography>Hello, my name is Russell Groover and I wrote this app as a POC
                                     to show potential employers my proficiencies with React, Dotnet, Azure, architecture,
-                                    DevOps, etc.
+                                    DevOps, etc. The frontend and backend sourcecode for this solution is
+                                    available on my GitHub.
                                 </Typography>
                             </ListItem>
                             <ListItem >
@@ -73,11 +75,11 @@ function About() {
                                         justifyContent: 'space-between', // Ensures text and image are at opposite ends
                                         alignItems: 'center',
                                         textTransform: 'none', // Keeps text casing as-is
-                                        width: 'auto',         // Adjust width to fit the content, or set a specific width
+                                        width: '180px',         // Adjust width to fit the content, or set a specific width
                                         padding: '4px 16px',   // Adds padding around text and image
                                     }}
                                 >
-                                    <Box component="span" fontWeight={"bold"} sx={{ mr: 1, pt: 0.5 }}>
+                                    <Box component="span" fontWeight={"bold"} sx={{ mr: 1, pt: 0.5,width:85 }}>
                                         My LinkedIn
                                     </Box>
                                     <Box
@@ -87,6 +89,29 @@ function About() {
                                         sx={{ width: 24, height: 24 }}
                                     />
                                     <OpenInNew sx={{ height: '24', pl: 1 }} />
+                                </Button>
+                            </ListItem>
+
+                            <ListItem>
+                                <Button
+                                    href="https://github.com/rgroover"
+                                    target="_blank"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        textTransform: 'none',
+                                        width: '180px',
+                                        padding: '4px 16px',
+                                    }}
+                                >
+                                    <Box component="span" fontWeight="bold" sx={{ mr: 1, pt: 0.5, width:85 }}>
+                                        My GitHub
+                                    </Box>
+                                    <GitHubIcon sx={{ width: 24, height: 24, mr: 1 }} />
+                                    <OpenInNew sx={{ width: 24, height: 24 }} />
                                 </Button>
                             </ListItem>
                             <ListItem sx={{ display: 'list-item' }}>
