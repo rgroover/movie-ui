@@ -1,53 +1,25 @@
-# React + TypeScript + Vite
+# Media Search React UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the front end for the media service.
 
-Currently, two official plugins are available:
+The code is written in Typescript and uses Material UI for styling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend app is hosted as a Static Web App in Azure here:
+[Media Search](https://groover.tech/)
 
-## Expanding the ESLint configuration
+The "about" page has more info on the project:
+[About Page](https://groover.tech/about)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+You'll need to install the Open Api Generator CLI:
+https://openapi-generator.tech/
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-
-To generate the strongly typed view models off of the swagger
+If you modify the backend C# view models, you'll have to re-generate the 
+strongly typed typescript view models off of the swagger.json that is
+served up by the Swagger support in ASP.Net Core. This requires 
+you to be running the backend service. 
+(see https://github.com/rgroover/movie-svc):
 - openapi-generator-cli generate -i http://localhost:5002/swagger/v1/swagger.json -g typescript-axios -o ./api-client
+- The resulting ts files should be copied to the "api-client" folder
+
+To run the app locally you should be able to execute "npm run dev"
+from the terminal
