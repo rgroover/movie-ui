@@ -1,11 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
-import {movieApi} from "../../api-client/api-client-factory.ts";
 import {Box, CircularProgress, Grid2, Typography} from "@mui/material";
 import MediaCard from "../shared/MediaCard.tsx";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const TrendingMovies = () => {
 
+    const {movieApi} = useApiClient()
     const { isLoading, error, data } = useQuery({
         queryKey: ['popular-actors'], // The query key should be in the options object
         queryFn: async () => {

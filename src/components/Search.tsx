@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import {actorApi, movieApi, tvShowApi} from "../api-client/api-client-factory";
 import MediaCard from "./shared/MediaCard.tsx";
 import { useSearch } from "../providers/SearchProvider";
 import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
@@ -9,9 +8,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import ActorCard from "./Actors/ActorCard.tsx";
 import {searchButtonStyle} from "../styles/SharedStyles.ts";
+import {useApiClient} from "../hooks/useApiClient.ts";
 
 const Search = () => {
 
+    const {actorApi, movieApi, tvShowApi} = useApiClient();
     const { 
         searchQuery, setSearchQuery, 
         searchType, setSearchType, 

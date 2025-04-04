@@ -13,15 +13,16 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MediaCard from '../shared/MediaCard.tsx';
-import { actorApi } from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
 import ScrollToTopFab from '../shared/ScrollToTopFab.tsx';
 import {useEffect, useState} from "react";
 import {OpenInNew} from "@mui/icons-material";
 import {searchButtonStyle} from "../../styles/SharedStyles.ts";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const ActorDetails = () => {
 
+  const { actorApi } = useApiClient();
   const { id } = useParams();
   const actorId = id ? parseInt(id, 10) : 0;
 

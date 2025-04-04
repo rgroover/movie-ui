@@ -11,12 +11,13 @@ import {
 } from "@mui/material";
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useQuery} from "@tanstack/react-query";
-import {tvShowApi} from "../../api-client/api-client-factory.ts";
 import {defaultImagePrefix} from "../../util/constants.ts";
 import {useEffect} from "react";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const TvShowSeasonDetails = () => {
 
+    const {tvShowApi} = useApiClient();
     const [searchParams] = useSearchParams();
     const series = searchParams.get('series');
     const season = searchParams.get('season');

@@ -11,7 +11,6 @@ import {
 import {useNavigate, useParams} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { tvShowApi} from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
 import {useEffect, useState} from "react";
 import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
@@ -21,9 +20,11 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 import {accordionStyle} from "../../styles/SharedStyles.ts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const TvShowDetails = () => {
 
+    const { tvShowApi} = useApiClient();
     const { id } = useParams();
     const itemId = id ? parseInt(id, 10) : 0;
 

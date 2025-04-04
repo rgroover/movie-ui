@@ -1,14 +1,15 @@
 import {useSearchParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {tvShowApi} from "../../api-client/api-client-factory.ts";
 import {Box, CircularProgress, Grid2, Rating, Stack, Typography} from "@mui/material";
 import {defaultImagePrefix} from "../../util/constants.ts";
 import StarIcon from "@mui/icons-material/Star";
 import {ActorChip} from "../shared/ActorChip.tsx";
 import {useEffect} from "react";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const TvShowEpisodeDetails = () => {
 
+    const {tvShowApi} = useApiClient()
     const [searchParams] = useSearchParams();
     const series = searchParams.get('series');
     const season = searchParams.get('season');

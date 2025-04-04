@@ -1,11 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
-import {tvShowApi} from "../../api-client/api-client-factory.ts";
 import {Box, CircularProgress, Grid2, Typography} from "@mui/material";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import MediaCard from "../shared/MediaCard.tsx";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const PopularTv = () => {
 
+    const {tvShowApi} = useApiClient()
     const { isLoading, error, data } = useQuery({
         queryKey: ['popular-actors'], // The query key should be in the options object
         queryFn: async () => {

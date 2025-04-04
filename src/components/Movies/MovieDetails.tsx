@@ -2,7 +2,6 @@ import {Box, CircularProgress, Grid2, IconButton, Rating, Stack, Typography} fro
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { movieApi } from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
 import { OpenInNew } from '@mui/icons-material';
 import {useEffect, useState} from "react";
@@ -10,9 +9,11 @@ import WatchGuide from "../shared/WatchGuide.tsx";
 import { ActorChip } from '../shared/ActorChip.tsx';
 import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const MovieDetails = () => {
 
+  const { movieApi } = useApiClient()
   const [videoOpen, setVideoOpen] = useState(false);
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
