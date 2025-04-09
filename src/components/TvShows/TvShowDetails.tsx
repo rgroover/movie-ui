@@ -11,7 +11,6 @@ import {
 import {useNavigate, useParams} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { tvShowApi} from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
 import {useEffect, useState} from "react";
 import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
@@ -21,9 +20,12 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 import {accordionStyle} from "../../styles/SharedStyles.ts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {useApiClient} from "../../hooks/useApiClient.ts";
+import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 
 const TvShowDetails = () => {
 
+    const { tvShowApi} = useApiClient();
     const { id } = useParams();
     const itemId = id ? parseInt(id, 10) : 0;
 
@@ -74,7 +76,16 @@ const TvShowDetails = () => {
                         src={data?.posterPath ? defaultImagePrefix + data?.posterPath : '/no-image.jpg'}
                     />
                     <Box paddingTop={2}>
-                        <Typography variant='h5'>{data?.name}</Typography>
+                        <Stack direction='row'>
+                            <Typography variant='h5'>{data?.name}</Typography>
+                            <FavoritesComponent
+                                sx={{pl:2, pt:0.25}}
+                                mediaType='tv'
+                                mediaId={data?.id!}
+                                title={data?.name!}
+                                imageUrl={data?.posterPath!}
+                            />
+                        </Stack>
                     </Box>
                     <Stack direction='row' spacing={2} paddingBottom={2}>
                         <Rating name="read-only" value={((data?.voteAverage ?? 0.0) / 2.0)} readOnly

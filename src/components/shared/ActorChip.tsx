@@ -8,7 +8,7 @@ export function ActorChip({ actor } : {actor: Cast}) {
     const navigate = useNavigate();
 
     const handleClick = (id: number | undefined) => {
-        navigate(`/actor/${id}`);
+        navigate(`/person/${id}`);
     };
 
     // TV show actor results have an array of "roles", movies just have a single "character"

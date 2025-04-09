@@ -22,10 +22,11 @@ const WatchGuide: React.FC<WatchGuideProps> =
                 <Divider sx={{ borderColor: 'white', width: '100%' }}  />
                 <AccordionDetails>
                     <Typography mb={1} variant="h6">Subscription</Typography>
-                    {!flatRate && <Typography mb={1}>None</Typography>}
+                    {!flatRate && <Typography mb={1} ml={2}>None</Typography>}
                     {flatRate?.map( (provider) => {
                         return (
                             <Box
+                                key={provider.providerId}
                                 component="img"
                                 sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
                                 m={1}
@@ -35,10 +36,11 @@ const WatchGuide: React.FC<WatchGuideProps> =
                         )
                     })}
                     <Typography mb={1} variant="h6" mt={2}>Free (Ad supported)</Typography>
-                    {!ads && <Typography mb={1}>None</Typography>}
+                    {!ads && <Typography mb={1} ml={2}>None</Typography>}
                     {ads?.map( (provider) => {
                         return (
                             <Box
+                                key={provider.providerId}
                                 component="img"
                                 sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
                                 m={1}
@@ -48,10 +50,11 @@ const WatchGuide: React.FC<WatchGuideProps> =
                         )
                     })}
                     <Typography mb={1} variant="h6" mt={2}>Rent</Typography>
-                    {!rent&& <Typography mb={1}>None</Typography>}
+                    {!rent&& <Typography mb={1} ml={2}>None</Typography>}
                     {rent?.map( (provider) => {
                         return (
                             <Box
+                                key={provider.providerId}
                                 component="img"
                                 sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
                                 m={1}
@@ -61,10 +64,11 @@ const WatchGuide: React.FC<WatchGuideProps> =
                         )
                     })}
                     <Typography  mb={1} variant="h6" mt={2}>Buy</Typography>
-                    {!buy&& <Typography mb={1}>None</Typography>}
+                    {!buy&& <Typography mb={1} ml={2}>None</Typography>}
                     {buy?.map( (provider) => {
                         return (
                             <Box
+                                key={provider.providerId}
                                 component="img"
                                 sx={{height: 50, backgroundColor: 'white', borderRadius: '5px'}}
                                 m={1}

@@ -1,11 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
-import {actorApi} from "../../api-client/api-client-factory.ts";
 import {Box, CircularProgress, Grid2, Typography} from "@mui/material";
 import ActorCard from "../Actors/ActorCard.tsx";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
+import {useApiClient} from "../../hooks/useApiClient.ts";
 
 const PopularActors = () => {
 
+    const {actorApi} = useApiClient()
     const { isLoading, error, data } = useQuery({
         queryKey: ['popular-actors'], // The query key should be in the options object
         queryFn: async () => {

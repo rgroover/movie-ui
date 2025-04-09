@@ -13,70 +13,89 @@ import TrendingMovies from "../components/Trending/TrendingMovies.tsx";
 import TrendingTv from "../components/Trending/TrendingTv.tsx";
 import TvShowSeasonDetails from "../components/TvShows/TvShowSeasonDetails.tsx";
 import TvShowEpisodeDetails from "../components/TvShows/TvShowEpisodeDetails.tsx";
+import FavoritesPage from "../components/Favorites/FavoritesPage.tsx";
+import Callback from "../components/Callback.tsx";
+import MovieSearch from "../components/search/MovieSearch.tsx";
 
-const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Layout />, // Use Layout as the main layout
-      children: [
+
+const MyRouter = () => {
+  const router = createBrowserRouter(
+      [
         {
-          index: true, // This will render <Search /> when the path is '/'
-          element: <Search />,
+          path: '/',
+          element: <Layout />,
+          children: [
+            {
+              index: true,
+              element: <Search />,
+            },
+            {
+              path: '/about',
+              element: <About />,
+            },
+            {
+              path: '/movie/:id',
+              element: <MovieDetails />,
+            },
+            {
+              path: '/person/:id',
+              element: <ActorDetails />,
+            },
+            {
+              path: '/tv/:id',
+              element: <TvShowDetails />,
+            },
+            {
+              path: '/popular/actors',
+              element: <PopularActors />,
+            },
+            {
+              path: '/popular/movies',
+              element: <PopularMovies />,
+            },
+            {
+              path: '/popular/tv',
+              element: <PopularTv />,
+            },
+            {
+              path: '/trending/actors',
+              element: <TrendingActors />,
+            },
+            {
+              path: '/trending/movies',
+              element: <TrendingMovies />,
+            },
+            {
+              path: '/trending/tv',
+              element: <TrendingTv />,
+            },
+            {
+              path: '/tvseason',
+              element: <TvShowSeasonDetails />,
+            },
+            {
+              path: '/tvepisode',
+              element: <TvShowEpisodeDetails />,
+            },
+            {
+              path: '/favorites',
+              element: <FavoritesPage />,
+            },
+            {
+              path: '/callback',
+              element: <Callback />,
+            },
+            {
+              path: '/movie-search/:query',
+              element: <MovieSearch/>,
+
+            }
+          ],
         },
-        {
-          path: '/about',
-          element: <About />,
-        },
-        {
-          path: '/movie/:id',
-          element: <MovieDetails />,
-        },
-        {
-          path: '/actor/:id',
-          element: <ActorDetails />,
-        },
-        {
-          path: '/tv/:id',
-          element: <TvShowDetails />,
-        },
-        {
-          path: '/popular/actors',
-          element: <PopularActors />,
-        },
-        {
-          path: '/popular/movies',
-          element: <PopularMovies />,
-        },
-        {
-          path: '/popular/tv',
-          element: <PopularTv />,
-        },
-        {
-          path: '/trending/actors',
-          element: <TrendingActors />,
-        },
-        {
-          path: '/trending/movies',
-          element: <TrendingMovies />,
-        },
-        {
-          path: '/trending/tv',
-          element: <TrendingTv />,
-        },
-        {
-          path: '/tvseason',
-          element: <TvShowSeasonDetails />,
-        },
-        {
-          path: '/tvepisode',
-          element: <TvShowEpisodeDetails />,
-        },
-      ],
-    },
-  ]);
-  
-  const Router = () => {
-    return <RouterProvider router={router} />;
-  };
-  
-  export default Router;
+      ]
+  );
+
+  return <RouterProvider router={router} />;
+};
+
+export default MyRouter;

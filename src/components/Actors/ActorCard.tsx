@@ -8,12 +8,12 @@ interface ActorProps {
     actor: ActorSearchResultRecord
 }
 
-const MovieCard: React.FC<ActorProps> = ({actor})  => {
+const ActorCard: React.FC<ActorProps> = ({actor})  => {
 
     const navigate = useNavigate();
   
     const handleNavigation = (id: number | undefined | null) => {
-      navigate(`/actor/${id}`);
+      navigate(`/person/${id}`);
     };
 
     useEffect(() => {
@@ -50,4 +50,4 @@ const MovieCard: React.FC<ActorProps> = ({actor})  => {
     )
 };
 
-export default MovieCard;
+export default ActorCard;

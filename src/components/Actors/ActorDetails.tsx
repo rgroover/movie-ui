@@ -13,15 +13,17 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MediaCard from '../shared/MediaCard.tsx';
-import { actorApi } from '../../api-client/api-client-factory.ts';
 import { defaultImagePrefix } from '../../util/constants.ts';
 import ScrollToTopFab from '../shared/ScrollToTopFab.tsx';
 import {useEffect, useState} from "react";
 import {OpenInNew} from "@mui/icons-material";
 import {searchButtonStyle} from "../../styles/SharedStyles.ts";
+import {useApiClient} from "../../hooks/useApiClient.ts";
+import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 
 const ActorDetails = () => {
 
+  const { actorApi } = useApiClient();
   const { id } = useParams();
   const actorId = id ? parseInt(id, 10) : 0;
 
@@ -71,13 +73,17 @@ const ActorDetails = () => {
         src={ actorDetails?.profilePath ? defaultImagePrefix + actorDetails?.profilePath : '/no-image.jpg'}
       />
       <Stack direction='column' spacing={0} mt={2}>
-          <Typography variant="h6"
-              sx={{
-                display: 'block',          // Ensures the image behaves as a block element
-                margin: '0 auto',          // Centers it horizontally
-                textAlign: 'center'       // Not necessary for images but useful if there's text or child elements
-                }}>{actorDetails?.name}
-          </Typography>
+          <Stack direction='row' width='100%' justifyContent='center'>
+              <Typography variant="h6">{actorDetails?.name}
+              </Typography>
+              <FavoritesComponent
+                  sx={{pl:2, pt:0.25}}
+                  mediaType='person'
+                  mediaId={actorDetails?.id!}
+                  title={actorDetails?.name!}
+                  imageUrl={actorDetails?.profilePath!}
+              />
+          </Stack>
           <Box
               display="flex"
               justifyContent="center"
