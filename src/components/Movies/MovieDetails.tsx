@@ -11,6 +11,7 @@ import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
+import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
 
 const MovieDetails = () => {
 
@@ -22,7 +23,7 @@ const MovieDetails = () => {
   const { id } = useParams();
   const itemId = id ? parseInt(id, 10) : 0;
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading: movieDetailsLoading, error, data } = useQuery({
     queryKey: ['movie-detail-data', id], // The query key should be in the options object
     queryFn: async () => {
       const response = await movieApi.apiMovieExternalIdGet(itemId);
@@ -37,7 +38,7 @@ const MovieDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (isLoading) {
+  if (movieDetailsLoading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <CircularProgress />
@@ -161,6 +162,7 @@ const MovieDetails = () => {
           </Grid2>
         </Stack>
       </Box>
+      <ScrollToTopFab />
     </Box>
   );
 }

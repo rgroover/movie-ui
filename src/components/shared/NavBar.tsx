@@ -1,6 +1,6 @@
 import {
     Accordion, AccordionDetails, AccordionSummary,
-    AppBar, Avatar, Button,
+    AppBar, Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle,
     Drawer,
     IconButton,
     Stack,
@@ -26,6 +26,7 @@ export const NavBar = () => {
     const navigate = useNavigate();
     const [openDrawer, setOpenDrawer] = useState(false);
     const {user, isAuthenticated } = useAuth0();
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleDrawerToggle = () => {
         setOpenDrawer(!openDrawer);
@@ -59,9 +60,30 @@ export const NavBar = () => {
                     <Avatar
                         src={user?.picture}
                         alt="Profile"
-                        sx={{ width: 50, height: 50 }} // Adjust size as needed
+                        sx={{ width: 50, height: 50 }}
+                        onClick={() => setDialogOpen(true)}
                     />
                 )}
+                <Dialog open={dialogOpen}>
+                    <DialogTitle align='center'>Hello Authenticated User!</DialogTitle>
+                    <DialogContent>
+                        <Stack direction="column" spacing={2} justifyContent="center" textAlign="center"
+                               mb={2} justifyItems='center' width={250} alignItems="center">
+                            <Avatar
+                                src={user?.picture}
+                                alt="Profile"
+                                sx={{ width: 100, height: 100 }}
+                            />
+                            <Typography>Name: {user?.name ?? 'unknown'}</Typography>
+                            <Typography>Email: {user?.email ?? 'unknown'}</Typography>
+                        </Stack>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setDialogOpen(false)} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
                         PaperProps={{
                             sx: { backgroundColor: '#585858', color: 'white' }

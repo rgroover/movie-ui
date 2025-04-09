@@ -24,11 +24,7 @@ const FavoritesComponent =
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const login = async () => {
-        //localStorage.setItem("returnTo", window.location.pathname);
         await loginWithPopup()
-        //await loginWithRedirect({
-        //    appState: {returnTo: location.pathname}
-        //});
     };
 
     const handleConfirmLogin = async () => {
@@ -60,8 +56,6 @@ const FavoritesComponent =
             };
             // call api to add favorite
             await addFavorite.mutateAsync(newFavorite)
-
-            // invalidate queries?
         }
     };
 

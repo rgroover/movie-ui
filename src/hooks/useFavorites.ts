@@ -19,9 +19,9 @@ export const useFavorites = () => {
     });
 
     const deleteFavorite = useMutation({
+        mutationKey: ['delete-favorite'],
         mutationFn: async (favId: string | undefined) => {
-            const response = await favoritesApi.apiFavoritesDelete(favId);
-            console.log(response);
+            await favoritesApi.apiFavoritesDelete(favId);
         },
         // When mutation succeeds, invalidate users queries so they refetch
         onSuccess: async () => {
@@ -30,10 +30,9 @@ export const useFavorites = () => {
     });
 
     const addFavorite = useMutation({
-
+        mutationKey: ['add-favorite'],
         mutationFn: async (favorite: FavoriteModel ) => {
-            const response = await favoritesApi.apiFavoritesPost(favorite);
-            console.log(response);
+            await favoritesApi.apiFavoritesPost(favorite);
         },
         // When mutation succeeds, invalidate users queries so they refetch
         onSuccess: async () => {

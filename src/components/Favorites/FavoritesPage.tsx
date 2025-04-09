@@ -6,6 +6,7 @@ import {defaultImagePrefix} from "../../util/constants.ts";
 import {useNavigate} from "react-router-dom";
 import {FavoriteModel} from "../../api-client";
 import { useFavorites } from "../../hooks/useFavorites.ts";
+import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
 
 const FavoritesPage = () => {
 
@@ -44,17 +45,17 @@ const FavoritesPage = () => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }} padding={2}>
-            <Typography variant='h5' padding={2} sx={{ textAlign: "center" }}>Favorites</Typography>
-            <Grid2 container gap={4} >
-                    {!isAuthenticated &&
-                        <Grid2 size={{ xs: 12}} >
-                            <Stack direction='column' padding={2} gap={2}>
-                                <Typography variant='h6'>You must login to use this feature</Typography>
-                                <Button sx={{width: 120}} variant='contained' onClick={() => login()}>Login</Button>
-                            </Stack>
-                        </Grid2>
-                    }
+        <Box sx={{ flexGrow: 1 }} padding={2} >
+            <Typography variant='h5' padding={4} sx={{ textAlign: "center" }}>Favorites</Typography>
+            <Grid2 container gap={4} justifyContent={{ xs: 'center', md: 'flex-start' }} >
+                {!isAuthenticated &&
+                    <Grid2 size={{ xs: 12}} >
+                        <Stack direction='column' padding={2} gap={2}>
+                            <Typography variant='h6'>You must login to use this feature</Typography>
+                            <Button sx={{width: 120}} variant='contained' onClick={() => login()}>Login</Button>
+                        </Stack>
+                    </Grid2>
+                }
                 {isAuthenticated && (!favorites || favorites?.length == 0) &&
                     <Grid2 size={{ xs: 12}} >
                         <Stack direction='column' padding={2} gap={2}>
@@ -64,22 +65,30 @@ const FavoritesPage = () => {
                 }
                 {isAuthenticated && favorites?.map((fav) => (
                     <Grid2 key={fav.id} >
-                        <Stack direction='column' alignItems="center" justifyContent="center">
+                        <Stack direction='column'
+                               alignItems="center" justifyContent="center"
+                               sx={{ borderRadius: 2, border: '1px solid', borderColor: 'grey.400' }}>
                             <Typography variant='subtitle1'
                                 sx={{
-                                    maxWidth: 160,
+                                    mt:2,
+                                    display: 'flex',
+                                    maxWidth: 170,
+                                    height:70,
                                     whiteSpace: 'wrap',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
                                 }}
                             >{fav.mediaTitle}</Typography>
                             <Box
                                 mt={2}
+                                px={4}
                                 component="img"
                                 src={fav?.mediaImageUrl ? defaultImagePrefix + '/' + fav?.mediaImageUrl : '/no-image.jpg'}
                                 alt="Media Image"
-                                sx={{ width: 150, height: "auto", borderRadius: 2 }}
+                                sx={{ width: 180, height: "auto", borderRadius: 2 }}
                                 onClick={() => navigateToMedia(fav)}
                             />
                             <IconButton sx={{ color: "white", mt:2 }} onClick={() => deleteFavorite.mutate(fav?.id)}  aria-label="delete">
@@ -89,6 +98,7 @@ const FavoritesPage = () => {
                     </Grid2>
                 ))}
             </Grid2>
+            <ScrollToTopFab />
         </Box>
     );
 }

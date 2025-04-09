@@ -20,14 +20,8 @@ type ConfirmDialogProps = {
 };
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
-                                                         open,
-                                                         title,
-                                                         description,
-                                                         confirmText = 'Yes',
-                                                         cancelText = 'No',
-                                                         onConfirm,
-                                                         onCancel
-                                                     }) => {
+    open, title, description, confirmText = 'Yes', cancelText = 'No', onConfirm, onCancel }) => {
+
     return (
         <Dialog open={open} onClose={onCancel}>
             <DialogTitle>{title}</DialogTitle>

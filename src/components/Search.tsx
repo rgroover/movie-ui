@@ -18,7 +18,6 @@ const Search = () => {
         queryKey: ['search', debouncedSearch],
         queryFn: async () => {
             const results = await searchApi.apiSearchSearchTextGet(debouncedSearch)
-            console.log(results.data)
             return results.data
         },
         enabled: !!debouncedSearch, // don't run if empty
@@ -50,7 +49,7 @@ const Search = () => {
                     }}
                     id="searchinput"
                     type='text'
-                    placeholder='Search'
+                    placeholder='Search Movies, TV, Actors'
                     endAdornment={
                         <InputAdornment position="end" sx={{color: 'white'}}>
                             <SearchIcon />
