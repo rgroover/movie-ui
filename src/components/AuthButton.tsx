@@ -1,18 +1,19 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import {useLocation} from "react-router-dom";
+//import {useLocation} from "react-router-dom";
 import {Button, Typography} from "@mui/material";
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const AuthButton = () => {
-    const { isAuthenticated, logout, loginWithRedirect} = useAuth0();
-    const location = useLocation();
+    const { isAuthenticated, logout, loginWithPopup} = useAuth0();
+    //const location = useLocation();
 
     const handleLogin = async () => {
-        localStorage.setItem("returnTo", window.location.pathname);
-        await loginWithRedirect({
-            appState: { returnTo: location.pathname }
-        });
+        await loginWithPopup()
+        //localStorage.setItem("returnTo", window.location.pathname);
+        //await loginWithRedirect({
+        //    appState: { returnTo: location.pathname }
+        //});
     };
 
     return (

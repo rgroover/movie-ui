@@ -7,9 +7,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { SearchProvider } from './providers/SearchProvider.tsx';
 import {Auth0Provider} from "@auth0/auth0-react";
 import {Auth0Settings} from "./util/constants.ts";
+import {SearchProvider} from "./providers/SearchProvider.tsx";
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();

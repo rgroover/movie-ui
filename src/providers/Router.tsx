@@ -13,8 +13,9 @@ import TrendingMovies from "../components/Trending/TrendingMovies.tsx";
 import TrendingTv from "../components/Trending/TrendingTv.tsx";
 import TvShowSeasonDetails from "../components/TvShows/TvShowSeasonDetails.tsx";
 import TvShowEpisodeDetails from "../components/TvShows/TvShowEpisodeDetails.tsx";
-import Favorites from "../components/Favorites/Favorites.tsx";
+import FavoritesPage from "../components/Favorites/FavoritesPage.tsx";
 import Callback from "../components/Callback.tsx";
+import MovieSearch from "../components/search/MovieSearch.tsx";
 
 
 const MyRouter = () => {
@@ -37,7 +38,7 @@ const MyRouter = () => {
               element: <MovieDetails />,
             },
             {
-              path: '/actor/:id',
+              path: '/person/:id',
               element: <ActorDetails />,
             },
             {
@@ -78,12 +79,17 @@ const MyRouter = () => {
             },
             {
               path: '/favorites',
-              element: <Favorites />,
+              element: <FavoritesPage />,
             },
             {
               path: '/callback',
               element: <Callback />,
             },
+            {
+              path: '/movie-search/:query',
+              element: <MovieSearch/>,
+
+            }
           ],
         },
       ]

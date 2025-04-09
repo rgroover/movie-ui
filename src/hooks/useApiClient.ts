@@ -1,6 +1,6 @@
 import {useApiToken} from "./useApiToken.ts";
 import axios from "axios";
-import {ActorApi, FavoritesApi, MovieApi, TvShowApi} from "../api-client";
+import {ActorApi, FavoritesApi, MovieApi, SearchApi, TvShowApi} from "../api-client";
 
 export const useApiClient = () => {
     const { getToken } = useApiToken(); // ✅ Use the fixed hook
@@ -25,6 +25,7 @@ export const useApiClient = () => {
         actorApi: new ActorApi(undefined, getApiUrl()),
         movieApi: new MovieApi(undefined, getApiUrl()),
         tvShowApi: new TvShowApi(undefined, getApiUrl()),
+        searchApi: new SearchApi(undefined, getApiUrl()),
         favoritesApi: new FavoritesApi(undefined, getApiUrl(), secureAxiosInstance) // the only secured endpoint
     };
 };

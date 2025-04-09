@@ -21,6 +21,7 @@ import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 import {accordionStyle} from "../../styles/SharedStyles.ts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {useApiClient} from "../../hooks/useApiClient.ts";
+import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 
 const TvShowDetails = () => {
 
@@ -75,7 +76,16 @@ const TvShowDetails = () => {
                         src={data?.posterPath ? defaultImagePrefix + data?.posterPath : '/no-image.jpg'}
                     />
                     <Box paddingTop={2}>
-                        <Typography variant='h5'>{data?.name}</Typography>
+                        <Stack direction='row'>
+                            <Typography variant='h5'>{data?.name}</Typography>
+                            <FavoritesComponent
+                                sx={{pl:2, pt:0.25}}
+                                mediaType='tv'
+                                mediaId={data?.id!}
+                                title={data?.name!}
+                                imageUrl={data?.posterPath!}
+                            />
+                        </Stack>
                     </Box>
                     <Stack direction='row' spacing={2} paddingBottom={2}>
                         <Rating name="read-only" value={((data?.voteAverage ?? 0.0) / 2.0)} readOnly

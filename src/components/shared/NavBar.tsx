@@ -8,8 +8,6 @@ import {
     Typography
 } from "@mui/material"
 import { useNavigate } from "react-router-dom";
-import { useSearch } from "../../providers/SearchProvider.tsx";
-import { useQueryClient } from "@tanstack/react-query";
 import { useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
@@ -25,9 +23,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const NavBar = () => {
 
-    const navigate = useNavigate(); 
-    const { setSearchQuery, setSearchType, setActorData, setMovieData, setTvData } = useSearch();
-    const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const [openDrawer, setOpenDrawer] = useState(false);
     const {user, isAuthenticated } = useAuth0();
 
@@ -46,12 +42,6 @@ export const NavBar = () => {
     }
 
     const handleClick = async (path: string) => {
-        setSearchQuery("");
-        setSearchType('movies');
-        setActorData(null);
-        setMovieData(null);
-        setTvData(null);
-        await queryClient.invalidateQueries();
         navigate(path, {replace: true});
         setOpenDrawer(false);
     };

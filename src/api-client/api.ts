@@ -1379,6 +1379,176 @@ export interface MovieSearchResult {
 /**
  * 
  * @export
+ * @interface MultiSearchPagedResults
+ */
+export interface MultiSearchPagedResults {
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchPagedResults
+     */
+    'page'?: number;
+    /**
+     * 
+     * @type {Array<MultiSearchResult>}
+     * @memberof MultiSearchPagedResults
+     */
+    'results'?: Array<MultiSearchResult> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchPagedResults
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchPagedResults
+     */
+    'totalResults'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface MultiSearchResult
+ */
+export interface MultiSearchResult {
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'backdropPath'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchResult
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'originalName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'overview'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'posterPath'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'mediaType'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MultiSearchResult
+     */
+    'adult'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'originalLanguage'?: string | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof MultiSearchResult
+     */
+    'genreIds'?: Array<number> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchResult
+     */
+    'popularity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'firstAirDate'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchResult
+     */
+    'voteAverage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchResult
+     */
+    'voteCount'?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof MultiSearchResult
+     */
+    'originCountry'?: Array<string> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MultiSearchResult
+     */
+    'gender'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'knownForDepartment'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'profilePath'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'originalTitle'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MultiSearchResult
+     */
+    'releaseDate'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MultiSearchResult
+     */
+    'video'?: boolean | null;
+}
+/**
+ * 
+ * @export
  * @interface Network
  */
 export interface Network {
@@ -3091,6 +3261,113 @@ export class MovieApi extends BaseAPI {
      */
     public apiSearchMovieSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
         return MovieApiFp(this.configuration).apiSearchMovieSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * SearchApi - axios parameter creator
+ * @export
+ */
+export const SearchApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSearchSearchTextGet: async (searchText: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'searchText' is not null or undefined
+            assertParamExists('apiSearchSearchTextGet', 'searchText', searchText)
+            const localVarPath = `/api/search/{searchText}`
+                .replace(`{${"searchText"}}`, encodeURIComponent(String(searchText)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SearchApi - functional programming interface
+ * @export
+ */
+export const SearchApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SearchApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MultiSearchPagedResults>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchSearchTextGet(searchText, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SearchApi.apiSearchSearchTextGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * SearchApi - factory interface
+ * @export
+ */
+export const SearchApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SearchApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} searchText 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): AxiosPromise<MultiSearchPagedResults> {
+            return localVarFp.apiSearchSearchTextGet(searchText, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SearchApi - object-oriented interface
+ * @export
+ * @class SearchApi
+ * @extends {BaseAPI}
+ */
+export class SearchApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} searchText 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SearchApi
+     */
+    public apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
+        return SearchApiFp(this.configuration).apiSearchSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

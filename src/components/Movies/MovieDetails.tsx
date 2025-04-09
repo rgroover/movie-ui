@@ -10,6 +10,7 @@ import { ActorChip } from '../shared/ActorChip.tsx';
 import FullscreenYouTubeModal from "../shared/FullscreenYouTubeModal.tsx";
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {useApiClient} from "../../hooks/useApiClient.ts";
+import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 
 const MovieDetails = () => {
 
@@ -59,7 +60,15 @@ const MovieDetails = () => {
               src={data?.movieDetails?.posterPath ? defaultImagePrefix + data?.movieDetails?.posterPath : '/no-image.jpg'}
             />
             <Box paddingTop={2}>
-              <Typography variant='h5'>{data?.movieDetails?.originalTitle} ({data?.movieDetails?.releaseDate?.substring(0,4)})</Typography>
+              <Stack direction='row'><Typography variant='h5'>{data?.movieDetails?.originalTitle} ({data?.movieDetails?.releaseDate?.substring(0,4)})</Typography>
+              <FavoritesComponent
+                  sx={{pl:2, pt:0.5}}
+                  mediaType='movie'
+                  mediaId={data?.movieDetails?.id!}
+                  title={data?.movieDetails?.title!}
+                  imageUrl={data?.movieDetails?.posterPath!}
+              />
+              </Stack>
             </Box>
             <Stack direction='row' spacing={2} paddingBottom={2}>
               <Rating name="read-only" value={((data?.movieDetails?.voteAverage ?? 0.0) / 2.0)} readOnly
@@ -147,7 +156,7 @@ const MovieDetails = () => {
         <Stack direction='row' spacing={2}>
           <Grid2 container spacing={2}>
                   {data?.castAndCrew?.cast?.map((cast) => (
-                    <ActorChip actor={cast} />
+                    <ActorChip key={cast.id} actor={cast} />
                   ))}
           </Grid2>
         </Stack>
