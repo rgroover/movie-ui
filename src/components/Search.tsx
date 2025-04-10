@@ -6,13 +6,14 @@ import {useApiClient} from "../hooks/useApiClient.ts";
 import { useDebounce } from "../hooks/useDebounce.ts";
 import {useSearch} from "../providers/SearchProvider.tsx";
 import CloseIcon from '@mui/icons-material/Close';
+import { useRef } from 'react';
 
 const Search = () => {
 
     const { searchQuery, setSearchQuery } = useSearch();
-    const debouncedSearch = useDebounce(searchQuery, 800); // 500ms debounce
-
+    const debouncedSearch = useDebounce(searchQuery, 500); // 500ms debounce
     const { searchApi } = useApiClient();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const { data: searchResults, isLoading, error } = useQuery({
         queryKey: ['search', debouncedSearch],
@@ -23,6 +24,14 @@ const Search = () => {
         enabled: !!debouncedSearch, // don't run if empty
     });
 
+    const handleClear = () => {
+        setSearchQuery('');
+        // Timeout ensures the input is still mounted before trying to focus
+        setTimeout(() => {
+            inputRef.current?.focus();
+        }, 0);
+    };
+
       if (error) {
         return <Typography>Error: {error?.message}</Typography>;
       }
@@ -32,6 +41,7 @@ const Search = () => {
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2}}>
         <Stack direction='column' sx={{ width: '100%'}}>
                 <OutlinedInput
+                    inputRef={inputRef}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     sx={{
@@ -53,7 +63,7 @@ const Search = () => {
                     endAdornment = {
                         searchQuery.length > 0 &&
                         <InputAdornment position="end" sx={{color: 'white'}}>
-                            <IconButton onClick={() => setSearchQuery('')} sx={{color: 'white'}}>
+                            <IconButton onClick={handleClear} sx={{color: 'white'}}>
                                 <CloseIcon/>
                             </IconButton>
                         </InputAdornment>
