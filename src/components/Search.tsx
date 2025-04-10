@@ -1,11 +1,11 @@
-import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Box, CircularProgress, Grid2, IconButton, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
 import MediaCard from "./shared/MediaCard.tsx";
 import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {useApiClient} from "../hooks/useApiClient.ts";
 import { useDebounce } from "../hooks/useDebounce.ts";
 import {useSearch} from "../providers/SearchProvider.tsx";
+import CloseIcon from '@mui/icons-material/Close';
 
 const Search = () => {
 
@@ -50,9 +50,12 @@ const Search = () => {
                     id="searchinput"
                     type='text'
                     placeholder='Search Movies, TV, Actors'
-                    endAdornment={
+                    endAdornment = {
+                        searchQuery.length > 0 &&
                         <InputAdornment position="end" sx={{color: 'white'}}>
-                            <SearchIcon />
+                            <IconButton onClick={() => setSearchQuery('')} sx={{color: 'white'}}>
+                                <CloseIcon/>
+                            </IconButton>
                         </InputAdornment>
                     }
                 />  
