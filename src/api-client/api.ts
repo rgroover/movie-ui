@@ -3275,10 +3275,11 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} searchText 
+         * @param {number} [page] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSearchSearchTextGet: async (searchText: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSearchSearchTextGet: async (searchText: string, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'searchText' is not null or undefined
             assertParamExists('apiSearchSearchTextGet', 'searchText', searchText)
             const localVarPath = `/api/search/{searchText}`
@@ -3296,6 +3297,10 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication Bearer required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
 
 
     
@@ -3321,11 +3326,12 @@ export const SearchApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} searchText 
+         * @param {number} [page] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MultiSearchPagedResults>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchSearchTextGet(searchText, options);
+        async apiSearchSearchTextGet(searchText: string, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MultiSearchPagedResults>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiSearchSearchTextGet(searchText, page, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SearchApi.apiSearchSearchTextGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -3343,11 +3349,12 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @param {string} searchText 
+         * @param {number} [page] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig): AxiosPromise<MultiSearchPagedResults> {
-            return localVarFp.apiSearchSearchTextGet(searchText, options).then((request) => request(axios, basePath));
+        apiSearchSearchTextGet(searchText: string, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<MultiSearchPagedResults> {
+            return localVarFp.apiSearchSearchTextGet(searchText, page, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3362,12 +3369,13 @@ export class SearchApi extends BaseAPI {
     /**
      * 
      * @param {string} searchText 
+     * @param {number} [page] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public apiSearchSearchTextGet(searchText: string, options?: RawAxiosRequestConfig) {
-        return SearchApiFp(this.configuration).apiSearchSearchTextGet(searchText, options).then((request) => request(this.axios, this.basePath));
+    public apiSearchSearchTextGet(searchText: string, page?: number, options?: RawAxiosRequestConfig) {
+        return SearchApiFp(this.configuration).apiSearchSearchTextGet(searchText, page, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
