@@ -1,7 +1,8 @@
 import {Cast} from "../../api-client";
-import {Avatar, Chip, Typography} from "@mui/material";
+import {Chip, Typography} from "@mui/material";
 import {defaultImagePrefix} from "../../util/constants.ts";
 import {useNavigate} from "react-router-dom";
+import LazyAvatar from "./LazyAvatar.tsx";
 
 export function ActorChip({ actor } : {actor: Cast}) {
 
@@ -37,7 +38,7 @@ export function ActorChip({ actor } : {actor: Cast}) {
                         <br/>
                       {actor.name}
                   </Typography>}
-              avatar={<Avatar alt={`${actor.name}`} src={`${defaultImagePrefix}${actor.profilePath}`}/>}
+              avatar={<LazyAvatar alt={`${actor.name}`} src={`${defaultImagePrefix}${actor.profilePath}`} />}
               onClick={() => handleClick(actor.id)}
               key={actor.id}
         />
