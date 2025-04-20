@@ -1,6 +1,7 @@
-import { Card, CardActionArea, CardMedia, CardContent, Stack, Box, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Stack, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { defaultImagePrefix } from "../../util/constants.ts";
+import {LazyCardMedia} from "./LazyCardMedia.tsx";
 
 interface MediaProps {
     id: number | null | undefined;
@@ -19,13 +20,13 @@ const MediaCard: React.FC<MediaProps> =
     return (
         <Card sx={{width: 350, height: character && mediaDate ? 320 : 295}}  >
             <CardActionArea onClick={() =>  navigate(`/${type}/${id}`)}>
-            <CardMedia
-                component="img"
+            <LazyCardMedia
                 height="210"
-                image={
+                src={
                     imagePath == null ? '/no-image.jpg' :
                     defaultImagePrefix + imagePath
                 }
+                fallbackSrc={'/no-image.jpg'}
             />
             <CardContent style={{ textAlign: 'center' }}>
                 <Stack direction='column'>

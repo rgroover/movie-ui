@@ -3,7 +3,6 @@ import {
     Card,
     CardActionArea,
     CardContent,
-    CardMedia,
     CircularProgress,
     Grid2,
     Stack,
@@ -14,6 +13,7 @@ import {useQuery} from "@tanstack/react-query";
 import {defaultImagePrefix} from "../../util/constants.ts";
 import {useEffect} from "react";
 import {useApiClient} from "../../hooks/useApiClient.ts";
+import {LazyCardMedia} from "../shared/LazyCardMedia.tsx";
 
 const TvShowSeasonDetails = () => {
 
@@ -71,13 +71,13 @@ const TvShowSeasonDetails = () => {
                     {data?.episodes && data?.episodes.map((episode) => (
                         <Card sx={{width: 350, height: 320}}  >
                             <CardActionArea onClick={() =>  navigate(`/tvepisode?series=${seriesId}&season=${seasonId}&episode=${episode.episodeNumber}`)}>
-                                <CardMedia
-                                    component="img"
+                                <LazyCardMedia
                                     height="210"
-                                    image={
+                                    src={
                                         episode.stillPath == null ? '/no-image.jpg' :
                                             defaultImagePrefix + episode.stillPath
                                     }
+                                    fallbackSrc={'/no-image.jpg'}
                                 />
                                 <CardContent style={{ textAlign: 'center' }}>
                                     <Stack direction='column'>
