@@ -1,37 +1,83 @@
-import { Box, CircularProgress, Grid2, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Box, CircularProgress, Grid2, IconButton, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
 import MediaCard from "./shared/MediaCard.tsx";
 import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
-import {useQuery} from "@tanstack/react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {useApiClient} from "../hooks/useApiClient.ts";
 import { useDebounce } from "../hooks/useDebounce.ts";
 import {useSearch} from "../providers/SearchProvider.tsx";
+import CloseIcon from '@mui/icons-material/Close';
+import {useEffect, useRef} from 'react';
 
 const Search = () => {
 
     const { searchQuery, setSearchQuery } = useSearch();
-    const debouncedSearch = useDebounce(searchQuery, 800); // 500ms debounce
-
+    const debouncedSearch = useDebounce(searchQuery, 500); // debounce milliseconds
     const { searchApi } = useApiClient();
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    const { data: searchResults, isLoading, error } = useQuery({
+    const {
+        data: searchResults,
+        isLoading,
+        error,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+    } = useInfiniteQuery({
         queryKey: ['search', debouncedSearch],
-        queryFn: async () => {
-            const results = await searchApi.apiSearchSearchTextGet(debouncedSearch)
-            return results.data
+        queryFn: async ({ pageParam = 1 }) => {
+            const results = await searchApi.apiSearchSearchTextGet(debouncedSearch, pageParam);
+            return results.data;
         },
-        enabled: !!debouncedSearch, // don't run if empty
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            const nextPage = (lastPage?.page ?? 0)  + 1;
+            return nextPage <= (lastPage?.totalPages ?? 0) ? nextPage : undefined;
+        },
+        enabled: !!debouncedSearch,
     });
 
-      if (error) {
+    const handleClear = () => {
+        setSearchQuery('');
+        // Timeout ensures the input is still mounted before trying to focus
+        setTimeout(() => {
+            inputRef.current?.focus();
+        }, 0);
+    };
+
+    const containerRef = useRef<HTMLDivElement | null>(null);
+
+    const handleScroll = async () => {
+        if (containerRef.current) {
+            const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+            if (scrollTop + clientHeight >= scrollHeight - 5 && !isFetchingNextPage && hasNextPage) {
+                await fetchNextPage(); // Fetch more results when the user reaches the bottom
+            }
+        }
+    };
+
+    useEffect(() => {
+        const currentContainer = containerRef.current;
+        if (currentContainer) {
+            currentContainer.addEventListener('scroll', handleScroll);
+        }
+
+        return () => {
+            if (currentContainer) {
+                currentContainer.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [isFetchingNextPage, hasNextPage]);
+
+    if (error) {
         return <Typography>Error: {error?.message}</Typography>;
-      }
+    }
   
     return (
         <>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2}}>
         <Stack direction='column' sx={{ width: '100%'}}>
                 <OutlinedInput
+                    inputRef={inputRef}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     sx={{
@@ -50,9 +96,12 @@ const Search = () => {
                     id="searchinput"
                     type='text'
                     placeholder='Search Movies, TV, Actors'
-                    endAdornment={
+                    endAdornment = {
+                        searchQuery.length > 0 &&
                         <InputAdornment position="end" sx={{color: 'white'}}>
-                            <SearchIcon />
+                            <IconButton onClick={handleClear} sx={{color: 'white'}}>
+                                <CloseIcon/>
+                            </IconButton>
                         </InputAdornment>
                     }
                 />  
@@ -63,7 +112,7 @@ const Search = () => {
                 <CircularProgress />
             </Box>
         }
-        {!isLoading && searchResults?.results?.length === 0  &&
+        {!isLoading && searchResults?.pages[0].results?.length === 0  &&
             <Box
                 sx={{
                     display: 'flex',
@@ -73,9 +122,10 @@ const Search = () => {
                 <Typography paddingTop={10} variant="h3">No Results</Typography>
             </Box>
         }
-        { searchResults && searchResults?.results &&
-            <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} >
-                {searchResults?.results?.map ((item) => (
+        { searchResults && searchResults?.pages.length > 0 &&
+            <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} ref={containerRef} style={{ height: '80vh', overflowY: 'auto' }} >
+                {searchResults?.pages?.flatMap((page) =>
+                    page?.results?.map((item) => (
                     <MediaCard id={item.id}
                                title={item.title ?? item.name}
                                type={item.mediaType}
@@ -83,7 +133,7 @@ const Search = () => {
                                mediaDate={item.releaseDate ?? item.firstAirDate}
                                key={item.id}
                     />
-                    ))}
+                    )))}
             </Grid2>
         }
         <ScrollToTopFab />
