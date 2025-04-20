@@ -6,7 +6,7 @@ import {
     CircularProgress,
     Divider,
     Grid2,
-    IconButton, Stack, ToggleButton, ToggleButtonGroup,
+    IconButton, MenuItem, Select, Stack, ToggleButton, ToggleButtonGroup,
     Typography
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
@@ -20,14 +20,16 @@ import {OpenInNew} from "@mui/icons-material";
 import {searchButtonStyle} from "../../styles/SharedStyles.ts";
 import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
+import {ActorCast} from "../../api-client";
 
 const ActorDetails = () => {
 
   const { actorApi } = useApiClient();
   const { id } = useParams();
   const actorId = id ? parseInt(id, 10) : 0;
-
   const [ actorResultsMediaType, setActorResultsMediaType ] = useState("movie")
+  const [sortBy, setSortBy] = useState<'popularity' | 'date'>('popularity');
+  const [filteredDetails, setFilteredDetails] = useState<ActorCast[]>();
 
   const handleCategoryChange = (_: unknown, newType: string) => {
         if (newType !== null) {
@@ -45,7 +47,22 @@ const ActorDetails = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+
+        const filteredResults = actorDetails?.combinedCredits?.cast && actorDetails?.combinedCredits?.cast?.filter(
+            (item, index, self) =>
+                index === self.findIndex((t) => t.id === item.id && item.mediaType === `${actorResultsMediaType}`)
+        )
+        .sort((a, b) => {
+            if (sortBy === 'date') {
+                const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
+                const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
+                return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
+            } else {
+                return (a.popularity ?? 0) > (b.popularity ?? 0) ? -1 : (a.popularity ?? 0) < (b.popularity ?? 0) ? 1 : 0;
+            }
+        })
+        setFilteredDetails(filteredResults ?? [])
+    }, [actorDetails, actorResultsMediaType, sortBy]);
 
   if (isLoading) {
     return (
@@ -130,46 +147,69 @@ const ActorDetails = () => {
             </AccordionDetails>
         </Accordion>
         <Box display="flex" justifyContent="center" paddingBlock={2}>
-            <Stack direction='column' spacing={0} mt={2}>
-                <ToggleButtonGroup
-                    value={actorResultsMediaType}
-                    exclusive
-                    onChange={handleCategoryChange}
-                    aria-label="Search category toggle">
-                    <ToggleButton
-                        value="movie"
-                        aria-label="search movies"
+            <Stack direction='column' spacing={2} mt={2}>
+                <Box justifyContent='center' alignItems={'center'}>
+                    <Typography variant="subtitle2" fontWeight="bold" color="white" mb={0.5} textAlign="center">
+                        Sort By
+                    </Typography>
+                    <Select
+                        size="small"
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value as 'date' | 'popularity')}
+                        fullWidth
                         sx={{
-                            ...searchButtonStyle,
-                            backgroundColor: actorResultsMediaType === 'movie' ? '#ffd800' : 'lightgray', // background color
-                            color: actorResultsMediaType === 'movie' ? 'white' : 'gray' // text color
-                        }}>Movies
-                    </ToggleButton>
-                    <ToggleButton
-                        value="tv"
-                        aria-label="search tv shows"
-                        sx={{
-                            ...searchButtonStyle,
-                            backgroundColor: actorResultsMediaType === 'tv' ? '#ffd800' : 'lightgray', // background color
-                            color: actorResultsMediaType === 'tv' ? 'white' : 'gray' // text color
-                        }}>TV Shows
-                    </ToggleButton>
-                </ToggleButtonGroup>
+                            backgroundColor: 'lightgray',
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'white',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'white',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'white',
+                            },
+                        }}
+                    >
+                        <MenuItem value="popularity">Popularity</MenuItem>
+                        <MenuItem value="date">Date</MenuItem>
+                    </Select>
+                </Box>
+                <Box justifyContent='center' alignItems={'center'}>
+                    <Typography variant="subtitle2" fontWeight="bold" color="white" textAlign="center" mb={0.5}>
+                        Filter By
+                    </Typography>
+                    <ToggleButtonGroup
+                        value={actorResultsMediaType}
+                        exclusive
+                        onChange={handleCategoryChange}
+                        aria-label="Search category toggle">
+                        <ToggleButton
+                            value="movie"
+                            aria-label="search movies"
+                            sx={{
+                                ...searchButtonStyle,
+                                backgroundColor: actorResultsMediaType === 'movie' ? '#ffd800' : 'lightgray', // background color
+                                color: actorResultsMediaType === 'movie' ? 'white' : 'gray' // text color
+                            }}>Movies
+                        </ToggleButton>
+                        <ToggleButton
+                            value="tv"
+                            aria-label="search tv shows"
+                            sx={{
+                                ...searchButtonStyle,
+                                backgroundColor: actorResultsMediaType === 'tv' ? '#ffd800' : 'lightgray', // background color
+                                color: actorResultsMediaType === 'tv' ? 'white' : 'gray' // text color
+                            }}>TV Shows
+                        </ToggleButton>
+                    </ToggleButtonGroup>
+                </Box>
                 <Typography variant="h6" sx={{ textAlign: 'center', mt:4 }}>
                     {actorResultsMediaType === 'movie' ? 'Movies' : actorResultsMediaType === 'tv' ? 'TV Shows' : ''}
                 </Typography>
             </Stack>
         </Box>
             <Grid2 container spacing={2} paddingTop={1} >
-                {actorDetails?.combinedCredits?.cast && actorDetails?.combinedCredits?.cast?.filter(
-                    (item, index, self) =>
-                        index === self.findIndex((t) => t.id === item.id && item.mediaType === `${actorResultsMediaType}`)
-                )
-                    .sort((a, b) => {
-                        const aOrder = a.releaseDate ?? a.firstAirDate ?? ''; // Fallback to empty string
-                        const bOrder = b.releaseDate ?? b.firstAirDate ?? ''; // Fallback to empty string
-                        return aOrder > bOrder ? -1 : aOrder < bOrder ? 1 : 0; // Standard lexicographic comparison
-                    })
+                {filteredDetails && filteredDetails
                     .map ((media) => (
                         <MediaCard id={media.id}
                                    title={media.title ?? media.name}
