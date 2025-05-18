@@ -3016,6 +3016,38 @@ export const MovieApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        apiMovieNowPlayingGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/movie/now-playing`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         apiMoviePopularGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/movie/popular`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3138,6 +3170,17 @@ export const MovieApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async apiMovieNowPlayingGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultsPagedModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiMovieNowPlayingGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MovieApi.apiMovieNowPlayingGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async apiMoviePopularGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultsPagedModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiMoviePopularGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -3191,6 +3234,14 @@ export const MovieApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        apiMovieNowPlayingGet(options?: RawAxiosRequestConfig): AxiosPromise<SearchResultsPagedModel> {
+            return localVarFp.apiMovieNowPlayingGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         apiMoviePopularGet(options?: RawAxiosRequestConfig): AxiosPromise<SearchResultsPagedModel> {
             return localVarFp.apiMoviePopularGet(options).then((request) => request(axios, basePath));
         },
@@ -3230,6 +3281,16 @@ export class MovieApi extends BaseAPI {
      */
     public apiMovieExternalIdGet(externalId: number, options?: RawAxiosRequestConfig) {
         return MovieApiFp(this.configuration).apiMovieExternalIdGet(externalId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MovieApi
+     */
+    public apiMovieNowPlayingGet(options?: RawAxiosRequestConfig) {
+        return MovieApiFp(this.configuration).apiMovieNowPlayingGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

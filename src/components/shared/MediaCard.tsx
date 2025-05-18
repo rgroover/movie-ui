@@ -45,7 +45,7 @@ const MediaCard: React.FC<MediaProps> =
                             overflow: 'hidden',         // Hides the overflowed text
                             textOverflow: 'ellipsis',   // Shows the ellipsis (...) for overflowed text
                         }}>
-                        {mediaDate?.substring(0,4)}
+                        {mediaDate}
                         </Typography>
                         <Typography gutterBottom
                                     sx={{

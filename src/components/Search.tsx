@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Grid2, IconButton, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
 import MediaCard from "./shared/MediaCard.tsx";
 import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
-import {useInfiniteQuery} from "@tanstack/react-query";
+import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import {useApiClient} from "../hooks/useApiClient.ts";
 import { useDebounce } from "../hooks/useDebounce.ts";
 import {useSearch} from "../providers/SearchProvider.tsx";
@@ -14,11 +14,12 @@ const Search = () => {
     const debouncedSearch = useDebounce(searchQuery, 500); // debounce milliseconds
     const { searchApi } = useApiClient();
     const inputRef = useRef<HTMLInputElement>(null);
+    const { movieApi } = useApiClient();
 
     const {
         data: searchResults,
-        isLoading,
-        error,
+        isLoading: searchLoading,
+        error: searchError,
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
@@ -34,6 +35,14 @@ const Search = () => {
             return nextPage <= (lastPage?.totalPages ?? 0) ? nextPage : undefined;
         },
         enabled: !!debouncedSearch,
+    });
+
+    const { isLoading: isNowPlayingLoading, error: nowPlayingError, data: nowPlayingInfo } = useQuery({
+        queryKey: ['now-playing',], // The query key should be in the options object
+        queryFn: async () => {
+            const response = await movieApi.apiMovieNowPlayingGet();
+            return response.data; // Access the data from AxiosResponse
+        }
     });
 
     const handleClear = () => {
@@ -68,8 +77,8 @@ const Search = () => {
         };
     }, [isFetchingNextPage, hasNextPage]);
 
-    if (error) {
-        return <Typography>Error: {error?.message}</Typography>;
+    if (searchError || nowPlayingError) {
+        return <Typography>Error: {searchError?.message ?? nowPlayingError?.message}</Typography>;
     }
   
     return (
@@ -107,12 +116,12 @@ const Search = () => {
                 />  
             </Stack>
         </Box>
-        {isLoading &&
+        {(searchLoading || isNowPlayingLoading) &&
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
                 <CircularProgress />
             </Box>
         }
-        {!isLoading && searchResults?.pages[0].results?.length === 0  &&
+        {!searchLoading && searchResults?.pages[0].results?.length === 0  && searchQuery.length > 0 &&
             <Box
                 sx={{
                     display: 'flex',
@@ -136,6 +145,27 @@ const Search = () => {
                     )))}
             </Grid2>
         }
+
+        { !searchResults &&  searchQuery.length === 0 &&
+            <>
+
+                <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} ref={containerRef} style={{ height: '80vh', overflowY: 'auto' }} >
+                    <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                        <Typography variant="h4">Now Playing</Typography>
+                    </Box>
+                    {nowPlayingInfo?.searchResults?.map((item) => (
+                            <MediaCard id={item.id}
+                                       title={item.title ?? item.title}
+                                       type='movie'
+                                       imagePath={item.backdropPath ?? item.posterPath}
+                                       mediaDate={item.releaseDate }
+                                       key={item.id}
+                            />
+                        ))}
+                </Grid2>
+            </>
+        }
+
         <ScrollToTopFab />
     </>
     );
