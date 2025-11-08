@@ -27,6 +27,7 @@ const MediaCard: React.FC<MediaProps> =
                     defaultImagePrefix + imagePath
                 }
                 fallbackSrc={'/no-image.jpg'}
+                mediaType={type ?? undefined}
             />
             <CardContent style={{ textAlign: 'center' }}>
                 <Stack direction='column'>
