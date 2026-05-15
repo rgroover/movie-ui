@@ -20,6 +20,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AuthButton from "../AuthButton.tsx";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useAuth0 } from "@auth0/auth0-react";
+import {useSearch} from "../../providers/SearchProvider.tsx";
 
 export const NavBar = () => {
 
@@ -27,6 +28,7 @@ export const NavBar = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const {user, isAuthenticated } = useAuth0();
     const [dialogOpen, setDialogOpen] = useState(false);
+    const { setSearchQuery } = useSearch();
 
     const handleDrawerToggle = () => {
         setOpenDrawer(!openDrawer);
@@ -43,17 +45,20 @@ export const NavBar = () => {
     }
 
     const handleClick = async (path: string) => {
+        if (path === '/') {
+            setSearchQuery('');
+        }
         navigate(path, {replace: true});
         setOpenDrawer(false);
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#585858' }}>
+        <AppBar position="static">
             <Toolbar>
                 <IconButton color="inherit" onClick={handleDrawerToggle}>
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => handleClick('/')}>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={() => handleClick('/')}>
                     Media Search
                 </Typography>
                 {isAuthenticated && (
@@ -84,26 +89,14 @@ export const NavBar = () => {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}
-                        PaperProps={{
-                            sx: { backgroundColor: '#585858', color: 'white' }
-                        }}>
+                <Drawer anchor="left" open={openDrawer} onClose={handleDrawerToggle}>
                     <Stack direction="column" spacing={0}  sx={{ width: 200, pt: 2, alignItems: 'flex-start' }}
                     >
                         <Button onClick={() => handleClick('/')} sx={{ ...navButtonStyle }}>
                             <HomeIcon sx={{ marginRight: '8px' }} /> {/* Icon with margin */}
                             <Typography>Home</Typography>
                         </Button>
-                        <Accordion
-                            sx={{
-                                backgroundColor: '#585858',
-                                color: 'white',
-                                boxShadow: 'none',
-                                '&:before': {
-                                    display: 'none', // Remove the default divider line above AccordionSummary
-                                },
-                            }}
-                        >
+                        <Accordion>
                             <AccordionSummary
                                 sx={{
                                     minHeight: 0, // Remove default height
@@ -148,16 +141,7 @@ export const NavBar = () => {
                                 </Stack>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion
-                            sx={{
-                                backgroundColor: '#585858',
-                                color: 'white',
-                                boxShadow: 'none',
-                                '&:before': {
-                                    display: 'none', // Remove the default divider line above AccordionSummary
-                                },
-                            }}
-                        >
+                        <Accordion>
                             <AccordionSummary
                                 sx={{
                                     minHeight: 0, // Remove default height

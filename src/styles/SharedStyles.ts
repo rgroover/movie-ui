@@ -1,11 +1,11 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const accordionStyle: SxProps<Theme> = {
-    backgroundColor: '#585858',  // Gray background
-    border: '1px solid white',   // White border
-    borderRadius: 2,             // Rounded corners
-    overflow: 'hidden',          // Ensures the border radius applies properly
-    color: 'white',              // Text color
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: 2,
+    overflow: 'hidden',
+    color: 'inherit',
 };
 
 export const searchButtonStyle: SxProps<Theme> = {

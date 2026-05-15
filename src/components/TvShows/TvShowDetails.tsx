@@ -123,8 +123,16 @@ const TvShowDetails = () => {
                             {data?.networks?.map( (network) => {
                                 return (
                                     <Box
+                                        key={network?.id ?? network?.name ?? network?.logoPath}
                                         component="img"
-                                        sx={{height: 20, maxWidth: 100, backgroundColor: 'white', borderRadius: '5px'}}
+                                        sx={{
+                                            height: 36,
+                                            maxWidth: 160,
+                                            objectFit: 'contain',
+                                            backgroundColor: 'white',
+                                            borderRadius: '5px',
+                                            padding: '4px 8px',
+                                        }}
                                         p={1}
                                         alt="network image"
                                         src={network?.logoPath ? defaultImagePrefix + network?.logoPath : '/no-image.jpg'}
@@ -171,8 +179,14 @@ const TvShowDetails = () => {
                 <Divider sx={{ borderColor: 'white', width: '100%' }}  />
                 <AccordionDetails>
                     {data?.seasons && data?.seasons.map( s =>
-                       <Button sx={{margin: 1, backgroundColor: '#808080'}} variant="contained"
-                               onClick={() => handleNavigation(s.seasonNumber)}>Season {s.seasonNumber}</Button>)
+                       <Button
+                           key={s.id ?? s.seasonNumber}
+                           sx={{margin: 1, backgroundColor: '#808080'}}
+                           variant="contained"
+                           onClick={() => handleNavigation(s.seasonNumber)}
+                       >
+                           Season {s.seasonNumber}
+                       </Button>)
                     }
                 </AccordionDetails>
             </Accordion>
@@ -187,7 +201,7 @@ const TvShowDetails = () => {
                 <Stack direction='row' spacing={2}>
                     <Grid2 container spacing={2}>
                         {data?.castAndCrew?.cast?.map((cast) => (
-                            <ActorChip actor={cast} />
+                            <ActorChip key={cast.id} actor={cast} />
                         ))}
                     </Grid2>
                 </Stack>

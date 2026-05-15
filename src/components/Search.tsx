@@ -151,7 +151,7 @@ const Search = () => {
 
                 <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} ref={containerRef} style={{ height: '80vh', overflowY: 'auto' }} >
                     <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                        <Typography variant="h4">Now Playing</Typography>
+                        <Typography variant="h4">New Releases</Typography>
                     </Box>
                     {nowPlayingInfo?.searchResults?.map((item) => (
                             <MediaCard id={item.id}

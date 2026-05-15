@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import CardMedia from '@mui/material/CardMedia';
-import {Box, IconButton, Tooltip} from "@mui/material";
+import {Box, Tooltip} from "@mui/material";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import TvIcon from "@mui/icons-material/Tv";
 import PersonIcon from "@mui/icons-material/Person";
@@ -56,19 +56,24 @@ export function LazyCardMedia({ src, alt = '', fallbackSrc, height = 200, sx, me
                     : mediaType === "tv" ? "TV Show"
                     : mediaType === "person" ? "Actor"
                     : mediaType} arrow>
-                    <IconButton size="small"
+                    <Box
                         sx={{
                             position: "absolute",
                             top: 8,
                             right: 8,
                             bgcolor: "rgba(255,255,255,0.7)",
-                            "&:hover": { bgcolor: "rgba(255,255,255,0.9)" },
+                            borderRadius: "50%",
+                            width: 30,
+                            height: 30,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                         }}
                     >
-                        {mediaType === "movie" && <TheatersIcon color="error" /> }
-                        {mediaType === "tv" && <TvIcon color="error" /> }
-                        {mediaType === "person" && <PersonIcon color="error" /> }
-                    </IconButton>
+                        {mediaType === "movie" && <TheatersIcon color="error" fontSize="small" /> }
+                        {mediaType === "tv" && <TvIcon color="error" fontSize="small" /> }
+                        {mediaType === "person" && <PersonIcon color="error" fontSize="small" /> }
+                    </Box>
                 </Tooltip>
             }
         </Box>
