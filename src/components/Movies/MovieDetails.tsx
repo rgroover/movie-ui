@@ -9,7 +9,9 @@ import {
   IconButton,
   Rating,
   Stack,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -27,14 +29,21 @@ import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
 import ExpandableImage from "../shared/ExpandableImage.tsx";
 import MediaCard from "../shared/MediaCard.tsx";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {accordionStyle} from "../../styles/SharedStyles.ts";
 
 const MovieDetails = () => {
 
   const { movieApi } = useApiClient()
   const [videoOpen, setVideoOpen] = useState(false);
+  const [recommendationPage, setRecommendationPage] = useState(0);
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up('sm'));
+  const recommendationsPerPage = isMediumScreen ? 3 : isSmallScreen ? 2 : 1;
 
   const { id } = useParams();
   const itemId = id ? parseInt(id, 10) : 0;
@@ -66,6 +75,17 @@ const MovieDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  const recommendationResults = recommendations?.searchResults ?? [];
+  const recommendationPageCount = Math.ceil(recommendationResults.length / recommendationsPerPage);
+  const visibleRecommendations = recommendationResults.slice(
+    recommendationPage * recommendationsPerPage,
+    (recommendationPage + 1) * recommendationsPerPage
+  );
+
+  useEffect(() => {
+    setRecommendationPage((page) => Math.min(page, Math.max(recommendationPageCount - 1, 0)));
+  }, [recommendationPageCount]);
 
   if (movieDetailsLoading) {
     return (
@@ -205,19 +225,51 @@ const MovieDetails = () => {
             {!recommendationsLoading && !recommendationsError && recommendations?.searchResults?.length === 0 && (
               <Typography>No recommendations are available for this movie.</Typography>
             )}
-            {recommendations?.searchResults && recommendations.searchResults.length > 0 && (
-              <Grid2 container spacing={2} paddingTop={2}>
-                {recommendations.searchResults.map((movie) => (
-                  <MediaCard
-                    id={movie.id}
-                    title={movie.title}
-                    type="movie"
-                    imagePath={movie.backdropPath ?? movie.posterPath}
-                    mediaDate={movie.releaseDate}
-                    key={movie.id}
-                  />
-                ))}
-              </Grid2>
+            {recommendationResults.length > 0 && (
+              <Box sx={{ pt: 1 }}>
+                <Stack direction="row" alignItems="center" spacing={{ xs: 0, sm: 1 }}>
+                  <IconButton
+                    aria-label="Previous recommendations"
+                    onClick={() => setRecommendationPage((page) => page - 1)}
+                    disabled={recommendationPage === 0}
+                  >
+                    <ChevronLeftIcon />
+                  </IconButton>
+                  <Grid2 container spacing={2} sx={{ flex: 1, minWidth: 0, justifyContent: 'center' }}>
+                    {visibleRecommendations.map((movie) => (
+                      <Grid2
+                        key={movie.id}
+                        size={{ xs: 12, sm: 6, md: 4 }}
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          '& .MuiCard-root': { width: '100%', maxWidth: 350 }
+                        }}
+                      >
+                        <MediaCard
+                          id={movie.id}
+                          title={movie.title}
+                          type="movie"
+                          imagePath={movie.backdropPath ?? movie.posterPath}
+                          mediaDate={movie.releaseDate}
+                        />
+                      </Grid2>
+                    ))}
+                  </Grid2>
+                  <IconButton
+                    aria-label="Next recommendations"
+                    onClick={() => setRecommendationPage((page) => page + 1)}
+                    disabled={recommendationPage >= recommendationPageCount - 1}
+                  >
+                    <ChevronRightIcon />
+                  </IconButton>
+                </Stack>
+                {recommendationPageCount > 1 && (
+                  <Typography variant="body2" align="center" sx={{ mt: 1, color: 'text.secondary' }}>
+                    {recommendationPage + 1} of {recommendationPageCount}
+                  </Typography>
+                )}
+              </Box>
             )}
           </AccordionDetails>
         </Accordion>
