@@ -2,7 +2,7 @@ import {Box, CircularProgress, Grid2, IconButton, Rating, Stack, Typography} fro
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { defaultImagePrefix } from '../../util/constants.ts';
+import {defaultImagePrefix, fullSizeImagePrefix} from '../../util/constants.ts';
 import { OpenInNew } from '@mui/icons-material';
 import {useEffect, useState} from "react";
 import WatchGuide from "../shared/WatchGuide.tsx";
@@ -12,6 +12,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
+import ExpandableImage from "../shared/ExpandableImage.tsx";
 
 const MovieDetails = () => {
 
@@ -54,11 +55,10 @@ const MovieDetails = () => {
     <Box sx={{ flexGrow: 1 }} padding={2}>
         <Grid2 container >
           <Grid2 size={{ xs: 12, md: 4 }} >
-            <Box
-              component="img"
-              sx={{height: 410, maxWidth:280}}
-              alt="movie image"
+            <ExpandableImage
+              alt={`${data?.movieDetails?.title ?? 'Movie'} poster`}
               src={data?.movieDetails?.posterPath ? defaultImagePrefix + data?.movieDetails?.posterPath : '/no-image.jpg'}
+              expandedSrc={data?.movieDetails?.posterPath ? fullSizeImagePrefix + data?.movieDetails?.posterPath : '/no-image.jpg'}
             />
             <Box paddingTop={2}>
               <Stack direction='row'><Typography variant='h5'>{data?.movieDetails?.originalTitle} ({data?.movieDetails?.releaseDate?.substring(0,4)})</Typography>

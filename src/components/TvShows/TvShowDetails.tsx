@@ -11,7 +11,7 @@ import {
 import {useNavigate, useParams} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
-import { defaultImagePrefix } from '../../util/constants.ts';
+import {defaultImagePrefix, fullSizeImagePrefix} from '../../util/constants.ts';
 import {useEffect, useState} from "react";
 import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
 import WatchGuide from "../shared/WatchGuide.tsx";
@@ -22,6 +22,7 @@ import {accordionStyle} from "../../styles/SharedStyles.ts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
+import ExpandableImage from "../shared/ExpandableImage.tsx";
 
 const TvShowDetails = () => {
 
@@ -69,11 +70,10 @@ const TvShowDetails = () => {
         <Box sx={{ flexGrow: 1 }} padding={2}>
             <Grid2 container >
                 <Grid2 size={{ xs: 12, md: 4 }} >
-                    <Box
-                        component="img"
-                        sx={{height: 410, maxWidth:280}}
-                        alt="movie image"
+                    <ExpandableImage
+                        alt={`${data?.name ?? 'TV show'} poster`}
                         src={data?.posterPath ? defaultImagePrefix + data?.posterPath : '/no-image.jpg'}
+                        expandedSrc={data?.posterPath ? fullSizeImagePrefix + data?.posterPath : '/no-image.jpg'}
                     />
                     <Box paddingTop={2}>
                         <Stack direction='row'>

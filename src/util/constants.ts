@@ -1,4 +1,5 @@
 export const defaultImagePrefix = 'https://image.tmdb.org/t/p/w500'
+export const fullSizeImagePrefix = 'https://image.tmdb.org/t/p/original'
 
 // this should be set to what you have in the Auto0 dashboard for your account
 export const Auth0Settings = {

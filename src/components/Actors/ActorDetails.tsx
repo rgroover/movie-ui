@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MediaCard from '../shared/MediaCard.tsx';
-import { defaultImagePrefix } from '../../util/constants.ts';
+import {defaultImagePrefix, fullSizeImagePrefix} from '../../util/constants.ts';
 import ScrollToTopFab from '../shared/ScrollToTopFab.tsx';
 import {useEffect, useState} from "react";
 import {OpenInNew} from "@mui/icons-material";
@@ -21,6 +21,7 @@ import {searchButtonStyle} from "../../styles/SharedStyles.ts";
 import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 import {ActorCast} from "../../api-client";
+import ExpandableImage from "../shared/ExpandableImage.tsx";
 
 const ActorDetails = () => {
 
@@ -78,17 +79,13 @@ const ActorDetails = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }} padding={2}>
-      <Box
-        component="img"
-        sx={{
-          height: 400,
-          display: 'block',          // Ensures the image behaves as a block element
-          margin: '0 auto',          // Centers it horizontally
-          textAlign: 'center',       // Not necessary for images but useful if there's text or child elements     
-        }}
-        alt={actorDetails?.name ?? ''}
-        src={ actorDetails?.profilePath ? defaultImagePrefix + actorDetails?.profilePath : '/no-image.jpg'}
-      />
+      <Box display="flex" justifyContent="center">
+        <ExpandableImage
+          alt={`${actorDetails?.name ?? 'Actor'} profile image`}
+          src={actorDetails?.profilePath ? defaultImagePrefix + actorDetails.profilePath : '/no-image.jpg'}
+          expandedSrc={actorDetails?.profilePath ? fullSizeImagePrefix + actorDetails.profilePath : '/no-image.jpg'}
+        />
+      </Box>
       <Stack direction='column' spacing={0} mt={2}>
           <Stack direction='row' width='100%' justifyContent='center'>
               <Typography variant="h6">{actorDetails?.name}
