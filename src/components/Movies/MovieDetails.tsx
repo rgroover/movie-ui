@@ -1,4 +1,16 @@
-import {Box, CircularProgress, Grid2, IconButton, Rating, Stack, Typography} from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  CircularProgress,
+  Divider,
+  Grid2,
+  IconButton,
+  Rating,
+  Stack,
+  Typography
+} from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import StarIcon from '@mui/icons-material/Star';
@@ -13,6 +25,9 @@ import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 import ScrollToTopFab from "../shared/ScrollToTopFab.tsx";
 import ExpandableImage from "../shared/ExpandableImage.tsx";
+import MediaCard from "../shared/MediaCard.tsx";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {accordionStyle} from "../../styles/SharedStyles.ts";
 
 const MovieDetails = () => {
 
@@ -32,12 +47,25 @@ const MovieDetails = () => {
     }
   });
 
+  const {
+    isLoading: recommendationsLoading,
+    error: recommendationsError,
+    data: recommendations
+  } = useQuery({
+    queryKey: ['movie-recommendations', itemId],
+    queryFn: async () => {
+      const response = await movieApi.apiMovieExternalIdRecommendationsGet(itemId);
+      return response.data;
+    },
+    enabled: itemId > 0
+  });
+
   const trailer = data?.videos?.videos?.find(
       video => video.type === 'Trailer' && video.site === 'YouTube')
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [id]);
 
   if (movieDetailsLoading) {
     return (
@@ -65,9 +93,9 @@ const MovieDetails = () => {
               <FavoritesComponent
                   sx={{pl:2, pt:0.5}}
                   mediaType='movie'
-                  mediaId={data?.movieDetails?.id!}
-                  title={data?.movieDetails?.title!}
-                  imageUrl={data?.movieDetails?.posterPath!}
+                  mediaId={data?.movieDetails?.id ?? itemId}
+                  title={data?.movieDetails?.title ?? ''}
+                  imageUrl={data?.movieDetails?.posterPath ?? ''}
               />
               </Stack>
             </Box>
@@ -153,6 +181,47 @@ const MovieDetails = () => {
           rent={data?.watchProviders?.results?.us?.rent}
           buy={data?.watchProviders?.results?.us?.buy}
       />
+      <Box sx={{ flexGrow: 1 }} paddingTop={4}>
+        <Accordion sx={{...accordionStyle}}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon sx={{color: 'white'}} />}
+            id="recommendations-header"
+            aria-controls="recommendations-content"
+          >
+            <Typography variant="h6">You May Also Like</Typography>
+          </AccordionSummary>
+          <Divider sx={{borderColor: 'white', width: '100%'}} />
+          <AccordionDetails>
+            {recommendationsLoading && (
+              <Box display="flex" justifyContent="center" padding={4}>
+                <CircularProgress />
+              </Box>
+            )}
+            {recommendationsError && (
+              <Typography color="error">
+                Unable to load recommendations: {recommendationsError.message}
+              </Typography>
+            )}
+            {!recommendationsLoading && !recommendationsError && recommendations?.searchResults?.length === 0 && (
+              <Typography>No recommendations are available for this movie.</Typography>
+            )}
+            {recommendations?.searchResults && recommendations.searchResults.length > 0 && (
+              <Grid2 container spacing={2} paddingTop={2}>
+                {recommendations.searchResults.map((movie) => (
+                  <MediaCard
+                    id={movie.id}
+                    title={movie.title}
+                    type="movie"
+                    imagePath={movie.backdropPath ?? movie.posterPath}
+                    mediaDate={movie.releaseDate}
+                    key={movie.id}
+                  />
+                ))}
+              </Grid2>
+            )}
+          </AccordionDetails>
+        </Accordion>
+      </Box>
       <Box sx={{ flexGrow: 1 }} paddingTop={4}>
         <Stack direction='row' spacing={2}>
           <Grid2 container spacing={2}>
