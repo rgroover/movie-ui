@@ -27,5 +27,5 @@ To run the app locally you should be able to execute "npm run dev"
 from the terminal
 
 Node setup for local development:
-- Use Node 20.19.0 or newer (Vite 7 requirement)
+- Use Node 24 LTS
 - If you use nvm, run: `nvm use`

@@ -1,5 +1,5 @@
 # Stage 1: Build the React app with Vite
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 
 # Set working directory inside the container
 WORKDIR /app
