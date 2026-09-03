@@ -1,12 +1,17 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import {
-    Alert, Autocomplete, Box, Button, CircularProgress, FormControl, Grid2, InputLabel, MenuItem,
+    Accordion, AccordionDetails, AccordionSummary, Alert, Autocomplete, Box, Button, CircularProgress, FormControl, Grid2, InputLabel, MenuItem,
     Select, Slider, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {useTheme} from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import MediaCard from './shared/MediaCard.tsx';
 import ScrollToTopFab from './shared/ScrollToTopFab.tsx';
-import {DiscoveryMediaType, useApiClient, WatchProvider} from '../hooks/useApiClient.ts';
+import {useApiClient} from '../hooks/useApiClient.ts';
+import type {DiscoveryMediaType} from '../hooks/useApiClient.ts';
+import {useDiscoverFilters} from '../providers/DiscoverProvider.tsx';
 
 const genres = [
     [28, 'Action'], [12, 'Adventure'], [16, 'Animation'], [35, 'Comedy'], [80, 'Crime'], [99, 'Documentary'],
@@ -22,21 +27,26 @@ const tvGenres = [
 
 const Discover = () => {
     const {discover, getWatchProviders} = useApiClient();
-    const [mediaType, setMediaType] = useState<DiscoveryMediaType>('movie');
-    const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-    const [selectedProviders, setSelectedProviders] = useState<WatchProvider[]>([]);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const {filters: savedFilters, setFilters} = useDiscoverFilters();
+    const {mediaType, selectedGenres, selectedProviders, minStars, year, sortBy} = savedFilters;
+    const [filtersExpanded, setFiltersExpanded] = useState(!isMobile);
     const region = 'US';
-    const [minStars, setMinStars] = useState(0);
-    const [year, setYear] = useState<number | null>(null);
-    const [sortBy, setSortBy] = useState('popularity.desc');
     const containerRef = useRef<HTMLDivElement>(null);
+    const previousMediaType = useRef(mediaType);
     const availableGenres = mediaType === 'movie' ? genres : tvGenres;
+    const updateFilters = (updates: Partial<typeof savedFilters>) => setFilters(current => ({...current, ...updates}));
 
     useEffect(() => {
-        setSelectedGenres([]);
-        setSelectedProviders([]);
-        setSortBy('popularity.desc');
-    }, [mediaType]);
+        if (previousMediaType.current === mediaType) return;
+        previousMediaType.current = mediaType;
+        setFilters(current => ({...current, selectedGenres: [], selectedProviders: [], sortBy: 'popularity.desc'}));
+    }, [mediaType, setFilters]);
+
+    useEffect(() => {
+        setFiltersExpanded(!isMobile);
+    }, [isMobile]);
 
     const {data: providers = [], isLoading: providersLoading} = useQuery({
         queryKey: ['watch-providers', mediaType, region],
@@ -71,7 +81,7 @@ const Discover = () => {
         <Typography variant="h5" gutterBottom>What can I watch tonight?</Typography>
         <Typography color="text.secondary" sx={{mb: 2}}>Find a movie or series that matches your mood and streaming services.</Typography>
         <Stack spacing={2} sx={{maxWidth: 1100}}>
-            <ToggleButtonGroup exclusive value={mediaType} onChange={(_, value) => value && setMediaType(value)} size="small"
+            <ToggleButtonGroup exclusive value={mediaType} onChange={(_, value) => value && updateFilters({mediaType: value as DiscoveryMediaType})} size="small"
                                sx={{
                                    '& .MuiToggleButton-root': {
                                        borderColor: 'rgba(255, 255, 255, 0.45)',
@@ -91,23 +101,30 @@ const Discover = () => {
                 <ToggleButton value="movie">Movies</ToggleButton>
                 <ToggleButton value="tv">TV shows</ToggleButton>
             </ToggleButtonGroup>
-            <Stack direction={{xs: 'column', md: 'row'}} spacing={2}>
-                <Autocomplete multiple options={availableGenres as unknown as [number, string][]} value={availableGenres.filter(([id]) => selectedGenres.includes(id)) as [number, string][]}
-                              onChange={(_, values) => setSelectedGenres(values.map(([id]) => id))} getOptionLabel={([, name]) => name}
-                              renderInput={params => <TextField {...params} label="Genres" />} sx={{minWidth: 240}} />
-                <Autocomplete multiple options={providers} loading={providersLoading} value={selectedProviders}
-                              onChange={(_, values) => setSelectedProviders(values)} getOptionLabel={provider => provider.providerName}
-                              renderInput={params => <TextField {...params} label="Streaming services" />} sx={{minWidth: 280}} />
-                <FormControl sx={{minWidth: 190}}><InputLabel>Sort by</InputLabel><Select label="Sort by" value={sortBy} onChange={event => setSortBy(event.target.value)}>
-                    <MenuItem value="popularity.desc">Popularity</MenuItem><MenuItem value="vote_average.desc">Highest rated</MenuItem>
-                    <MenuItem value={mediaType === 'movie' ? 'primary_release_date.desc' : 'first_air_date.desc'}>Newest</MenuItem>
-                </Select></FormControl>
-            </Stack>
-            <Stack direction={{xs: 'column', md: 'row'}} spacing={3} alignItems={{md: 'center'}}>
-                <Box sx={{width: 230}}><Typography variant="body2">Minimum rating: {minStars ? `${minStars.toFixed(1)} / 5 stars` : 'Any'}</Typography><Slider value={minStars} onChange={(_, value) => setMinStars(value as number)} min={0} max={5} step={0.5} /></Box>
-                <TextField label="Release year" type="number" value={year ?? ''} onChange={event => setYear(event.target.value ? Number(event.target.value) : null)} sx={{width: 160}} />
-                <Button onClick={() => { setSelectedGenres([]); setSelectedProviders([]); setMinStars(0); setYear(null); setSortBy('popularity.desc'); }}>Clear filters</Button>
-            </Stack>
+            <Accordion expanded={filtersExpanded} onChange={(_, expanded) => setFiltersExpanded(expanded)} disableGutters sx={{bgcolor: 'transparent', boxShadow: 'none'}}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{px: 0}}>
+                    <Typography fontWeight={600}>Filters{selectedGenres.length || selectedProviders.length || minStars || year ? ` (${selectedGenres.length + selectedProviders.length + (minStars ? 1 : 0) + (year ? 1 : 0)} active)` : ''}</Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{px: 0}}>
+                    <Stack direction={{xs: 'column', md: 'row'}} spacing={2}>
+                        <Autocomplete multiple options={availableGenres as unknown as [number, string][]} value={availableGenres.filter(([id]) => selectedGenres.includes(id)) as [number, string][]}
+                                      onChange={(_, values) => updateFilters({selectedGenres: values.map(([id]) => id)})} getOptionLabel={([, name]) => name}
+                                      renderInput={params => <TextField {...params} label="Genres" />} sx={{minWidth: 240}} />
+                        <Autocomplete multiple options={providers} loading={providersLoading} value={selectedProviders}
+                                      onChange={(_, values) => updateFilters({selectedProviders: values})} getOptionLabel={provider => provider.providerName}
+                                      renderInput={params => <TextField {...params} label="Streaming services" />} sx={{minWidth: 280}} />
+                        <FormControl sx={{minWidth: 190}}><InputLabel>Sort by</InputLabel><Select label="Sort by" value={sortBy} onChange={event => updateFilters({sortBy: event.target.value})}>
+                            <MenuItem value="popularity.desc">Popularity</MenuItem><MenuItem value="vote_average.desc">Highest rated</MenuItem>
+                            <MenuItem value={mediaType === 'movie' ? 'primary_release_date.desc' : 'first_air_date.desc'}>Newest</MenuItem>
+                        </Select></FormControl>
+                    </Stack>
+                    <Stack direction={{xs: 'column', md: 'row'}} spacing={3} alignItems={{md: 'center'}} sx={{mt: 2}}>
+                        <Box sx={{width: 230}}><Typography variant="body2">Minimum rating: {minStars ? `${minStars.toFixed(1)} / 5 stars` : 'Any'}</Typography><Slider value={minStars} onChange={(_, value) => updateFilters({minStars: value as number})} min={0} max={5} step={0.5} /></Box>
+                        <TextField label="Release year" type="number" value={year ?? ''} onChange={event => updateFilters({year: event.target.value ? Number(event.target.value) : null})} sx={{width: 160}} />
+                        <Button onClick={() => updateFilters({selectedGenres: [], selectedProviders: [], minStars: 0, year: null, sortBy: 'popularity.desc'})}>Clear filters</Button>
+                    </Stack>
+                </AccordionDetails>
+            </Accordion>
         </Stack>
         <Typography variant="body2" color="text.secondary" sx={{mt: 2}}>Streaming availability supplied by JustWatch via TMDB.</Typography>
         {error && <Alert severity="error" sx={{mt: 2}}>Could not load discovery results. Please try again.</Alert>}

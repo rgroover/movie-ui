@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {Auth0Provider} from "@auth0/auth0-react";
 import {Auth0Settings} from "./util/constants.ts";
 import {SearchProvider} from "./providers/SearchProvider.tsx";
+import {DiscoverProvider} from "./providers/DiscoverProvider.tsx";
 import { Alert, Snackbar } from '@mui/material';
 
 const INDEX_CHECK_INTERVAL_MS = 60_000;
@@ -157,7 +158,9 @@ createRoot(document.getElementById('root')!).render(
                 <BuildVersionWatcher>
                     <Suspense fallback={<div>Loading...</div>}>
                         <SearchProvider>
-                            <App />
+                            <DiscoverProvider>
+                                <App />
+                            </DiscoverProvider>
                         </SearchProvider>
                     </Suspense>
                 </BuildVersionWatcher>
