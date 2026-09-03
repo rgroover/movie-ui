@@ -32,11 +32,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {accordionStyle} from "../../styles/SharedStyles.ts";
+import ReviewsDialog from "../shared/ReviewsDialog.tsx";
 
 const MovieDetails = () => {
 
   const { movieApi } = useApiClient()
   const [videoOpen, setVideoOpen] = useState(false);
+  const [reviewsOpen, setReviewsOpen] = useState(false);
   const [recommendationPage, setRecommendationPage] = useState(0);
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
@@ -120,13 +122,16 @@ const MovieDetails = () => {
               </Stack>
             </Box>
             <Stack direction='row' spacing={2} paddingBottom={2}>
-              <Rating name="read-only" value={((data?.movieDetails?.voteAverage ?? 0.0) / 2.0)} readOnly
-                  emptyIcon={<StarIcon style={{ opacity: 0.55 }} htmlColor='white' />} precision={0.1}
-              />
+              <Box role="button" tabIndex={0} aria-label="Show movie reviews" onClick={() => setReviewsOpen(true)} onKeyDown={(event) => event.key === 'Enter' && setReviewsOpen(true)} sx={{cursor: 'pointer'}}>
+                <Rating name="movie-reviews" value={((data?.movieDetails?.voteAverage ?? 0.0) / 2.0)} readOnly
+                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} htmlColor='white' />} precision={0.1}
+                />
+              </Box>
               <Typography paddingTop={0.2}>
                 {((data?.movieDetails?.voteAverage ?? 0.0) / 2.0).toFixed(1)}/5.0 ({data?.movieDetails?.voteCount})
               </Typography>
             </Stack>
+            <ReviewsDialog open={reviewsOpen} onClose={() => setReviewsOpen(false)} mediaId={data?.movieDetails?.id ?? itemId} mediaType="movie" title={data?.movieDetails?.title ?? 'this movie'} />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 8}}>
             <Stack direction='column' spacing={2}>

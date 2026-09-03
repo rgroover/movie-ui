@@ -23,6 +23,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {useApiClient} from "../../hooks/useApiClient.ts";
 import FavoritesComponent from "../Favorites/FavoritesComponent.tsx";
 import ExpandableImage from "../shared/ExpandableImage.tsx";
+import ReviewsDialog from "../shared/ReviewsDialog.tsx";
 
 const TvShowDetails = () => {
 
@@ -31,6 +32,7 @@ const TvShowDetails = () => {
     const itemId = id ? parseInt(id, 10) : 0;
 
     const [videoOpen, setVideoOpen] = useState(false);
+    const [reviewsOpen, setReviewsOpen] = useState(false);
     const handleVideoOpen = () => setVideoOpen(true);
     const handleVideoClose = () => setVideoOpen(false);
 
@@ -88,13 +90,16 @@ const TvShowDetails = () => {
                         </Stack>
                     </Box>
                     <Stack direction='row' spacing={2} paddingBottom={2}>
-                        <Rating name="read-only" value={((data?.voteAverage ?? 0.0) / 2.0)} readOnly
-                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} htmlColor='white' />} precision={0.1}
-                        />
+                        <Box role="button" tabIndex={0} aria-label="Show TV show reviews" onClick={() => setReviewsOpen(true)} onKeyDown={(event) => event.key === 'Enter' && setReviewsOpen(true)} sx={{cursor: 'pointer'}}>
+                            <Rating name="tv-reviews" value={((data?.voteAverage ?? 0.0) / 2.0)} readOnly
+                                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} htmlColor='white' />} precision={0.1}
+                            />
+                        </Box>
                         <Typography paddingTop={0.2}>
                             {((data?.voteAverage ?? 0.0) / 2.0).toFixed(1)}/5.0 ({data?.voteCount})
                         </Typography>
                     </Stack>
+                    <ReviewsDialog open={reviewsOpen} onClose={() => setReviewsOpen(false)} mediaId={data?.id ?? itemId} mediaType="tv" title={data?.name ?? 'this TV show'} />
                 </Grid2>
                 <Grid2 size={{ xs: 12, md: 8}}>
                     <Stack direction='column' spacing={2}>
