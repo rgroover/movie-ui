@@ -9,13 +9,19 @@ interface ExpandableImageProps {
 
 const ExpandableImage = ({src, expandedSrc = src, alt}: ExpandableImageProps) => {
     const [expanded, setExpanded] = useState(false);
+    const [viewerSrc, setViewerSrc] = useState(expandedSrc);
+
+    const openImage = () => {
+        setViewerSrc(expandedSrc);
+        setExpanded(true);
+    };
 
     return (
         <>
             <Box
                 component="button"
                 type="button"
-                onClick={() => setExpanded(true)}
+                onClick={openImage}
                 aria-label={`Enlarge ${alt}`}
                 sx={{
                     display: 'block',
@@ -61,14 +67,19 @@ const ExpandableImage = ({src, expandedSrc = src, alt}: ExpandableImageProps) =>
                 <Box
                     component="img"
                     onClick={() => setExpanded(false)}
+                    onError={() => {
+                        if (viewerSrc !== src) {
+                            setViewerSrc(src);
+                        }
+                    }}
                     alt={alt}
-                    src={expandedSrc}
+                    src={viewerSrc}
                     sx={{
                         display: 'block',
                         maxWidth: {xs: 'calc(100vw - 16px)', sm: 'calc(100vw - 32px)'},
                         maxHeight: {xs: 'calc(100dvh - 16px)', sm: 'calc(100dvh - 32px)'},
                         width: 'auto',
-                        height: {xs: 'calc(100dvh - 16px)', sm: 'calc(100dvh - 32px)'},
+                        height: 'auto',
                         objectFit: 'contain',
                         cursor: 'zoom-out',
                         outline: 'none',
