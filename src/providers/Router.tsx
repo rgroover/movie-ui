@@ -16,6 +16,7 @@ import TvShowEpisodeDetails from "../components/TvShows/TvShowEpisodeDetails.tsx
 import FavoritesPage from "../components/Favorites/FavoritesPage.tsx";
 import Callback from "../components/Callback.tsx";
 import MovieSearch from "../components/search/MovieSearch.tsx";
+import Discover from "../components/Discover.tsx";
 
 
 const MyRouter = () => {
@@ -27,6 +28,10 @@ const MyRouter = () => {
           children: [
             {
               index: true,
+              element: <Discover />,
+            },
+            {
+              path: '/search',
               element: <Search />,
             },
             {
@@ -89,6 +94,10 @@ const MyRouter = () => {
               path: '/movie-search/:query',
               element: <MovieSearch/>,
 
+            },
+            {
+              path: '/discover',
+              element: <Discover/>,
             }
           ],
         },

@@ -18,6 +18,41 @@ export interface ReviewResults {
     totalResults: number;
 }
 
+export type DiscoveryMediaType = 'movie' | 'tv';
+
+export interface DiscoveryResult {
+    id: number;
+    title?: string;
+    name?: string;
+    posterPath?: string;
+    backdropPath?: string;
+    releaseDate?: string;
+    firstAirDate?: string;
+    voteAverage: number;
+}
+
+export interface DiscoveryResults {
+    page: number;
+    results: DiscoveryResult[];
+    totalPages: number;
+    totalResults: number;
+}
+
+export interface WatchProvider {
+    providerId: number;
+    providerName: string;
+    logoPath?: string;
+}
+
+export interface DiscoverFilters {
+    genreIds?: string;
+    providerIds?: string;
+    region: string;
+    minRating?: number;
+    year?: number;
+    sortBy: string;
+}
+
 export const useApiClient = () => {
     const { getToken } = useApiToken(); // ✅ Use the fixed hook
 
@@ -37,6 +72,8 @@ export const useApiClient = () => {
         else return '';
     }
 
+    const apiUrl = getApiUrl();
+
     return {
         actorApi: new ActorApi(undefined, getApiUrl()),
         movieApi: new MovieApi(undefined, getApiUrl()),
@@ -44,6 +81,10 @@ export const useApiClient = () => {
         searchApi: new SearchApi(undefined, getApiUrl()),
         favoritesApi: new FavoritesApi(undefined, getApiUrl(), secureAxiosInstance), // the only secured endpoint
         getReviews: async (mediaType: 'movie' | 'tv', externalId: number, page: number) =>
-            (await axios.get<ReviewResults>(`${getApiUrl()}/api/${mediaType === 'movie' ? 'movie' : 'tvshow'}/${externalId}/reviews`, { params: { page } })).data
+            (await axios.get<ReviewResults>(`${apiUrl}/api/${mediaType === 'movie' ? 'movie' : 'tvshow'}/${externalId}/reviews`, { params: { page } })).data,
+        discover: async (mediaType: DiscoveryMediaType, filters: DiscoverFilters, page: number) =>
+            (await axios.get<DiscoveryResults>(`${apiUrl}/api/discover/${mediaType}`, { params: { ...filters, page } })).data,
+        getWatchProviders: async (mediaType: DiscoveryMediaType, region: string) =>
+            (await axios.get<{ results: WatchProvider[] }>(`${apiUrl}/api/discover/providers/${mediaType}`, { params: { region } })).data.results
     };
 };

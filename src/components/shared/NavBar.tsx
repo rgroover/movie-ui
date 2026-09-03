@@ -5,6 +5,7 @@ import {
     IconButton,
     Stack,
     Toolbar,
+    Tooltip,
     Typography
 } from "@mui/material"
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import PersonIcon from '@mui/icons-material/Person';
 import AuthButton from "../AuthButton.tsx";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import SearchIcon from '@mui/icons-material/Search';
 import { useAuth0 } from "@auth0/auth0-react";
 import {useSearch} from "../../providers/SearchProvider.tsx";
 
@@ -45,7 +47,7 @@ export const NavBar = () => {
     }
 
     const handleClick = async (path: string) => {
-        if (path === '/') {
+        if (path === '/search') {
             setSearchQuery('');
         }
         navigate(path, {replace: true});
@@ -59,8 +61,13 @@ export const NavBar = () => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={() => handleClick('/')}>
-                    Media Search
+                    Streaming Search
                 </Typography>
+                <Tooltip title="Search movies, TV shows, and people">
+                    <IconButton color="inherit" aria-label="Open search" onClick={() => handleClick('/search')}>
+                        <SearchIcon />
+                    </IconButton>
+                </Tooltip>
                 {isAuthenticated && (
                     <Avatar
                         src={user?.picture}
@@ -95,6 +102,10 @@ export const NavBar = () => {
                         <Button onClick={() => handleClick('/')} sx={{ ...navButtonStyle }}>
                             <HomeIcon sx={{ marginRight: '8px' }} /> {/* Icon with margin */}
                             <Typography>Home</Typography>
+                        </Button>
+                        <Button onClick={() => handleClick('/search')} sx={{ ...navButtonStyle }}>
+                            <SearchIcon sx={{ marginRight: '8px' }} />
+                            <Typography>Search</Typography>
                         </Button>
                         <Accordion>
                             <AccordionSummary
