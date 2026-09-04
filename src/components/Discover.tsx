@@ -130,7 +130,7 @@ const Discover = () => {
         {error && <Alert severity="error" sx={{mt: 2}}>Could not load discovery results. Please try again.</Alert>}
         {isLoading ? <Box sx={{display: 'flex', justifyContent: 'center', pt: 8}}><CircularProgress /></Box> :
             <Grid2 container spacing={2} sx={{pt: 2, height: '62vh', overflowY: 'auto'}} ref={containerRef} onScroll={onScroll}>
-                {data?.pages.flatMap(page => page.results).map(item => <Box key={item.id}>
+                {data?.pages.flatMap(page => page.results).map(item => <Box key={item.id} sx={{width: {xs: '100%', sm: 350}, minWidth: 0, '& > .MuiCard-root': {width: '100%'}}}>
                     <MediaCard id={item.id} title={item.title ?? item.name} type={mediaType} imagePath={item.backdropPath ?? item.posterPath} mediaDate={item.releaseDate ?? item.firstAirDate} />
                 </Box>)}
                 {isFetchingNextPage && <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', p: 2}}><CircularProgress size={28} /></Box>}
