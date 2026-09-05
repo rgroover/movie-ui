@@ -16,6 +16,8 @@ import TvShowEpisodeDetails from "../components/TvShows/TvShowEpisodeDetails.tsx
 import FavoritesPage from "../components/Favorites/FavoritesPage.tsx";
 import Callback from "../components/Callback.tsx";
 import MovieSearch from "../components/search/MovieSearch.tsx";
+import Upcoming from "../components/Movies/Upcoming.tsx";
+import NowPlaying from "../components/Movies/NowPlaying.tsx";
 import Discover from "../components/Discover.tsx";
 
 
@@ -33,6 +35,14 @@ const MyRouter = () => {
             {
               path: '/search',
               element: <Search />,
+            },
+            {
+              path: '/now-playing',
+              element: <NowPlaying />,
+            },
+            {
+              path: '/upcoming',
+              element: <Upcoming />,
             },
             {
               path: '/about',

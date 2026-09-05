@@ -13,7 +13,7 @@ export const useApiToken = () => {
 
         try {
             return await getAccessTokenSilently();
-        } catch (error) {
+        } catch {
             return null;
         }
     };

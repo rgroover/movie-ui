@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import EventIcon from '@mui/icons-material/Event';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import TvIcon from '@mui/icons-material/Tv';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
@@ -22,7 +23,7 @@ import AuthButton from "../AuthButton.tsx";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAuth0 } from "@auth0/auth0-react";
-import {useSearch} from "../../providers/SearchProvider.tsx";
+import {useSearch} from "../../hooks/useSearch.ts";
 
 export const NavBar = () => {
 
@@ -106,6 +107,14 @@ export const NavBar = () => {
                         <Button onClick={() => handleClick('/search')} sx={{ ...navButtonStyle }}>
                             <SearchIcon sx={{ marginRight: '8px' }} />
                             <Typography>Search</Typography>
+                        </Button>
+                        <Button onClick={() => handleClick('/now-playing')} sx={{ ...navButtonStyle, width: 180 }}>
+                            <TheatersIcon sx={{ marginRight: '8px' }} />
+                            <Typography>Now Playing</Typography>
+                        </Button>
+                        <Button onClick={() => handleClick('/upcoming')} sx={{ ...navButtonStyle }}>
+                            <EventIcon sx={{ marginRight: '8px' }} />
+                            <Typography>Upcoming</Typography>
                         </Button>
                         <Accordion>
                             <AccordionSummary

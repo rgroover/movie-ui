@@ -1,6 +1,6 @@
 import {useApiToken} from "./useApiToken.ts";
 import axios from "axios";
-import {ActorApi, FavoritesApi, MovieApi, SearchApi, TvShowApi} from "../api-client";
+import {ActorApi, FavoritesApi, MovieApi, SearchApi, TvShowApi, type SearchResultsPagedModel} from "../api-client";
 
 export interface Review {
     id: string;
@@ -80,6 +80,10 @@ export const useApiClient = () => {
         tvShowApi: new TvShowApi(undefined, getApiUrl()),
         searchApi: new SearchApi(undefined, getApiUrl()),
         favoritesApi: new FavoritesApi(undefined, getApiUrl(), secureAxiosInstance), // the only secured endpoint
+        getNowPlayingMovies: async (page: number = 1) =>
+            (await axios.get<SearchResultsPagedModel>(`${apiUrl}/api/movie/now-playing`, { params: { page } })).data,
+        getUpcomingMovies: async (page: number = 1) =>
+            (await axios.get<SearchResultsPagedModel>(`${apiUrl}/api/movie/upcoming`, { params: { page } })).data,
         getReviews: async (mediaType: 'movie' | 'tv', externalId: number, page: number) =>
             (await axios.get<ReviewResults>(`${apiUrl}/api/${mediaType === 'movie' ? 'movie' : 'tvshow'}/${externalId}/reviews`, { params: { page } })).data,
         discover: async (mediaType: DiscoveryMediaType, filters: DiscoverFilters, page: number) =>

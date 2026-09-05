@@ -90,13 +90,13 @@ const ActorDetails = () => {
           <Stack direction='row' width='100%' justifyContent='center'>
               <Typography variant="h6">{actorDetails?.name}
               </Typography>
-              <FavoritesComponent
+              {actorDetails?.id != null && <FavoritesComponent
                   sx={{pl:2, pt:0.25}}
                   mediaType='person'
-                  mediaId={actorDetails?.id!}
-                  title={actorDetails?.name!}
-                  imageUrl={actorDetails?.profilePath!}
-              />
+                  mediaId={actorDetails.id}
+                  title={actorDetails.name ?? ""}
+                  imageUrl={actorDetails.profilePath ?? ""}
+              />}
           </Stack>
           <Box
               display="flex"

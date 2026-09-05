@@ -11,7 +11,7 @@ import MediaCard from './shared/MediaCard.tsx';
 import ScrollToTopFab from './shared/ScrollToTopFab.tsx';
 import {useApiClient} from '../hooks/useApiClient.ts';
 import type {DiscoveryMediaType} from '../hooks/useApiClient.ts';
-import {useDiscoverFilters} from '../providers/DiscoverProvider.tsx';
+import {useDiscoverFilters} from '../hooks/useDiscoverFilters.ts';
 
 const genres = [
     [28, 'Action'], [12, 'Adventure'], [16, 'Animation'], [35, 'Comedy'], [80, 'Crime'], [99, 'Documentary'],
@@ -61,7 +61,7 @@ const Discover = () => {
         minRating: minStars ? minStars * 2 : undefined,
         year: year ?? undefined,
         sortBy,
-    }), [mediaType, minStars, region, selectedGenres, selectedProviders, sortBy, year]);
+    }), [minStars, region, selectedGenres, selectedProviders, sortBy, year]);
 
     const {data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage} = useInfiniteQuery({
         queryKey: ['discover', mediaType, filters],

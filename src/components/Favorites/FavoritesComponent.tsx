@@ -3,7 +3,7 @@ import {useFavorites} from "../../hooks/useFavorites.ts";
 import {Box, SxProps, Theme} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import ConfirmDialog from '../shared/ConfirmDialog';
 import {FavoriteModel} from "../../api-client";
 
@@ -19,8 +19,7 @@ const FavoritesComponent =
     ({ mediaId, mediaType, imageUrl, title, sx  }: FavoriteProps) => {
 
     const {loginWithPopup, isAuthenticated} = useAuth0();
-    const [favoriteId, setFavoriteId] = useState<string>()
-    const {favoritesLoading, favorites, deleteFavorite, addFavorite} = useFavorites();
+    const {favorites, deleteFavorite, addFavorite} = useFavorites();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const login = async () => {
@@ -32,15 +31,8 @@ const FavoritesComponent =
         await login()
     };
 
-    useEffect(() => {
-        const fav = favorites?.find(fav =>
-            fav.mediaId! === String(mediaId) && fav.mediaType === mediaType);
-        if (fav) {
-            setFavoriteId(fav.id)
-        } else {
-            setFavoriteId(undefined);
-        }
-    }, [favorites, favoritesLoading]);
+    const favoriteId = favorites?.find(favorite =>
+        favorite.mediaId === String(mediaId) && favorite.mediaType === mediaType)?.id;
 
     const handleAddFavorite = async () => {
         if (!isAuthenticated)

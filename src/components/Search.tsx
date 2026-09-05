@@ -1,20 +1,20 @@
 import { Box, CircularProgress, Grid2, IconButton, InputAdornment, OutlinedInput, Stack, Typography } from "@mui/material";
 import MediaCard from "./shared/MediaCard.tsx";
 import ScrollToTopFab from "./shared/ScrollToTopFab.tsx";
-import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {useApiClient} from "../hooks/useApiClient.ts";
 import { useDebounce } from "../hooks/useDebounce.ts";
-import {useSearch} from "../providers/SearchProvider.tsx";
+import {useSearch} from "../hooks/useSearch.ts";
 import CloseIcon from '@mui/icons-material/Close';
-import {useEffect, useRef} from 'react';
+import {useRef} from 'react';
 
 const Search = () => {
 
     const { searchQuery, setSearchQuery } = useSearch();
-    const debouncedSearch = useDebounce(searchQuery, 500); // debounce milliseconds
+    const debouncedSearch = useDebounce(searchQuery.trim(), 500); // debounce milliseconds
     const { searchApi } = useApiClient();
     const inputRef = useRef<HTMLInputElement>(null);
-    const { movieApi } = useApiClient();
+    const hasSearchQuery = searchQuery.trim().length > 0;
 
     const {
         data: searchResults,
@@ -34,15 +34,7 @@ const Search = () => {
             const nextPage = (lastPage?.page ?? 0)  + 1;
             return nextPage <= (lastPage?.totalPages ?? 0) ? nextPage : undefined;
         },
-        enabled: !!debouncedSearch,
-    });
-
-    const { isLoading: isNowPlayingLoading, error: nowPlayingError, data: nowPlayingInfo } = useQuery({
-        queryKey: ['now-playing',], // The query key should be in the options object
-        queryFn: async () => {
-            const response = await movieApi.apiMovieNowPlayingGet();
-            return response.data; // Access the data from AxiosResponse
-        }
+        enabled: hasSearchQuery && !!debouncedSearch,
     });
 
     const handleClear = () => {
@@ -64,23 +56,6 @@ const Search = () => {
         }
     };
 
-    useEffect(() => {
-        const currentContainer = containerRef.current;
-        if (currentContainer) {
-            currentContainer.addEventListener('scroll', handleScroll);
-        }
-
-        return () => {
-            if (currentContainer) {
-                currentContainer.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [isFetchingNextPage, hasNextPage]);
-
-    if (searchError || nowPlayingError) {
-        return <Typography>Error: {searchError?.message ?? nowPlayingError?.message}</Typography>;
-    }
-  
     return (
         <>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2}}>
@@ -116,12 +91,13 @@ const Search = () => {
                 />  
             </Stack>
         </Box>
-        {(searchLoading || isNowPlayingLoading) &&
+        {hasSearchQuery && searchError && <Typography>Error: {searchError.message}</Typography>}
+        {hasSearchQuery && searchLoading &&
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
                 <CircularProgress />
             </Box>
         }
-        {!searchLoading && searchResults?.pages[0].results?.length === 0  && searchQuery.length > 0 &&
+        {!searchLoading && searchResults?.pages[0].results?.length === 0  && hasSearchQuery &&
             <Box
                 sx={{
                     display: 'flex',
@@ -131,8 +107,8 @@ const Search = () => {
                 <Typography paddingTop={10} variant="h3">No Results</Typography>
             </Box>
         }
-        { searchResults && searchResults?.pages.length > 0 &&
-            <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} ref={containerRef} style={{ height: '80vh', overflowY: 'auto' }} >
+        { hasSearchQuery && searchResults && searchResults.pages.length > 0 &&
+            <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} ref={containerRef} onScroll={handleScroll} style={{ height: '80vh', overflowY: 'auto' }} >
                 {searchResults?.pages?.flatMap((page) =>
                     page?.results?.map((item) => (
                     <MediaCard id={item.id}
@@ -144,26 +120,6 @@ const Search = () => {
                     />
                     )))}
             </Grid2>
-        }
-
-        { !searchResults &&  searchQuery.length === 0 &&
-            <>
-
-                <Grid2 container spacing={2} paddingTop={2} paddingLeft={2} ref={containerRef} style={{ height: '80vh', overflowY: 'auto' }} >
-                    <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                        <Typography variant="h4">New Releases</Typography>
-                    </Box>
-                    {nowPlayingInfo?.searchResults?.map((item) => (
-                            <MediaCard id={item.id}
-                                       title={item.title ?? item.title}
-                                       type='movie'
-                                       imagePath={item.backdropPath ?? item.posterPath}
-                                       mediaDate={item.releaseDate }
-                                       key={item.id}
-                            />
-                        ))}
-                </Grid2>
-            </>
         }
 
         <ScrollToTopFab />

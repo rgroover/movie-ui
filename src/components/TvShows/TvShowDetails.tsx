@@ -80,13 +80,13 @@ const TvShowDetails = () => {
                     <Box paddingTop={2}>
                         <Stack direction='row'>
                             <Typography variant='h5'>{data?.name}</Typography>
-                            <FavoritesComponent
+                            {data?.id != null && <FavoritesComponent
                                 sx={{pl:2, pt:0.25}}
                                 mediaType='tv'
-                                mediaId={data?.id!}
-                                title={data?.name!}
-                                imageUrl={data?.posterPath!}
-                            />
+                                mediaId={data.id}
+                                title={data.name ?? ""}
+                                imageUrl={data.posterPath ?? ""}
+                            />}
                         </Stack>
                     </Box>
                     <Stack direction='row' spacing={2} paddingBottom={2}>
